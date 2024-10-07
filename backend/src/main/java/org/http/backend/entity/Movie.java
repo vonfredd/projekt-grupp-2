@@ -25,6 +25,6 @@ public class Movie {
     private String duration;
     private String releaseDate;
     private String imageUrl;
-    private Rating rating;
+    private List<Rating> rating;
 }
 
