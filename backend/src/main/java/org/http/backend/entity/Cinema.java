@@ -17,7 +17,7 @@ import java.util.List;
 public class Cinema {
 
     private String name;
-    private List<ShowRoom> showRooms;
     private List<Movie> movies;
+    private List<ShowRoom> showRooms;
 
 }
