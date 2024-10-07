@@ -3,10 +3,7 @@ package org.http.backend.controller;
 import org.http.backend.entity.Movie;
 import org.http.backend.service.MovieService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,6 +29,10 @@ public class MovieController {
     @GetMapping("/name")
     public ResponseEntity<List<Movie>> findByName(@RequestParam(value = "name") String name) {
         return ResponseEntity.ok().body(movieService.findByName(name));
+    }
+    @PostMapping
+    public ResponseEntity<Movie> save(@RequestBody Movie movie) {
+        return ResponseEntity.ok().body(movieService.save(movie));
     }
 
 }

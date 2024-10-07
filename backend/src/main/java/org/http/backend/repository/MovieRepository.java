@@ -13,3 +13,16 @@ public interface MovieRepository  extends MongoRepository<Movie, String> {
 
     List<Movie> findByName(String name);
 }
+
+//{
+//        "name": "Inception",
+//        "description": "A mind-bending thriller where dream invasion is possible.",
+//        "genre": [1, 2, 3],
+//        "duration": "148 minutes",
+//        "releaseDate": "2010-07-16",
+//        "imageUrl": "https://example.com/images/inception.jpg",
+//        "rating": {
+//        "userId": "1",
+//        "movieRating": 5
+//        }
+//        }

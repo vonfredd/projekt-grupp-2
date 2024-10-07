@@ -11,7 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Rating {
 
-    private String movieId;
     private String userId;
     private int movieRating;
 
