@@ -18,4 +18,5 @@ public class Schedule {
     private Date date;
     private String time;
     private ShowRoom showRoom;
+
 }
