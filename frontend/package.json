@@ -10,7 +10,10 @@
     "test:unit": "vitest"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
     "projekt-grupp-2": "file:",
+    "tailwindcss": "^3.4.13",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3"
   },
