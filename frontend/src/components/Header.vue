@@ -16,7 +16,7 @@ const closeMenu = () => {
   <header>
     <nav class="bg-cinema p-3">
       <div class="flex items-center justify-between">
-        <RouterLink to="/" class="block hover:text-gray-300"
+        <RouterLink to="/" class="block"
           ><h1 class="text-4xl">CINEMA</h1>
         </RouterLink>
 

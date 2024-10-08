@@ -1,13 +1,13 @@
 <script setup>
 import { RouterView } from "vue-router";
 import Header from "./components/Header.vue";
+import Footer from "./components/Footer.vue";
 </script>
 
 <template>
-  <Header></Header>
-
+  <Header />
   <RouterView />
-  <footer class="bg-black bottom-0 p-3 text-center">© CINEMA</footer>
+  <Footer />
 </template>
 
 <style scoped></style>
