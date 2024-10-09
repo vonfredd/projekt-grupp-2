@@ -5,7 +5,6 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <header>
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
@@ -15,7 +14,9 @@ import { RouterLink, RouterView } from 'vue-router'
   </header>
 
   <RouterView />
+
 </template>
 
 <style scoped>
+
 </style>
