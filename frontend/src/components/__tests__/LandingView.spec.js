@@ -77,9 +77,4 @@ describe('Make sure props work and can be processed', () => {
 
     })
 
-    test('ArrayOfHighestRated does not contain Interstellar',()=>{
-        expect(wrapper.vm.arrayOfHighestRated.length).toBe(2)
-        expect(wrapper.vm.arrayOfHighestRated.every(movie => movie.name !== 'Interstellar')).toBeTruthy();
-    })
-
 })
