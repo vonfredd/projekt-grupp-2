@@ -6,22 +6,16 @@ body {
 }
 
 h1,
-h2,
-h3 {
+h2 {
     font-family: "Oswald", sans-serif;
     text-transform: uppercase;
 }
 
 h1 {
-    font-size: 40px;
+    font-size: 62px;
 }
 
-button {
-    text-transform: uppercase;
-    border: none;
-    padding: 10px 30px;
-    text-align: center;
-    background-color: #7D1128;
-    border-radius: 50px;
-    cursor: pointer;
+h2 {
+    font-size: 48px;
 }
+
