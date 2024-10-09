@@ -40,11 +40,11 @@ import Accordion from '@/components/Accordion.vue';
                 </div>
                 <div class="py-3">
                   <label class="block uppercase" for="movie">Movie</label>
-                  <input class="border-solid border border-black h-8" type="text" id="movie">
+                  <input class="border-solid border border-black h-8 w-full" type="text" id="movie">
                 </div>
                 <div class="py-3">
                   <label class="block uppercase" for="date">Date</label>
-                  <input class="border-solid border border-black h-8 w-full" type="date" id="date">
+                  <VueDatePicker v-model="date" ></VueDatePicker>
                 </div>
               </div>
               <div class="p-5 bg-gray-100 my-10 mx-5 w-80 ">
@@ -61,3 +61,20 @@ import Accordion from '@/components/Accordion.vue';
         <RouterView />
     </div>
 </template>
+
+<script>
+import { ref } from 'vue';
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
+export default {
+    components: { VueDatePicker },
+    setup() {
+        const date = ref();
+
+        return {
+            date
+        }
+    }
+};
+</script>
