@@ -2,17 +2,24 @@
 import { computed, ref } from 'vue';
 
 const props = defineProps(['listOfMovies'])
+
+
+/*
+Sort on rating and keep the top 5 movies!
+*/
 const arrayOfHighestRated = computed(() => {
-  /*
-  USE THE PROPS IN PRODUCTION like:
-  return props.listOfMovies.filter(movie => movie.rating > 84) */
-  return movieArr.value.filter(movie => movie.rating > 70)
+  const arr = props.listOfMovies.toSorted((a, b) => {
+    return b.rating - a.rating;
+  })
+  if (arr.length >= 5) {
+    return arr.splice(0, 5);
+  } else {
+    return arr;
+  }
 })
 
 const topFirstIndex = ref(0);
 const topSecondIndex = ref(1);
-
-
 
 /*
 Adjust the top 10 movies shown. 
@@ -48,54 +55,6 @@ function adjustIndex(index) {
     }
   }
 }
-
-
-/*
-  DummyData 'movieArr', use props in production!!!
-*/
-const movieArr = ref([
-  {
-    "name": "The Matrix",
-    "description": "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.",
-    "genre": [
-      { "id": 28, "name": "Action" },
-      { "id": 878, "name": "Science Fiction" }
-    ],
-    "duration": 136,
-    "releaseDate": "1999-03-31",
-    "imageUrl": "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
-    "rating": 87,
-    "path": "/thematrix"
-  },
-  {
-    "name": "Interstellar",
-    "description": "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
-    "genre": [
-      { "id": 12, "name": "Adventure" },
-      { "id": 18, "name": "Drama" },
-      { "id": 878, "name": "Science Fiction" }
-    ],
-    "duration": 169,
-    "releaseDate": "2014-11-07",
-    "imageUrl": "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
-    "rating": 81
-  },
-  {
-    "name": "The Dark Knight",
-    "description": "When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.",
-    "genre": [
-      { "id": 28, "name": "Action" },
-      { "id": 80, "name": "Crime" },
-      { "id": 18, "name": "Drama" }
-    ],
-    "duration": 152,
-    "releaseDate": "2008-07-18",
-    "imageUrl": "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
-    "rating": 85
-  }
-]);
-
-
 
 </script>
 
@@ -139,7 +98,7 @@ const movieArr = ref([
       <div>
         <h2 class="mt-8 mb-8 text-center text-4xl">Movies</h2>
         <div class="flex flex-col gap-10 items-center">
-          <div class="flex flex-row rounded-2xl w-5/6 bg-gray-400 p-2 bg-opacity-40 " v-for="(movie, index) in movieArr"
+          <div class="flex flex-row rounded-2xl w-5/6 bg-gray-400 p-2 bg-opacity-40 " v-for="(movie, index) in props.listOfMovies"
             :key="index">
             <div v-if="index % 2 === 0" class="p-2 w-1/2">
               <img class="object-contain rounded-lg" :src=movie.imageUrl>
