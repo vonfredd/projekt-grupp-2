@@ -1,28 +1,18 @@
 <script setup>
-import { ref, watch } from 'vue';  // Make sure to import watch from Vue
+import { ref, watch } from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
-import Accordion from '@/components/Accordion.vue';  // Accordion component
-import '@vuepic/vue-datepicker/dist/main.css';  // DatePicker styles
+import Accordion from '@/components/Accordion.vue';
+import '@vuepic/vue-datepicker/dist/main.css';
 
-// Accordion items array
-const accordionItems = [
-    { id: 0, label: 'Add movie', inputId: 'add-movie', placeholder: 'Enter movie name' },
-    { id: 1, label: 'Remove movie from db', inputId: 'remove-movie', placeholder: 'Enter movie ID' },
-    { id: 2, label: 'Add theatre', inputId: 'add-theatre', placeholder: 'Enter theatre name' },
-    { id: 3, label: 'Add movie hall', inputId: 'add-movie-hall', placeholder: 'Enter hall name' }
-];
 
-// Ref for date picker and formatted date
 const date = ref(new Date());
 const formattedDate = ref('');
 
-// Function to format the selected date
 const formatDate = (selectedDate) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
     formattedDate.value = selectedDate ? selectedDate.toLocaleString(undefined, options) : '';
 };
 
-// Watch for changes in the date picker and update formattedDate
 watch(date, (newDate) => {
     formatDate(newDate);
 });
@@ -43,11 +33,11 @@ watch(date, (newDate) => {
     </header>
 
     <main class="px-[10%] py-[5%] flex justify-between">
-      <!-- Movie Schedule Section -->
+
       <div class="bg-gray-100 w-3/5 text-black p-10">
         <h2 class="text-center">Movie Schedule</h2>
         <div class="flex justify-between">
-          <!-- Input Fields -->
+          
           <div class="text-center p-4 my-8 w-2/4">
             <div class="py-3">
               <label class="block uppercase" for="theatre">Theatre</label>
@@ -74,17 +64,13 @@ watch(date, (newDate) => {
             </div>
           </div>
 
-          <!-- Date Picker -->
           <div class="p-5 my-10">
             <VueDatePicker v-model="date" inline auto-apply />
           </div>
         </div>
-
-        <!-- Selected Date and Time Display -->
         
       </div>
 
-      <!-- Accordion Section -->
       <div class="w-1/3 text-black">
         <Accordion :items="accordionItems" />
       </div>
@@ -101,5 +87,4 @@ export default {
 </script>
 
 <style scoped>
-/* Add any custom styles if needed */
 </style>
