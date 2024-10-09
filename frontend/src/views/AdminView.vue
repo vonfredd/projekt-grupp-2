@@ -17,19 +17,26 @@ import Accordion from '@/components/Accordion.vue';
       </div>
           
     </header>
-      
+
         <main class="px-[10%] py-[5%] flex justify-between">
           <div class="bg-gray-100 w-3/5 text-black p-10">
             <h2 class="text-center">Movie Schedule</h2>
             <div class="flex gap-5">
               <div class="text-center p-5">
                 <div class="py-3">
-                  <label class="block uppercase" for="theatre">Theatre</label>
-                  <input class="border-solid border border-black h-8" type="text" id="theatre">
+                
+                    <label class="block uppercase" for="theatre">Theatre</label>
+                    <select class="border-solid border border-black h-8 w-full" name="theatre" id="theatre" required>
+                        <option value="cinema-1">Cinema 1</option>
+                        <option value="cinema-2">Cinema 2</option>
+                    </select>
                 </div>
                 <div class="py-3">
                   <label class="block uppercase" for="movie-hall">Movie Hall</label>
-                  <input class="border-solid border border-black h-8" type="text" id="movie-hall">
+                  <select class="border-solid border border-black h-8 w-full" name="movie-hall" id="movie-hall" required>
+                        <option value="hall-1">Hall 1</option>
+                        <option value="hall-2">Hall 2</option>
+                    </select>
                 </div>
                 <div class="py-3">
                   <label class="block uppercase" for="movie">Movie</label>
@@ -37,7 +44,7 @@ import Accordion from '@/components/Accordion.vue';
                 </div>
                 <div class="py-3">
                   <label class="block uppercase" for="date">Date</label>
-                  <input class="border-solid border border-black h-8" type="text" id="date">
+                  <input class="border-solid border border-black h-8 w-full" type="date" id="date">
                 </div>
               </div>
               <div class="p-5 bg-gray-100 my-10 mx-5 w-80 ">
