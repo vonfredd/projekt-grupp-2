@@ -1,12 +1,14 @@
 @import './base.css';
 
+
 body {
     color: white;
     font-family: "Montserrat", sans-serif;
 }
 
 h1,
-h2 {
+h2,
+h3{
     font-family: "Oswald", sans-serif;
     text-transform: uppercase;
 }
@@ -18,4 +20,6 @@ h1 {
 h2 {
     font-size: 48px;
 }
+
+
 
