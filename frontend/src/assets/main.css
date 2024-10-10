@@ -1,29 +1,27 @@
-@import "./base.css";
-.bg-cinema {
-  background-color: rgba(204, 0, 40, 1);
-}
-h1,
-h2,
-h3 {
-  font-family: "Oswald", sans-serif;
+@import './base.css';
+
+
+body {
+    color: white;
+    font-family: "Montserrat", sans-serif;
 }
 
-h4,
-h5,
-h6,
-p {
-  font-family: "Montserrat", sans-serif;
+h1,
+h2,
+h3{
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
 }
-html,
-body {
-  height: 100%;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  color: white;
+@media screen and (min-width: 1000px) {
+    h1 {
+    font-size: 62px;
 }
-#app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+
+h2 {
+    font-size: 48px;
 }
+}
+
+
+
+
