@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import LandingView from "@/views/LandingView.vue";
-import MovieProfileView from "@/views/movieProfileView.vue";
+import MovieProfileView from "@/views/MovieProfileView.vue";
 import AdminView from "@/views/AdminView.vue";
 
 const router = createRouter({

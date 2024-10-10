@@ -86,7 +86,7 @@ watch(date, (newDate) => {
       </div>
 
       <div class="w-1/3 text-black">
-        <Accordion :items="accordionItems" />
+        <Accordion />
       </div>
     </main>
 
