@@ -1,8 +1,8 @@
 package org.http.backend.service;
 
 import org.http.backend.entity.Movie;
+import org.http.backend.entity.Schedule;
 import org.http.backend.repository.MovieRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +21,13 @@ public class MovieService {
         return movieRepository.save(movie);
     }
 
-    public Optional<Movie> findById(String id) {
-        return movieRepository.findById(id);
+    public Movie findById(String id) {
+        Optional <Movie> movie = movieRepository.findById(id);
+        if (movie.isPresent()) {
+            return movie.get();
+        } else {
+            throw new RuntimeException("No such ID " + id);
+        }
     }
 
     public List<Movie> findAll() {
