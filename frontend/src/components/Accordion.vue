@@ -18,7 +18,7 @@ const accordionItems = [
 <template>
   <div class="w-full max-w-lg mx-auto" id="accordion">
     <section v-for="item in accordionItems" :key="item.id" class="border-b border-gray-300">
-      <h3>
+      <h4>
         <button
           @click="toggleAccordion(item.id)"
           class="w-full text-left px-4 py-2 bg-gray-100 hover:bg-gray-200 focus:outline-none h-20"
@@ -32,7 +32,7 @@ const accordionItems = [
             </span>
           </div>
         </button>
-      </h3>
+      </h4>
 
       <div
         :id="'section-' + item.id"
