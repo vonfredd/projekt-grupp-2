@@ -1,8 +1,6 @@
 <script setup></script>
 
 <template>
-  <div class="flex-grow"></div>
-  <!-- This is just for keeping the footer on the bottom if there is no content -->
   <footer class="bg-black bottom-0 p-3 text-center">
     <h2 class="text-xl">&copy; CINEMA</h2>
     <div class="flex justify-center mt-3 gap-3">
