@@ -12,6 +12,7 @@
   "dependencies": {
     "@vuepic/vue-datepicker": "^9.0.3",
     "projekt-grupp-2": "file:",
+    "tailwindcss": "^3.4.13",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3"
   },
