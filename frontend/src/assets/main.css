@@ -2,18 +2,19 @@
 
 h1,
 h2,
-h3{
-  font-family: 'Oswald',sans-serif;
+h3 {
+  font-family: 'Oswald', sans-serif;
 }
 
 h4,
 h5,
 h6,
-p{
-  font-family: 'Montserrat',sans-serif;
+p {
+  font-family: 'Montserrat', sans-serif;
 }
-
 body{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   color:white;
 }
-
