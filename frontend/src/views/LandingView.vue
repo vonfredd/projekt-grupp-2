@@ -66,14 +66,14 @@ function adjustIndex(index) {
 
 </script>
 
-<template>
-  <main class="p-0 h-full relative">
+<template class="px-[10%]">
+  <main class="p-0 h-full">
     <div class="h-full w-full bg-[length:600%] z-0 bg-[bottom_6rem_right] bg-fixed bg-[url('/img/cinemabg.jpg')]">
       <!-- Length is needed to properly "zoom in" on the image -->
       <!-- This div only contains the background image -->
-      <div class="p-1 z-10">
+      <div class="p-1 w-4/5  mx-auto text-center">
         <!-- Need padding here to be able to add margin on P tag. Else the whole bg image will follow with the margin -->
-        <p class="w-4/5 mt-5 m-auto text-white z-10">Which movie do you want to watch?</p>
+        <p class="mt-5">Which movie do you want to watch?</p>
         <form class="mt-4 w-4/6 m-auto">
           <input class="p-2 h-10 w-full rounded-full m-auto text-black text-center" type="text"
             placeholder="Search movie...">

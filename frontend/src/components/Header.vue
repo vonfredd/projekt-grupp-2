@@ -13,11 +13,11 @@ const closeMenu = () => {
 </script>
 
 <template>
-  <header class="bg-primary">
+  <header class="bg-primary px-[10%]">
     <nav class="p-3">
       <div class="flex items-center justify-between">
         <RouterLink to="/" class="block"
-          ><h1 class="text-5xl p-1 px-7">CINEMA</h1>
+          ><h1 class="text-5xl uppercase">Cinema</h1>
         </RouterLink>
 
         <!-- Hamburger Button -->
@@ -63,7 +63,7 @@ const closeMenu = () => {
         <div class="hidden md:flex space-x-6 text-white">
           <RouterLink to="/login">
             <div
-              class="flex items-center justify-center bg-gray-400 bg-opacity-50 rounded-3xl px-2 mx-2"
+              class="flex items-center justify-center bg-secondary rounded-3xl px-4 hover:bg-opacity-50"
             >
               <svg
                 fill="#000000"
@@ -89,7 +89,7 @@ const closeMenu = () => {
                 <rect x="0" y="0" width="36" height="36" fill-opacity="0" />
               </svg>
 
-              <h5 class="block p-4 hover:text-gray-300">Login</h5>
+              <h5 class="block p-4 hover:text-gray-300 uppercase">Login</h5>
             </div>
           </RouterLink>
 
