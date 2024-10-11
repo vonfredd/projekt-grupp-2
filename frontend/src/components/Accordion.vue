@@ -57,6 +57,20 @@ const addCinema = async (newCinemaName) => {
   console.log(responseJson);
 }
 
+const addMovieHall = async (newMovieHallName) => {
+
+    const response = await fetch("http://localhost:9000/moviehalls", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: newMovieHallName }),
+    });
+
+    const responseJson = await response.json();
+    console.log(responseJson);
+}
+
 function switchAccordionEvent(idOfItem) {
 
   const accordionItem = accordionItems.value[idOfItem];
@@ -75,8 +89,8 @@ function switchAccordionEvent(idOfItem) {
       accordionItem.value = '';
       break;
     case 3:
-     // addMovieHall(accordionInput.value)
-      // accordionItem.value = '';
+        addMovieHall(accordionItem.value)
+        accordionItem.value = '';
       break;
   }
 }
