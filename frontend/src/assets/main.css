@@ -1,35 +1,27 @@
 @import './base.css';
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+
+body {
+    color: white;
+    font-family: "Montserrat", sans-serif;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+h1,
+h2,
+h3{
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+}
+@media screen and (min-width: 1000px) {
+    h1 {
+    font-size: 62px;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+h2 {
+    font-size: 48px;
+}
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-}
+
+

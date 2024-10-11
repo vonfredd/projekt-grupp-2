@@ -10,14 +10,19 @@
     "test:unit": "vitest"
   },
   "dependencies": {
+    "@vuepic/vue-datepicker": "^9.0.3",
     "projekt-grupp-2": "file:",
+    "tailwindcss": "^3.4.13",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
     "@vue/test-utils": "^2.4.6",
+    "autoprefixer": "^10.4.20",
     "jsdom": "^24.1.0",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.13",
     "vite": "^5.3.1",
     "vitest": "^1.6.0"
   }
