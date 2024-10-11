@@ -13,6 +13,49 @@ const accordionItems = [
     { id: 2, label: 'Add theatre', inputId: 'add-theatre', placeholder: 'Enter theatre name' },
     { id: 3, label: 'Add movie hall', inputId: 'add-movie-hall', placeholder: 'Enter hall name' }
 ];
+
+const addMovieToDb = async (idToFetch) => {
+    console.log('Add movie to db');
+    const url = "https://api.themoviedb.org/3/movie/" + idToFetch;
+    const ACCESS_TOKEN = "";
+
+    const req = await fetch(url,{ headers: { 'Authorization': `Bearer ${ACCESS_TOKEN}`}});
+    const data = await req.json();
+
+  console.log(JSON.stringify(data))
+
+    const response = await fetch("http://localhost:9000/movies",{
+      method:"POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const responseJson = await response.json();
+    console.log(responseJson);
+}
+
+
+
+const accordionInput = ref('');
+
+function switchAccordionEvent(idOfItem) {
+
+  switch (idOfItem) {
+    case 0:
+      addMovieToDb(accordionInput.value)
+      break;
+    case 1:
+    //  removeMovie(accordionInput.value)
+      break;
+    case 2:
+     // addTheatre(accordionInput.value)
+      break;
+    case 3:
+     // addMovieHall(accordionInput.value)
+      break;
+  }
+}
 </script>
 
 <template>
@@ -39,9 +82,10 @@ const accordionItems = [
         v-show="activeAccordion === item.id"
         class="overflow-hidden transition-all duration-300"
       >
-        <div class="p-8 bg-gray-50 h-20 flex items-center">
-          <input class="border-solid border border-black h-8" :id="item.inputId" :placeholder="item.placeholder" type="text" />
-        </div>
+        <form @submit.prevent="switchAccordionEvent(item.id)" class="p-8 bg-gray-50 h-20 flex items-center">
+          <input v-model="accordionInput" class="border-solid border border-black h-8 px-1" :id="item.inputId" :placeholder="item.placeholder" type="text" />
+          <input type="submit" hidden />
+        </form>
       </div>
     </section>
   </div>

@@ -16,8 +16,8 @@ const formatDate = (selectedDate) => {
     minute: "2-digit",
   };
   formattedDate.value = selectedDate
-    ? selectedDate.toLocaleString(undefined, options)
-    : "";
+      ? selectedDate.toLocaleString(undefined, options)
+      : "";
 };
 
 watch(date, (newDate) => {
@@ -27,56 +27,56 @@ watch(date, (newDate) => {
 
 <template>
   <div id="admin-view">
-    <main class="px-[10%] py-[5%] flex justify-between">
+    <main class="px-[10%] py-[5%] flex justify-between max-w-[2000px] mx-auto">
       <div class="bg-gray-100 w-3/5 text-black p-10">
         <h2 class="text-center">Movie Schedule</h2>
         <div class="flex justify-between">
           <div class="text-center p-4 my-8 w-2/4">
-            <div class="py-3">
+            <form class="py-3">
               <label class="block uppercase" for="theatre">Theatre</label>
               <select
-                class="border-solid border border-black h-8 w-full"
-                name="theatre"
-                id="theatre"
-                required
+                  class="border-solid border border-black h-8 w-full"
+                  name="theatre"
+                  id="theatre"
+                  required
               >
                 <option value="cinema-1">Cinema 1</option>
                 <option value="cinema-2">Cinema 2</option>
               </select>
-            </div>
-            <div class="py-3">
+            </form>
+            <form class="py-3">
               <label class="block uppercase" for="movie-hall">Movie Hall</label>
               <select
-                class="border-solid border border-black h-8 w-full"
-                name="movie-hall"
-                id="movie-hall"
-                required
+                  class="border-solid border border-black h-8 w-full"
+                  name="movie-hall"
+                  id="movie-hall"
+                  required
               >
                 <option value="hall-1">Hall 1</option>
                 <option value="hall-2">Hall 2</option>
               </select>
-            </div>
-            <div class="py-3">
+            </form>
+            <form class="py-3">
               <label class="block uppercase" for="movie">Movie</label>
               <input
-                class="border-solid border border-black h-8 w-full"
-                type="text"
-                id="movie"
+                  class="border-solid border border-black h-8 w-full"
+                  type="text"
+                  id="movie"
               />
-            </div>
-            <div class="py-3">
+            </form>
+            <form class="py-3">
               <label class="block uppercase" for="selected-date"
-                >Selected Date and Time</label
+              >Selected Date and Time</label
               >
               <input
-                class="px-1 border-solid border border-black h-8 w-full"
-                type="text"
-                id="selected-date"
-                v-model="formattedDate"
-                placeholder="Select using calendar"
-                readonly
+                  class="px-1 border-solid border border-black h-8 w-full"
+                  type="text"
+                  id="selected-date"
+                  v-model="formattedDate"
+                  placeholder="Select using calendar"
+                  readonly
               />
-            </div>
+            </form>
           </div>
 
           <div class="p-5 my-10">

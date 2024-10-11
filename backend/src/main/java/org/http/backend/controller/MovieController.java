@@ -1,5 +1,6 @@
 package org.http.backend.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.http.backend.entity.Movie;
 import org.http.backend.service.MovieService;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/movies")
+@CrossOrigin(origins = "http://localhost:5173")
 public class MovieController {
     private final MovieService movieService;
 
@@ -32,8 +34,8 @@ public class MovieController {
     }
 
     @PostMapping
-    public ResponseEntity<Movie> save(@RequestBody Movie movie) {
-        return ResponseEntity.ok().body(movieService.save(movie));
+    public ResponseEntity<Movie> save(@RequestBody String jsonString) throws JsonProcessingException {
+        return ResponseEntity.ok().body(movieService.save(jsonString));
     }
 
 }
