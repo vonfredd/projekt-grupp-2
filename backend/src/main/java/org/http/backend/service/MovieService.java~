@@ -28,7 +28,7 @@ public class MovieService {
     Movie movie = new Movie();
         try {
             JsonNode rootNode = objectMapper.readTree(stringMovie);
-
+            
             String movieId = rootNode.path("id").asText();
             String name = rootNode.path("title").asText();
             String description = rootNode.path("overview").asText();

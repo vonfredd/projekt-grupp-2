@@ -17,9 +17,8 @@ const formatDate = (selectedDate) => {
 
 // Watcher to update formattedDate whenever date changes
 watch(date, (newDate) => {
-  formatDate(newDate);
+  (newDate);
 });
-
 </script>
 
 <template>

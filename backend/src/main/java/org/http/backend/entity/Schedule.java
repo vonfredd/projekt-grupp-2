@@ -17,6 +17,6 @@ public class Schedule {
     private String id;
     private Date date;
     private String time;
-    private ShowRoom showRoom;
+    private Cinema cinema;
 
 }
