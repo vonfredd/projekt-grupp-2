@@ -8,6 +8,7 @@ import org.http.backend.util.Rating;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Document(collection = "movies")
@@ -15,13 +16,13 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Movie {
+public class Movie implements Serializable {
 
     @Id
     private String id;
     private String name;
     private String description;
-    private List<String> genre;
+    private String genre;
     private String duration;
     private String releaseDate;
     private String imageUrl;

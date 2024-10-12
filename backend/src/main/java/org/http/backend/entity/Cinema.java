@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.http.backend.util.ShowRoom;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -18,6 +17,6 @@ public class Cinema {
 
     private String name;
     private List<Movie> movies;
-    private List<ShowRoom> showRooms;
+    private List<MovieHall> movieHalls;
 
 }

@@ -1,4 +1,4 @@
-package org.http.backend.util;
+package org.http.backend.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ShowRoom {
+public class MovieHall {
 
     private String name;
     private List<Boolean> seats;

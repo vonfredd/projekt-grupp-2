@@ -1,11 +1,13 @@
 package org.http.backend.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.http.backend.dto.MovieDto;
 import org.http.backend.entity.Movie;
 import org.http.backend.service.MovieService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -19,12 +21,12 @@ public class MovieController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Movie>> all() {
+    public ResponseEntity<List<Movie>> findAll() {
         return ResponseEntity.ok().body(movieService.findAll());
     }
 
     @GetMapping("/id")
-    public ResponseEntity<Movie> one(String id) {
+    public ResponseEntity<Movie> findById(String id) {
         return ResponseEntity.ok().body(movieService.findById(id));
     }
 
@@ -34,8 +36,10 @@ public class MovieController {
     }
 
     @PostMapping
-    public ResponseEntity<Movie> save(@RequestBody String jsonString) throws JsonProcessingException {
-        return ResponseEntity.ok().body(movieService.save(jsonString));
+    public ResponseEntity<Movie> save(@RequestBody MovieDto movieDto) throws IOException {
+        return ResponseEntity.ok().body(movieService.save(movieDto));
     }
+
+
 
 }
