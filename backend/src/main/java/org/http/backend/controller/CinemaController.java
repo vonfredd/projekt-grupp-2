@@ -10,7 +10,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/cinemas")
 public class CinemaController {
-
     private final CinemaService cinemaService;
 
     public CinemaController(CinemaService cinemaService) {

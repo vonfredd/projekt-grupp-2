@@ -12,10 +12,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Schedule {
-
     private String id;
     private Date date;
     private String time;
     private Cinema cinema;
-
 }

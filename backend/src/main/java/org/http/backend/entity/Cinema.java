@@ -18,5 +18,4 @@ public class Cinema {
     private String name;
     private List<Movie> movies;
     private List<MovieHall> movieHalls;
-
 }

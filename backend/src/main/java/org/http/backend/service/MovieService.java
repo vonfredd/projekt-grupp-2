@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.http.backend.dto.MovieDto;
 import org.http.backend.dto.MovieGenreDto;
 import org.http.backend.entity.Movie;
+import org.http.backend.map.MappingService;
 import org.http.backend.repository.MovieRepository;
 import org.http.backend.util.Rating;
 import org.springframework.stereotype.Service;
@@ -19,22 +20,13 @@ import java.util.Optional;
 public class MovieService {
 
     private final MovieRepository movieRepository;
-    private final ObjectMapper objectMapper;
 
     public MovieService(MovieRepository movieRepository, ObjectMapper objectMapper) {
         this.movieRepository = movieRepository;
-        this.objectMapper = objectMapper;
     }
 
     public Movie save(MovieDto movieDto) throws IOException {
-        Movie movie = new Movie();
-
-        movie.setName(movieDto.original_title());
-        movie.setDescription(movieDto.overview());
-        movie.setGenre(movieDto.genres().getFirst().name());
-        movie.setDuration(String.valueOf(movieDto.runtime()));
-        movie.setReleaseDate(movieDto.release_date());
-        movie.setImageUrl(movieDto.poster_path());
+        Movie movie = new MappingService().mapToMovie(movieDto);
         return movieRepository.save(movie);
     }
 

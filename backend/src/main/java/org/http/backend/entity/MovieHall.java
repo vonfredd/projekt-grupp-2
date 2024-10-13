@@ -15,5 +15,4 @@ public class MovieHall {
 
     private String name;
     private List<Boolean> seats;
-
 }
