@@ -3,7 +3,6 @@ package org.http.backend.map;
 import org.http.backend.dto.MovieDto;
 import org.http.backend.dto.MovieGenreDto;
 import org.http.backend.entity.Movie;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
