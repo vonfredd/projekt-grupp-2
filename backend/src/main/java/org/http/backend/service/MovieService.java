@@ -17,7 +17,7 @@ public class MovieService {
     private final ObjectMapper objectMapper;
     private final MovieRepository movieRepository;
 
-    @Autowired // Constructor-based injection
+    @Autowired
     public MovieService(ObjectMapper objectMapper, MovieRepository movieRepository) {
         this.objectMapper = objectMapper;
         this.movieRepository = movieRepository;
@@ -57,16 +57,16 @@ public class MovieService {
     }
 
     public List<Movie> findAll() {
-        return movieRepository.findAll(); // Retrieve all movies
+        return movieRepository.findAll();
     }
 
     public List<Movie> findByName(String name) {
-        return movieRepository.findByName(name); // Find movies by name
+        return movieRepository.findByName(name);
     }
 
     public void delete(String id) {
         if (!movieRepository.existsById(id)) {
-            throw new RuntimeException("No such ID " + id); // Handle non-existent ID
+            throw new RuntimeException("No such ID " + id);
         }
         movieRepository.deleteById(id);
     }

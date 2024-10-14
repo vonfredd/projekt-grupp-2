@@ -19,6 +19,20 @@ public class Movie {
     private String imageUrl;
     private List<Rating> rating;
 
+    public Movie(String id, String name, String description, List<String> genre, String duration, String releaseDate, String imageUrl, List<Rating> rating) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.genres = genre;
+        this.duration = duration;
+        this.releaseDate = releaseDate;
+        this.imageUrl = imageUrl;
+        this.rating = rating;
+    }
+
+    public Movie() {
+    }
+
     public String getId() {
         return id;
     }
@@ -83,18 +97,5 @@ public class Movie {
         this.rating = rating;
     }
 
-    public Movie() {
-    }
-
-    public Movie(String id, String name, String description, List<String> genre, String duration, String releaseDate, String imageUrl, List<Rating> rating) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.genres = genre;
-        this.duration = duration;
-        this.releaseDate = releaseDate;
-        this.imageUrl = imageUrl;
-        this.rating = rating;
-    }
 }
 
