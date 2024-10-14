@@ -1,6 +1,4 @@
 package org.http.backend.controller;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.http.backend.entity.Movie;
 import org.http.backend.service.MovieService;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +32,14 @@ public class MovieController {
     }
 
     @PostMapping
-    public ResponseEntity<Movie> save(@RequestBody String jsonString) throws JsonProcessingException {
-        return ResponseEntity.ok().body(movieService.save(jsonString));
+    public ResponseEntity<Movie> save(@RequestBody String jsonString) {
+        return ResponseEntity.status(201).body(movieService.save(jsonString));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteMovie(@PathVariable String id) {
+        movieService.delete(id);
+        return ResponseEntity.ok().build();
     }
 
 }
