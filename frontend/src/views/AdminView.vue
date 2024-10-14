@@ -12,7 +12,7 @@ const formattedDate = ref("");
 const formatDate = (selectedDate) => {
   formattedDate.value = selectedDate
       ? selectedDate.toLocaleString()
-      : "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NmIxMjBiZDIwZmJkOTVhYzlkYjY0MmY2OGY3YjdhZSIsIm5iZiI6MTcyODI4NDAyNy43NTc1MDksInN1YiI6IjY2ZmQxYWEzZGYyYWJhOTViM2YyNDEwZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.cNDklcMJd0Ry68bDDzozQ69FQCU6lK_Q9PNjxz-flh8";
+      : "";
 };
 
 // Watcher to update formattedDate whenever date changes
