@@ -1,6 +1,5 @@
 package org.http.backend.service;
 
-import lombok.AllArgsConstructor;
 import org.http.backend.entity.Schedule;
 import org.http.backend.repository.ScheduleRepository;
 import org.springframework.stereotype.Service;
