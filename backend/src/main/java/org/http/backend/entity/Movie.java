@@ -13,7 +13,7 @@ public class Movie {
     private String id;
     private String name;
     private String description;
-    private List<String> genre;
+    private List<String> genres;
     private String duration;
     private String releaseDate;
     private String imageUrl;
@@ -43,12 +43,12 @@ public class Movie {
         this.description = description;
     }
 
-    public List<String> getGenre() {
-        return genre;
+    public List<String> getGenres() {
+        return genres;
     }
 
-    public void setGenre(List<String> genre) {
-        this.genre = genre;
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
     }
 
     public String getDuration() {
@@ -90,7 +90,7 @@ public class Movie {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.genre = genre;
+        this.genres = genre;
         this.duration = duration;
         this.releaseDate = releaseDate;
         this.imageUrl = imageUrl;
