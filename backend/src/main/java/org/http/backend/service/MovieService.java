@@ -37,10 +37,9 @@ public class MovieService {
         movie.setName(movieDto.title());
         movie.setDescription(movieDto.overview());
 
-        // Check if genres is null, and handle accordingly
         List<String> genreNames = (movieDto.genres() != null ?
                 movieDto.genres().stream().map(GenreDto::name).toList() :
-                List.of()); // Default to empty list if null
+                List.of());
 
         movie.setGenres(genreNames);
         movie.setDuration(String.valueOf(movieDto.runtime()));
@@ -53,7 +52,7 @@ public class MovieService {
 
     public Movie findById(String id) {
         return movieRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No such ID " + id)); // Handle non-existent movie
+                .orElseThrow(() -> new RuntimeException("No such ID " + id));
     }
 
     public List<Movie> findAll() {
