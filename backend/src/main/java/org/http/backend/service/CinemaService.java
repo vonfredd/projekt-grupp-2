@@ -3,6 +3,7 @@ package org.http.backend.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.http.backend.entity.Cinema;
 import org.http.backend.repository.CinemaRepository;
+import org.http.backend.util.CinemaHall;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -39,4 +40,15 @@ public class CinemaService {
     }
 
 
+    public Cinema addCinemaHall(String cinemaName, CinemaHall cinemaHall) {
+        Optional<Cinema> optionalCinema = cinemaRepository.findByName(cinemaName);
+
+        if (optionalCinema.isPresent()) {
+            Cinema cinema = optionalCinema.get();
+            cinema.getCinemaHalls().add(cinemaHall);
+            return cinemaRepository.save(cinema);
+        } else {
+            throw new RuntimeException("Cinema not found");
+        }
+    }
 }

@@ -2,6 +2,7 @@ package org.http.backend.controller;
 
 import org.http.backend.entity.Cinema;
 import org.http.backend.service.CinemaService;
+import org.http.backend.util.CinemaHall;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,5 +32,10 @@ public class CinemaController {
     @PostMapping
     public ResponseEntity<Cinema> create(@RequestBody Cinema cinema) {
         return ResponseEntity.ok().body(cinemaService.create(cinema));
+    }
+    @PostMapping("/{cinemaName}/halls")
+    public ResponseEntity<Cinema> addCinemaHalls(@PathVariable String cinemaName, @RequestBody CinemaHall cinemaHall) {
+        Cinema updatedCinema = cinemaService.addCinemaHall(cinemaName, cinemaHall);
+        return ResponseEntity.ok(updatedCinema);
     }
 }
