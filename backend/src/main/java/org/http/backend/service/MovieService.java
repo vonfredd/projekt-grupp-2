@@ -34,7 +34,7 @@ public class MovieService {
         }
         Movie movie = new Movie();
         movie.setId(movieDto.id());
-        movie.setName(movieDto.title().toLowerCase());
+        movie.setName(movieDto.title());
         movie.setDescription(movieDto.overview());
 
         List<String> genreNames = (movieDto.genres() != null ?
@@ -59,8 +59,8 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
-    public List<Movie> findByNameContains(String name) {
-        return movieRepository.findByNameContains(name);
+    public List<Movie> findByNameContainsIgnoreCase(String name) {
+        return movieRepository.findByNameContainsIgnoreCase(name);
     }
 
     public void delete(String id) {
