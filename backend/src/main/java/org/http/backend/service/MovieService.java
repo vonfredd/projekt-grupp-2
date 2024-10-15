@@ -60,8 +60,8 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
-    public List<Movie> findByName(String name) {
-        return movieRepository.findByName(name);
+    public List<Movie> findByNameContains(String name) {
+        return movieRepository.findByNameContains(name);
     }
 
     public void delete(String id) {

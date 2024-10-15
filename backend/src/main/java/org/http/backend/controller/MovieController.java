@@ -28,7 +28,7 @@ public class MovieController {
 
     @GetMapping("/name")
     public ResponseEntity<List<Movie>> findByName(@RequestParam(value = "name") String name) {
-        return ResponseEntity.ok().body(movieService.findByName(name));
+        return ResponseEntity.ok().body(movieService.findByNameContains(name));
     }
 
     @PostMapping
