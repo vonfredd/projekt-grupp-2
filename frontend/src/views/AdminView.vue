@@ -1,5 +1,5 @@
 <script setup>
-import {ref, watch} from "vue";
+import {ref, watch, computed} from "vue";
 import "@vuepic/vue-datepicker/dist/main.css";
 import VueDatePicker from "@vuepic/vue-datepicker";
 import Accordion from "@/components/Accordion.vue";
@@ -13,6 +13,12 @@ const movies = ref([]);
 const filteredMovies = ref([]);
 const movieQuery = ref('');
 const selectedMovie = ref(null);
+
+// Form fields
+const theatre = ref('');
+const movieHall = ref('');
+const selectedMovieId = ref('');
+const selectedDate = ref('');
 
 // Function to format the selected date
 const formatDate = (selectedDate) => {
@@ -39,6 +45,7 @@ const filterMovies = () => {
 // Function to handle movie selection
 const handleMovieSelect = (event) => {
   const movieId = event.target.value;
+  selectedMovieId.value = movieId;
   selectedMovie.value = movies.value.find(movie => movie.id === movieId);
 };
 
@@ -49,6 +56,17 @@ watch(date, (newDate) => {
 
 // Watcher to filter movies whenever movieQuery changes
 watch(movieQuery, filterMovies);
+
+// Computed property to check if all forms are filled
+const isFormValid = computed(() => {
+  return theatre.value && movieHall.value && selectedMovieId.value && formattedDate.value;
+});
+
+// Function to handle form submission
+const handleSubmit = () => {
+  // Handle form submission logic here
+  alert('Form submitted');
+};
 
 </script>
 
@@ -65,6 +83,7 @@ watch(movieQuery, filterMovies);
                   class="border-solid border border-black h-8 w-full"
                   name="theatre"
                   id="theatre"
+                  v-model="theatre"
                   required
               >
                 <option value="cinema-1">Cinema 1</option>
@@ -77,6 +96,7 @@ watch(movieQuery, filterMovies);
                   class="border-solid border border-black h-8 w-full"
                   name="movie-hall"
                   id="movie-hall"
+                  v-model="movieHall"
                   required
               >
                 <option value="hall-1">Hall 1</option>
@@ -88,6 +108,7 @@ watch(movieQuery, filterMovies);
               <select
                   class="border-solid border border-black h-8 w-full"
                   id="selected-movie"
+                  v-model="selectedMovieId"
                   @focus="searchMovies"
                   @change="handleMovieSelect"
               >
@@ -123,6 +144,14 @@ watch(movieQuery, filterMovies);
             <VueDatePicker v-model="date" inline auto-apply/>
           </div>
         </div>
+        <button
+            type="button"
+            class="mt-3 px-4 py-2 self-center bg-primary text-white rounded disabled:bg-greyish hover:bg-secondary"
+            :disabled="!isFormValid"
+            @click="handleSubmit"
+        >
+          Schedule Movie
+        </button>
       </div>
 
       <div class="w-1/3 text-black">
