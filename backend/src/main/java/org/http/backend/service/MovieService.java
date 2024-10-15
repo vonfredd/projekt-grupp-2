@@ -39,7 +39,7 @@ public class MovieService {
             String releaseDate = rootNode.path("release_date").asText();
             String imageUrl = rootNode.path("poster_path").asText();
 
-            movie = new Movie(movieId, name, description, genres, duration, releaseDate, imageUrl,new ArrayList<>());
+            movie = new Movie(movieId, name.toLowerCase(), description, genres, duration, releaseDate, imageUrl,new ArrayList<>());
         } catch (IOException e) {
             e.printStackTrace();
         }
