@@ -11,7 +11,6 @@ import java.util.Collections;
 
 @Configuration
 public class DbInitDummyData {
-
     private static final String DRAMA = "Drama";
     private static final String CRIME = "Crime";
     private static final String HISTORY = "History";
