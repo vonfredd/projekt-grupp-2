@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
+import Seats from "@/components/Seats.vue";
 const Movie = ref({
   name: "Inception",
   description:
@@ -56,6 +57,7 @@ const formattedDuration = computed(() => {
         <h2 class="text-3xl">Overview</h2>
         <p class="mt-4">{{ Movie.description }}</p>
       </div>
+      <Seats/>
     </div>
   </main>
 </template>

@@ -9,6 +9,7 @@ export default {
               primary: '#CC0028',
               secondary: '#7D1128',
             greyish: '#D9D9D9',
+            darkgrey: '#3D3C3C',
           },
     },
   },
