@@ -3,16 +3,26 @@ import { ref, watch } from "vue";
 import "@vuepic/vue-datepicker/dist/main.css";
 import VueDatePicker from "@vuepic/vue-datepicker";
 import Accordion from "@/components/Accordion.vue";
+import MovieList from '@/components/MovieList.vue';
 
 // Date handling
 const date = ref(new Date());
 const formattedDate = ref("");
+const movies = ref([]);
+const movieQuery = ref('');
 
 // Function to format the selected date
 const formatDate = (selectedDate) => {
   formattedDate.value = selectedDate
       ? selectedDate.toLocaleString()
       : "";
+};
+
+const searchMovies = async () => {
+  const response = await fetch(`http://localhost:9000/movies/name?name=${movieQuery.value}`, {
+    method: "GET",
+  });
+  movies.value = await response.json();
 };
 
 // Watcher to update formattedDate whenever date changes
@@ -53,14 +63,16 @@ watch(date, (newDate) => {
                 <option value="hall-2">Hall 2</option>
               </select>
             </form>
-            <form class="py-3">
+            <form class="py-3" @submit.prevent="searchMovies">
               <label class="block uppercase" for="movie">Movie</label>
               <input
                   class="border-solid border border-black h-8 w-full"
                   type="text"
                   id="movie"
+                  v-model="movieQuery"
               />
             </form>
+            <MovieList v-if="movies.length" :movies="movies" />
             <form class="py-3">
               <label class="block uppercase" for="selected-date"
               >Selected Date and Time</label
