@@ -14,11 +14,9 @@ import java.util.Optional;
 public class CinemaService {
 
     private final CinemaRepository cinemaRepository;
-    private final ObjectMapper objectMapper;
 
-    public CinemaService(CinemaRepository cinemaRepository, ObjectMapper objectMapper) {
+    public CinemaService(CinemaRepository cinemaRepository) {
         this.cinemaRepository = cinemaRepository;
-        this.objectMapper = objectMapper;
     }
 
     public List<Cinema> findAll() {
@@ -36,7 +34,7 @@ public class CinemaService {
 
     public Cinema create(Cinema cinema){
         cinema.setMovies(new ArrayList<>());
-        cinema.setShowRooms(new ArrayList<>());
+        cinema.setCinemaHalls(new ArrayList<>());
         return cinemaRepository.save(cinema);
     }
 

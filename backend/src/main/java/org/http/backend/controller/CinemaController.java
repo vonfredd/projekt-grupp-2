@@ -12,8 +12,6 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:5173")
 public class CinemaController {
 
-
-
     private final CinemaService cinemaService;
 
     public CinemaController(CinemaService cinemaService) {
