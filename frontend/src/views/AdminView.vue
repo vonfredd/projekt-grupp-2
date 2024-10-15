@@ -1,15 +1,18 @@
 <script setup>
-import { ref, watch } from "vue";
+import {ref, watch} from "vue";
 import "@vuepic/vue-datepicker/dist/main.css";
 import VueDatePicker from "@vuepic/vue-datepicker";
 import Accordion from "@/components/Accordion.vue";
-import MovieList from '@/components/MovieList.vue';
 
 // Date handling
 const date = ref(new Date());
 const formattedDate = ref("");
+
+// Movie handling
 const movies = ref([]);
+const filteredMovies = ref([]);
 const movieQuery = ref('');
+const selectedMovie = ref(null);
 
 // Function to format the selected date
 const formatDate = (selectedDate) => {
@@ -17,18 +20,35 @@ const formatDate = (selectedDate) => {
       ? selectedDate.toLocaleString()
       : "";
 };
-
+// Functions to search and handle movie selection
 const searchMovies = async () => {
   const response = await fetch(`http://localhost:9000/movies/name?name=${movieQuery.value}`, {
     method: "GET",
   });
   movies.value = await response.json();
+  filteredMovies.value = movies.value;
+};
+
+// Function to filter movies based on query
+const filterMovies = () => {
+  filteredMovies.value = movies.value.filter(movie =>
+      movie.name.toLowerCase().includes(movieQuery.value.toLowerCase())
+  );
+};
+
+// Function to handle movie selection
+const handleMovieSelect = (event) => {
+  const movieId = event.target.value;
+  selectedMovie.value = movies.value.find(movie => movie.id === movieId);
 };
 
 // Watcher to update formattedDate whenever date changes
 watch(date, (newDate) => {
   formatDate(newDate);
 });
+
+// Watcher to filter movies whenever movieQuery changes
+watch(movieQuery, filterMovies);
 
 </script>
 
@@ -63,16 +83,27 @@ watch(date, (newDate) => {
                 <option value="hall-2">Hall 2</option>
               </select>
             </form>
-            <form class="py-3" @submit.prevent="searchMovies">
-              <label class="block uppercase" for="movie">Movie</label>
-              <input
+            <form class="py-3">
+              <label class="block uppercase" for="selected-movie">Movie</label>
+              <select
                   class="border-solid border border-black h-8 w-full"
+                  id="selected-movie"
+                  @focus="searchMovies"
+                  @change="handleMovieSelect"
+              >
+                <option value="" disabled selected>Select a movie</option>
+                <option v-for="movie in filteredMovies" :key="movie.id" :value="movie.id">
+                  {{ movie.name }}
+                </option>
+              </select>
+              <input
+                  class="border-solid border border-grey h-6 w-full mt-1 ml-0"
                   type="text"
-                  id="movie"
                   v-model="movieQuery"
+                  placeholder="Type to filter movies"
+                  @keydown.enter.prevent
               />
             </form>
-            <MovieList v-if="movies.length" :movies="movies" />
             <form class="py-3">
               <label class="block uppercase" for="selected-date"
               >Selected Date and Time</label
@@ -89,17 +120,17 @@ watch(date, (newDate) => {
           </div>
 
           <div class="p-5 my-10">
-            <VueDatePicker v-model="date" inline auto-apply />
+            <VueDatePicker v-model="date" inline auto-apply/>
           </div>
         </div>
       </div>
 
       <div class="w-1/3 text-black">
-        <Accordion />
+        <Accordion/>
       </div>
     </main>
 
-    <RouterView />
+    <RouterView/>
   </div>
 </template>
 
