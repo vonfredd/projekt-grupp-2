@@ -21,6 +21,94 @@ const formattedDuration = computed(() => {
     const minutes = Movie.value.duration % 60;
     return `${hours}h ${minutes}m`;
 });
+
+//Detta kan också vara en lista hämtad från backend t.ex. Vi behöver bara listan av tillgängliga platser från schedule objektet. 
+//Uppdatering av denna lista bör uppdateras i backend också.
+const listOfSeats = ref(null);
+
+
+//Hämtar data från seatcomponent vilket säte(index i listan) som är klickat på.
+const receivedUpdate = (emitted)=>{
+//Här är det bra att göra en post/update mot schedule objektet i backend så att platserna uppdateras, är bra om vi på något sätt får användarens id genom localstorage eller så.
+
+
+    listOfSeats.value[emitted.indexOfSeat] = emitted.isBooked;
+alert(`Användaren har nu bokat stol nr: ${emitted.indexOfSeat}`)
+
+}
+
+//Vilka stolar är tillgängliga visas här
+function onlyAvailable(seats){
+    return seats.filter(isBooked => !isBooked).length;
+}
+
+//Detta är funktionen som sätter vilken lista av stolar som skall visas och som skickas in i Seat component för att visa dom
+function showSeats(seatsOfTheHall){
+    listOfSeats.value = seatsOfTheHall;
+}
+
+//Arrayen är en samling av schedule objekt så som dom kommer från backend
+const arrayOfSchedules = ref([
+    {
+        "schedule": {
+            "cinema": {
+                "name": "Trappan",
+                "movies": [
+                    {
+                        "name": "Sample Movie"
+                    }
+                ],
+                "halls": [
+                    {
+                        "name": "Main Hall",
+                        "seats": [true, true, true, false, true, false, false, true, false, true, false, true, false, false, true, false, true, true, false, true, true, false, true, false, true, false, false, true, false, true]
+                    }
+                ]
+            },
+            "datetime": "2024-08-09 15:50"
+        }
+    },
+    {
+        "schedule": {
+            "cinema": {
+                "name": "Bio Palatset",
+                "movies": [
+                    {
+                        "name": "Sample Movie"
+                    }
+                ],
+                "halls": [
+                    {
+                        "name": "Main Hall",
+                        "seats": [true, false, true, false, true, false, false,false,true,true, false, false,true, false, false, false, false, true, false, true, false, true, false, false, true, false, true, true, false, true, true, false, true, false, true, false, false, true, false, true]
+                    }
+                ]
+            },
+            "datetime": "2024-08-09 18:30"
+        }
+    },
+    {
+        "schedule": { 
+            "cinema": {
+                "name": "Bergakungen",
+                "movies": [
+                    {
+                        "name": "Sample Movie"
+                    }
+                ],
+                "halls": [
+                    {
+                        "name": "Main Hall",
+                        "seats": [true, false, true, false, true, false, false, true, false, true, false, true, false, false, true, false, true, true, false, true, true, false, true, false, true, false, false, true, false, true]
+                    }
+                ]
+            },
+            "datetime": "2024-08-09 21:00"
+        }
+    }
+]);
+
+
 </script>
 
 <template>
@@ -56,7 +144,20 @@ const formattedDuration = computed(() => {
                 <h2 class="text-3xl">Overview</h2>
                 <p class="mt-2">{{ Movie.description }}</p>
              </div>
-            <Seats/>
+<div class="flex">
+             <!-- Här kan man loopa över olika schedules för denna filmen för att få reda på när och var den går och hur många platser som finns kvar-->
+             <div @click="showSeats(item.schedule.cinema.halls[0].seats)" v-for="(item,index) in arrayOfSchedules" :key="index" class="rounded-lg m-auto text-center bg-black">
+                <p>{{ item.schedule.cinema.name }}</p>
+            <!-- För att dela på datum och tid splittar man vid mellanrummet mellan datumdelen och tiden-->
+                <p class="text-xl p-3"> {{ item.schedule.datetime.split(" ")[0] }}</p>
+                <p>KL: {{ item.schedule.datetime.split(" ")[1] }} </p>
+                <p>Seats</p>
+                <p class="text-2xl">{{ onlyAvailable(item.schedule.cinema.halls[0].seats) }} / {{ item.schedule.cinema.halls[0].seats.length }}</p>
+            </div>
+        </div>
+        <!--Denna komponenten tar endast in listan av stolar från det scheduleobjektet (på hemsidan: svart ruta med text,datum och tid ) och låter oss välja stol i den listan-->
+        <!--Värdet returneras sedan hit och manipulerar listan av stolar i objektet-->
+            <Seats v-if="listOfSeats !== null" :listOfSeats="listOfSeats" @seatUpdate="receivedUpdate"/>
         </div>
   </main>
 </template>

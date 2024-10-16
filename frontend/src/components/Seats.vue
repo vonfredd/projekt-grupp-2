@@ -1,44 +1,41 @@
-<-- Behöver antal sittplatser för en viss visning -->
-<-- Behöver veta vilka sittplatser för en viss visning som är bokade -->
+<!-- <-- Behöver antal sittplatser för en viss visning -->
+<!-- Behöver veta vilka sittplatser för en viss visning som är bokade -->
 
+<script setup>
+
+//Listan med sittplatser kan vara en prop som tar in objektet med platser, då man man se vilka som är tagna och vilka som är tillgängliga på den schemaläggningen!
+const props = defineProps(['listOfSeats'])
+//definiera värdena till parent för att uppdatera seats-listan i schedule objektet i backend
+const emit = defineEmits(['seatUpdate']);
+//Funktionen som skickar värdena till parent
+function toggleBooking(indexOfSeat, isBooked){
+  emit('seatUpdate',{indexOfSeat ,isBooked})
+}
+
+</script>
 
 <template>
     <div>
         <div class="flex justify-center items-center bg-darkgrey max-w-md mx-auto rounded-3xl py-7 mt-3 mb-10">
         <div class="seat-grid grid grid-cols-7 gap-3">
       <button
-        v-for="(seat, index) in seats"
+        v-for="(isBooked,index) in props.listOfSeats"
         :key="index"
+        :disabled="isBooked"
         :class="[
           'w-12 h-9 rounded-3xl transition-colors duration-300',
-          seat.booked ? 'bg-secondary' : 'bg-[#F34444]',
-          'hover:bg-opacity-80 focus:outline-none'
+          isBooked ?  'bg-secondary' : 'bg-green-600',
+          ' focus:outline-none'
         ]"
-        @click="toggleBooking(index)"
+        @click="toggleBooking(index,true)"
       >
-        {{ seat.label }}
+        
       </button>
     </div>
 </div>
 </div>
   </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        seats: Array.from({ length: 56 }, (_, i) => ({
-          label: `${i + 1}`,
-          booked: false,
-        })),
-      };
-    },
-    methods: {
-      toggleBooking(index) {
-        this.seats[index].booked = !this.seats[index].booked;
-      },
-    },
-  };
-  </script>
+
+ 
   <style scoped></style>
   
