@@ -1,13 +1,17 @@
+<-- Behöver antal sittplatser för en viss visning -->
+<-- Behöver veta vilka sittplatser för en viss visning som är bokade -->
+
+
 <template>
     <div>
-        <div class="flex justify-center items-center bg-darkgrey max-w-md mx-auto rounded-2xl py-4">
-        <div class="seat-grid grid grid-cols-6 gap-4 max-w-[90%] mx-auto">
+        <div class="flex justify-center items-center bg-darkgrey max-w-md mx-auto rounded-3xl py-7 mt-3 mb-10">
+        <div class="seat-grid grid grid-cols-7 gap-3">
       <button
         v-for="(seat, index) in seats"
         :key="index"
         :class="[
-          'w-13 h-9 rounded-2xl transition-colors duration-300',
-          seat.booked ? 'bg-secondary' : 'bg-primary',
+          'w-12 h-9 rounded-3xl transition-colors duration-300',
+          seat.booked ? 'bg-secondary' : 'bg-[#F34444]',
           'hover:bg-opacity-80 focus:outline-none'
         ]"
         @click="toggleBooking(index)"
@@ -23,21 +27,18 @@
   export default {
     data() {
       return {
-        // Define a 7x6 grid of seats with a booking status
-        seats: Array.from({ length: 42 }, (_, i) => ({
-          label: `Seat ${i + 1}`,
+        seats: Array.from({ length: 56 }, (_, i) => ({
+          label: `${i + 1}`,
           booked: false,
         })),
       };
     },
     methods: {
-      // Toggles the booking status of a seat
       toggleBooking(index) {
         this.seats[index].booked = !this.seats[index].booked;
       },
     },
   };
   </script>
-  
   <style scoped></style>
   

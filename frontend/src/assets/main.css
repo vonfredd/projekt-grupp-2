@@ -12,9 +12,13 @@ h3{
     font-family: "Oswald", sans-serif;
     text-transform: uppercase;
 }
-@media screen and (min-width: 1000px) {
+
+h1 {
+    font-size: 80px;
+}
+@media screen and (min-width: 800px) {
     h1 {
-    font-size: 62px;
+    font-size: 128px;
 }
 
 h2 {
