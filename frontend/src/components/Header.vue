@@ -17,7 +17,7 @@ const closeMenu = () => {
     <nav class="p-3">
       <div class="flex items-center justify-between">
         <RouterLink to="/" class="block"
-          ><h1 class="text-5xl p-1 px-7">CINEMA</h1>
+          ><h1 class="text-5xl p-1 px-7 uppercase">Cinema</h1>
         </RouterLink>
 
         <!-- Hamburger Button -->
@@ -60,16 +60,16 @@ const closeMenu = () => {
         </button>
 
         <!-- Desktop Menu -->
-        <div class="hidden md:flex space-x-6 text-white">
+        <div class="hidden md:flex text-white">
           <RouterLink to="/login">
             <div
-              class="flex items-center justify-center bg-gray-400 bg-opacity-50 rounded-3xl px-2 mx-2"
+              class="flex items-center justify-center bg-secondary bg-opacity-50 px-5 rounded-3xl mx-2"
             >
               <svg
                 fill="#000000"
-                width="25px"
-                height="25px"
-                viewBox="0 0 36 36"
+                width="20px"
+                height="20px"
+                viewBox="0 0 32 32"
                 version="1.1"
                 preserveAspectRatio="xMidYMid meet"
                 xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +89,7 @@ const closeMenu = () => {
                 <rect x="0" y="0" width="36" height="36" fill-opacity="0" />
               </svg>
 
-              <h5 class="block p-4 hover:text-gray-300">Login</h5>
+              <h5 class="block p-4 hover:text-gray-300 uppercase">Login</h5>
             </div>
           </RouterLink>
 
@@ -132,7 +132,7 @@ const closeMenu = () => {
               <rect x="0" y="0" width="36" height="36" fill-opacity="0" />
             </svg>
 
-            <h5 class="block p-4 hover:text-gray-300">Login</h5>
+            <h5 class="block p-4 hover:text-gray-300 uppercase">Login</h5>
           </div>
         </RouterLink>
       </div>
