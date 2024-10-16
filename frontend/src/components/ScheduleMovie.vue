@@ -116,7 +116,7 @@ const handleSubmit = () => {
           <option
             v-for="movie in filteredMovies"
             :key="movie.id"
-            :value="movie.id"
+            :value="movie"
           >
             {{ movie.name }}
           </option>
