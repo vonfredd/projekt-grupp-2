@@ -112,7 +112,7 @@ const handleSubmit = () => {
           required
         >
           <option 
-          v-for="(hall,index) in theatre.showRooms"
+          v-for="(hall,index) in theatre?.showRooms"
           :value=hall 
           :key=index
           >
