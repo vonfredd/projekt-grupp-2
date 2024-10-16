@@ -14,7 +14,7 @@ public class DbInitDummyData {
 
     @Bean
     ApplicationRunner dbInit(MovieRepository movieRepository) {
-        return _ -> {
+        return args -> {
             movieRepository.deleteAll();
             Movie[] movies = new Movie[]{
                     new Movie("238", "The Godfather", "Spanning the years 1945 to 1955, a chronicle of the fictional Italian-American Corleone crime family. When organized crime family patriarch, Vito Corleone barely survives an attempt on his life, his youngest son, Michael steps in to take care of the would-be killers, launching a campaign of bloody revenge.",
