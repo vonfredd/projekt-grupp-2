@@ -76,8 +76,13 @@ const isFormValid = computed(() => {
 
 // Function to handle form submission
 const handleSubmit = () => {
-  // Handle form submission logic here
-  alert(`Form submitted ${JSON.stringify(selectedMovieId.value)}`);
+  const submissionDetails = `
+    Theatre: ${JSON.stringify(theatre.value)}
+    Movie Hall: ${JSON.stringify(movieHall.value)}
+    Movie: ${JSON.stringify(selectedMovieId.value)}
+    Date: ${JSON.stringify(formattedDate.value)}
+  `;
+  alert(`Form submitted:\n${submissionDetails}`);
 };
 </script>
 <template>
@@ -122,7 +127,6 @@ const handleSubmit = () => {
           id="selected-movie"
           v-model="selectedMovieId"
           @focus="searchMovies"
-          @change="handleMovieSelect"
         >
           <option value="" disabled selected>Select a movie</option>
           <option
