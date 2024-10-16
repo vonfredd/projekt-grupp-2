@@ -19,6 +19,9 @@ const movieHall = ref("");
 const selectedMovieId = ref("");
 const selectedDate = ref("");
 
+//Save fetched cinema
+const cinemas = ref("");
+
 // Function to format the selected date
 const formatDate = (selectedDate) => {
   formattedDate.value = selectedDate ? selectedDate.toLocaleString() : "";
@@ -35,6 +38,16 @@ const searchMovies = async () => {
   filteredMovies.value = movies.value;
 };
 
+const getCinemas = async () => {
+  const response = await fetch(
+    `http://localhost:9000/cinemas`,
+    {
+      method: "GET",
+    }
+  );
+  cinemas.value = await response.json();
+};
+
 // Function to filter movies based on query
 const filterMovies = () => {
   filteredMovies.value = movies.value.filter((movie) =>
@@ -42,12 +55,6 @@ const filterMovies = () => {
   );
 };
 
-// Function to handle movie selection
-const handleMovieSelect = (event) => {
-  const movieId = event.target.value;
-  selectedMovieId.value = movieId;
-  selectedMovie.value = movies.value.find((movie) => movie.id === movieId);
-};
 
 // Watcher to update formattedDate whenever date changes
 watch(date, (newDate) => {
@@ -70,7 +77,7 @@ const isFormValid = computed(() => {
 // Function to handle form submission
 const handleSubmit = () => {
   // Handle form submission logic here
-  alert("Form submitted");
+  alert(`Form submitted ${JSON.stringify(selectedMovieId.value)}`);
 };
 </script>
 <template>
@@ -80,14 +87,14 @@ const handleSubmit = () => {
       <form class="py-3">
         <label class="block uppercase" for="theatre">Theatre</label>
         <select
+          @click="getCinemas"
           class="border-solid border border-black h-8 w-full"
           name="theatre"
           id="theatre"
           v-model="theatre"
           required
         >
-          <option value="cinema-1">Cinema 1</option>
-          <option value="cinema-2">Cinema 2</option>
+          <option v-for="(cinema, index) in cinemas" :value=cinema :key=index>{{ cinema.name }}</option>
         </select>
       </form>
       <form class="py-3">
@@ -99,8 +106,13 @@ const handleSubmit = () => {
           v-model="movieHall"
           required
         >
-          <option value="hall-1">Hall 1</option>
-          <option value="hall-2">Hall 2</option>
+          <option 
+          v-for="(hall,index) in theatre.showRooms"
+          :value=hall 
+          :key=index
+          >
+          {{ hall.name }}
+        </option>
         </select>
       </form>
       <form class="py-3">
@@ -116,7 +128,7 @@ const handleSubmit = () => {
           <option
             v-for="movie in filteredMovies"
             :key="movie.id"
-            :value="movie"
+            :value=movie
           >
             {{ movie.name }}
           </option>
