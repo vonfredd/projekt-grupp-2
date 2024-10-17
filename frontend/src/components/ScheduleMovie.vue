@@ -14,7 +14,7 @@ const movieQuery = ref("");
 
 // Form fields
 const theatre = ref("");
-const movieHall = ref("");
+const cinemaHall = ref("");
 const selectedMovie = ref("");
 const selectedDate = ref("");
 
@@ -67,7 +67,7 @@ watch(movieQuery, filterMovies);
 const isFormValid = computed(() => {
   return (
     theatre.value &&
-    movieHall.value &&
+    cinemaHall.value &&
     selectedMovie.value &&
     formattedDate.value
   );
@@ -76,8 +76,8 @@ const isFormValid = computed(() => {
 // Function to handle form submission
 const handleSubmit = () => {
   const submissionDetails = `
-    Theatre: ${JSON.stringify(theatre.value)}
-    Movie Hall: ${JSON.stringify(movieHall.value)}
+    Cinema: ${JSON.stringify(theatre.value)}
+    Cinema Hall: ${JSON.stringify(cinemaHall.value)}
     Movie: ${JSON.stringify(selectedMovie.value)}
     Date: ${JSON.stringify(formattedDate.value)}
   `;
@@ -102,16 +102,16 @@ const handleSubmit = () => {
         </select>
       </form>
       <form class="py-3">
-        <label class="block uppercase" for="movie-hall">Movie Hall</label>
+        <label class="block uppercase" for="movie-hall">Cinema Hall</label>
         <select
           class="border-solid border border-black h-8 w-full"
-          name="movie-hall"
-          id="movie-hall"
-          v-model="movieHall"
+          name="cinema-hall"
+          id="cinema-hall"
+          v-model="cinemaHall"
           required
         >
           <option
-              v-for="(hall, index) in theatre?.showRooms"
+              v-for="(hall, index) in theatre?.cinemaHalls"
               :value="hall"
               :key="index"
           >
