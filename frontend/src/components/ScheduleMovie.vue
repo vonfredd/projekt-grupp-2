@@ -13,7 +13,7 @@ const filteredMovies = ref([]);
 const movieQuery = ref("");
 
 // Form fields
-const theatre = ref("");
+const cinema = ref("");
 const cinemaHall = ref("");
 const selectedMovie = ref("");
 const selectedDate = ref("");
@@ -66,7 +66,7 @@ watch(movieQuery, filterMovies);
 // Computed property to check if all forms are filled
 const isFormValid = computed(() => {
   return (
-    theatre.value &&
+    cinema.value && // should be cinema.value
     cinemaHall.value &&
     selectedMovie.value &&
     formattedDate.value
@@ -76,7 +76,7 @@ const isFormValid = computed(() => {
 // Function to handle form submission
 const handleSubmit = () => {
   const submissionDetails = `
-    Cinema: ${JSON.stringify(theatre.value)}
+    Cinema: ${JSON.stringify(cinema.value)}
     Cinema Hall: ${JSON.stringify(cinemaHall.value)}
     Movie: ${JSON.stringify(selectedMovie.value)}
     Date: ${JSON.stringify(formattedDate.value)}
@@ -89,13 +89,13 @@ const handleSubmit = () => {
   <div class="flex justify-between">
     <div class="text-center p-4 my-8 w-2/4">
       <form class="py-3">
-        <label class="block uppercase" for="theatre">Theatre</label>
+        <label class="block uppercase" for="cinema">Cinema</label>
         <select
           @click="getCinemas"
           class="border-solid border border-black h-8 w-full"
-          name="theatre"
-          id="theatre"
-          v-model="theatre"
+          name="cinema"
+          id="cinema"
+          v-model="cinema"
           required
         >
           <option v-for="(cinema, index) in cinemas" :value="cinema" :key="index">{{ cinema.name }}</option>
@@ -111,7 +111,7 @@ const handleSubmit = () => {
           required
         >
           <option
-              v-for="(hall, index) in theatre?.cinemaHalls"
+              v-for="(hall, index) in cinema?.cinemaHalls"
               :value="hall"
               :key="index"
           >
