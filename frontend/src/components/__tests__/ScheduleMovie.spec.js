@@ -105,4 +105,36 @@ describe('ScheduleMovie Component', () => {
         expect(wrapper.vm.selectedMovie.name).toBe("The Godfather");
         expect(wrapper.vm.formattedDate).toBe('2023-10-10 10:00:00');
     });
+
+    test('should disable schedule-movie button unless all forms are filled', async () => {
+
+        const button = wrapper.find('#schedule-movie-button');
+        // Initially, the button should be disabled
+        expect(button.element.disabled).toBe(true);
+
+        // Select theatre
+        wrapper.vm.theatre = theatreArr.value[0];
+        await wrapper.vm.$nextTick();
+        expect(button.element.disabled).toBe(true);
+
+        // Select movie hall
+        wrapper.vm.movieHall = theatreArr.value[0].showRooms[0];
+        await wrapper.vm.$nextTick();
+        expect(button.element.disabled).toBe(true);
+
+        // Select movie
+        wrapper.vm.selectedMovie = movieArr.value[0];
+        await wrapper.vm.$nextTick();
+        expect(button.element.disabled).toBe(true);
+
+        // Set date
+        const dateInput = wrapper.find('#selected-date');
+        await dateInput.setValue('2023-10-10 10:00:00');
+        await wrapper.vm.$nextTick();
+
+         // Now the button should be enabled
+        expect(button.element.disabled).toBe(false);
+    });
+
+
 });
