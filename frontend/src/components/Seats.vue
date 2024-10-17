@@ -100,7 +100,7 @@ const createBooking = async () => {
   } catch (error) {
     alert("Booking failed. Please try again.");
   } finally {
-    isBooking.value = false; // Reset booking state
+    isBooking.value = false; 
   }
 };
 
@@ -109,8 +109,23 @@ onMounted(fetchBookedSeats);
 
 <template>
   <div>
-    <h2>{{ props.movie.name }}</h2>
-    <div class="flex justify-center items-center bg-darkgrey max-w-md mx-auto rounded-3xl p-7 mt-3 mb-5">
+    <div class="flex flex-col justify-center items-center gap-8 mb-10">
+        <div class="bg-white bg-opacity-60 p-6">
+            <p class="text-black text-2xl uppercase font-semibold pb-6 pl-2">Cinema 1</p>
+            <div class="flex justify-center items-center gap-7">
+                <button class="w-40 h-60 bg-black rounded-3xl uppercase"></button>
+                <button class="w-40 h-60 bg-secondary rounded-3xl uppercase"></button>
+            </div>
+        </div>
+        <div class="bg-white bg-opacity-60 p-6">
+            <p class="text-black text-2xl uppercase font-semibold pb-6 pl-2">Cinema 2</p>
+            <div class="flex justify-center items-center gap-7">
+                <button class="w-40 h-60 bg-black rounded-3xl uppercase"></button>
+                <button class="w-40 h-60 bg-secondary rounded-3xl uppercase"></button>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-center items-center bg-darkgrey max-w-md mx-auto rounded-3xl p-7 mt-3 mb-6">
       <div class="seat-grid grid grid-cols-7 gap-3">
         <button
           v-for="(seat, index) in seats"
