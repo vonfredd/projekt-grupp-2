@@ -136,5 +136,24 @@ describe('ScheduleMovie Component', () => {
         expect(button.element.disabled).toBe(false);
     });
 
+    test('should filter movies based on query', async () => {
+        wrapper.vm.movieQuery = 'godfather';
+        await wrapper.vm.$nextTick();
+        expect(wrapper.vm.filteredMovies.length).toBe(1);
+        expect(wrapper.vm.filteredMovies[0].name).toBe('The Godfather');
+    });
+
+    test('should fetch and populate cinemas', async () => {
+        await wrapper.vm.getCinemas();
+        expect(wrapper.vm.cinemas.length).toBe(2);
+        expect(wrapper.vm.cinemas[0].name).toBe('Theatre 1');
+    });
+
+    test('should format date correctly', async () => {
+        const date = new Date('2023-10-10T10:00:00');
+        wrapper.vm.date = date;
+        await wrapper.vm.$nextTick();
+        expect(wrapper.vm.formattedDate).toBe('2023-10-10 10:00:00');
+    });
 
 });
