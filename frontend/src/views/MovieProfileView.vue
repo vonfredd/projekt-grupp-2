@@ -1,8 +1,9 @@
 <script setup>
 import { ref, computed } from "vue";
 import Seats from "@/components/Seats.vue";
+import ScheduledMovies from "@/components/ScheduledMovies.vue";
 const Movie = ref({
-    name: "Pirates of the Caribbean",
+    name: "Inception",
     description:
         "A mind-bending thriller where dream invasion is possible. Dom Cobb is a skilled thief, the absolute best in the dangerous art of extraction: stealing valuable secrets from deep within the subconscious during the dream state, when the mind is at its most vulnerable.",
     genre: [
@@ -32,11 +33,10 @@ const formattedDuration = computed(() => {
         <div class="p-6 relative">
             <div class="max-w-screen-md px-4 mx-auto">
                 <div class="flex flex-col mt-10 mb-5">
-                    <div class="flex">
-                        <h1 class="mr-2">{{ Movie.name }}</h1>
-                        <div class="relative w-12 h-12 flex items-center justify-center">
-                            <p class="text-lg p-3">{{ Movie.rating }}%</p>
-                            <div class="absolute inset-0 bg-white opacity-30 rounded-full"></div>
+                    <div class="inline-flex">
+                        <h1 class="inline mr-5">{{ Movie.name }}</h1>
+                        <div class="h-12 w-10 flex items-center justify-center">
+                            <p class="text-md py-3 px-2 bg-white bg-opacity-30 rounded-full">{{ Movie.rating }}%</p>
                         </div>
                     </div>
                     <div class="text-xs space-x-1 uppercase mt-2 mb-10">
@@ -52,12 +52,13 @@ const formattedDuration = computed(() => {
                     </div>
                 </div>
             
-                <div class="mb-20 max-w-lg">
+                <div class="mb-10 max-w-lg">
                     <h2 class="text-3xl">Overview</h2>
                     <p class="mt-2">{{ Movie.description }}</p>
                 </div>
              </div>
-             <Seats :movie="Movie" />
+             <ScheduledMovies :movie="Movie"/>
+            <Seats :movie="Movie" />
         </div>
   </main>
 </template>

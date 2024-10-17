@@ -14,14 +14,20 @@ h3{
 }
 
 h1 {
-    font-size: 60px;
+    font-size: 48px;
     line-height: 1.1em;
-
+}
 
 h2 {
     font-size: 48px;
 }
+
+@media screen and (min-width: 800px) {
+    h1 {
+        font-size: 60px;
+    }
 }
+
 
 
 

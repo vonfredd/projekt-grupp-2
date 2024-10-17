@@ -108,44 +108,29 @@ onMounted(fetchBookedSeats);
 </script>
 
 <template>
-  <div>
-    <div class="flex flex-col justify-center items-center gap-8 mb-10">
-        <div class="bg-white bg-opacity-60 p-6">
-            <p class="text-black text-2xl uppercase font-semibold pb-6 pl-2">Cinema 1</p>
-            <div class="flex justify-center items-center gap-7">
-                <button class="w-40 h-60 bg-black rounded-3xl uppercase"></button>
-                <button class="w-40 h-60 bg-secondary rounded-3xl uppercase"></button>
-            </div>
+    <div>
+        
+        <div class="flex justify-center items-center bg-darkgrey max-w-md mx-auto rounded-3xl p-7 mt-3 mb-6">
+        <div class="seat-grid grid grid-cols-7 gap-3">
+            <button
+            v-for="(seat, index) in seats"
+            :key="index"
+            :class="[ 
+                'w-12 h-9 rounded-3xl transition-colors duration-300', 
+                seat.booked ? 'bg-secondary' : seat.chosen ? 'bg-third' : 'bg-white', 
+                'hover:bg-opacity-80 focus:outline-none' 
+            ]"
+            :disabled="seat.booked"
+            @click="toggleChosen(index)"
+            >
+            {{ seat.seat }}
+            </button>
         </div>
-        <div class="bg-white bg-opacity-60 p-6">
-            <p class="text-black text-2xl uppercase font-semibold pb-6 pl-2">Cinema 2</p>
-            <div class="flex justify-center items-center gap-7">
-                <button class="w-40 h-60 bg-black rounded-3xl uppercase"></button>
-                <button class="w-40 h-60 bg-secondary rounded-3xl uppercase"></button>
-            </div>
-        </div>
-    </div>
-    <div class="flex justify-center items-center bg-darkgrey max-w-md mx-auto rounded-3xl p-7 mt-3 mb-6">
-      <div class="seat-grid grid grid-cols-7 gap-3">
-        <button
-          v-for="(seat, index) in seats"
-          :key="index"
-          :class="[ 
-            'w-12 h-9 rounded-3xl transition-colors duration-300', 
-            seat.booked ? 'bg-secondary' : seat.chosen ? 'bg-third' : 'bg-white', 
-            'hover:bg-opacity-80 focus:outline-none' 
-          ]"
-          :disabled="seat.booked"
-          @click="toggleChosen(index)"
-        >
-          {{ seat.seat }}
-        </button>
-      </div>
     </div>
 
     <div class="flex justify-center">
       <button 
-        class="text-center bg-secondary py-3 px-5 rounded-3xl uppercase mb-10"
+        class="text-center text-lg bg-secondary py-4 px-7 rounded-full uppercase mb-10"
         @click="createBooking"  
         :disabled="isBooking" 
       >
