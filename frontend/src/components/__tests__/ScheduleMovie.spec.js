@@ -136,6 +136,28 @@ describe('ScheduleMovie Component', () => {
         expect(button.element.disabled).toBe(false);
     });
 
+    test('should disable schedule-movie button after submission', async () => {
+        // Select cinema
+        wrapper.vm.cinema = cinemaArr.value[0];
+
+        // Select cinema hall
+        wrapper.vm.cinemaHall = cinemaArr.value[0].cinemaHalls[0];
+
+        // Select movie
+        wrapper.vm.selectedMovie = movieArr.value[0];
+
+        // Set date
+        const dateInput = wrapper.find('#selected-date');
+        await dateInput.setValue('2023-10-10 10:00:00');
+
+        // Submit form by clicking the button
+        await wrapper.find('button[type="button"]').trigger('click');
+
+        // Verify button is disabled after submission
+        const button = wrapper.find('#schedule-movie-button');
+        expect(button.element.disabled).toBe(true);
+    });
+
     test('should filter movies based on query', async () => {
         wrapper.vm.movieQuery = 'godfather';
         await wrapper.vm.$nextTick();
