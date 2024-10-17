@@ -1,6 +1,5 @@
 package org.http.backend.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.http.backend.dto.CinemaHallDto;
 import org.http.backend.entity.Cinema;
 import org.http.backend.repository.CinemaRepository;
@@ -34,7 +33,7 @@ public class CinemaService {
         }
     }
 
-    public Cinema create(Cinema cinema){
+    public Cinema create(Cinema cinema) {
         cinema.setMovies(new ArrayList<>());
         cinema.setCinemaHalls(new ArrayList<>());
         return cinemaRepository.save(cinema);

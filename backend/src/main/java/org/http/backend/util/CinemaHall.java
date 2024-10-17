@@ -1,6 +1,5 @@
 package org.http.backend.util;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CinemaHall {
