@@ -28,8 +28,8 @@ const formattedDuration = computed(() => {
     :style="{ backgroundImage: `url(${Movie.imageUrl})` }"
     class="bg-cover bg-center min-h-screen relative z-0"
   >
-    <div class="absolute inset-0 bg-black opacity-50 z-1"></div>
-        <div class="p-6 relative z-2">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+        <div class="p-6 relative">
             <div class="max-w-screen-md px-4 mx-auto">
                 <div class="flex flex-col mt-10 mb-5">
                     <div class="flex">
@@ -57,7 +57,7 @@ const formattedDuration = computed(() => {
                     <p class="mt-2">{{ Movie.description }}</p>
                 </div>
              </div>
-            <Seats/>
+             <Seats :movie="Movie" />
         </div>
   </main>
 </template>

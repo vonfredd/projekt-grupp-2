@@ -63,13 +63,13 @@ const closeMenu = () => {
         <div class="hidden md:flex text-white">
           <RouterLink to="/login">
             <div
-              class="flex items-center justify-center bg-secondary bg-opacity-50 px-5 rounded-3xl mx-2"
+              class="flex items-center justify-center bg-secondary bg-opacity-50 px-5 rounded-full mx-2"
             >
               <svg
                 fill="#000000"
                 width="20px"
                 height="20px"
-                viewBox="0 0 32 32"
+                viewBox="0 0 34 34"
                 version="1.1"
                 preserveAspectRatio="xMidYMid meet"
                 xmlns="http://www.w3.org/2000/svg"
