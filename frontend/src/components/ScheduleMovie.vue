@@ -63,14 +63,12 @@ watch(date, (newDate) => {
 // Watcher to filter movies whenever movieQuery changes
 watch(movieQuery, filterMovies);
 
-// Computed property to check if all forms are filled
-const isFormValid = computed(() => {
-  return (
-    cinema.value && // should be cinema.value
-    cinemaHall.value &&
-    selectedMovie.value &&
-    formattedDate.value
-  );
+//
+const isFormValid = ref(false);
+
+// Watcher to update form validity whenever any form field changes
+watch([cinema, cinemaHall, selectedMovie, formattedDate], () => {
+  isFormValid.value = cinema.value && cinemaHall.value && selectedMovie.value && formattedDate.value;
 });
 
 // Function to handle form submission
@@ -82,6 +80,16 @@ const handleSubmit = () => {
     Date: ${JSON.stringify(formattedDate.value)}
   `;
   alert(`Form submitted:\n${submissionDetails}`);
+
+  // Clear form fields
+  cinema.value = "";
+  cinemaHall.value = "";
+  selectedMovie.value = "";
+  formattedDate.value = "";
+  date.value = new Date();
+
+  // Disable the button by updating the form validity
+  isFormValid.value = false;
 };
 </script>
 <template>

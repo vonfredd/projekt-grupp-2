@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach, vi } from "vitest";
+import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { mount } from '@vue/test-utils';
 import { ref } from 'vue';
 import ScheduleMovie from '../ScheduleMovie.vue';
@@ -76,6 +76,16 @@ describe('ScheduleMovie Component', () => {
         await wrapper.vm.$nextTick();
     });
 
+    afterEach(() => {
+        // Clear form fields and reset component state
+        wrapper.vm.cinema = "";
+        wrapper.vm.cinemaHall = "";
+        wrapper.vm.selectedMovie = "";
+        wrapper.vm.formattedDate = "";
+        wrapper.vm.date = new Date();
+    });
+
+
     test('should load props and mount component', () => {
         expect(wrapper).toBeTruthy();
         expect(wrapper.vm.movies).toBeDefined();
@@ -95,15 +105,18 @@ describe('ScheduleMovie Component', () => {
         // Set date
         const dateInput = wrapper.find('#selected-date');
         await dateInput.setValue('2023-10-10 10:00:00');
+        wrapper.vm.date = new Date('2023-10-10T10:00:00');
+        await wrapper.vm.$nextTick();
 
-        // Submit form by clicking the button
-        await wrapper.find('button[type="button"]').trigger('click');
-
-        // Verify form values after submission
+        // Verify form values before submission
         expect(wrapper.vm.cinema.name).toBe("Cinema 1");
         expect(wrapper.vm.cinemaHall.name).toBe("Hall 1");
         expect(wrapper.vm.selectedMovie.name).toBe("The Godfather");
         expect(wrapper.vm.formattedDate).toBe('2023-10-10 10:00:00');
+
+        // Submit form by clicking the button
+        await wrapper.find('button[type="button"]').trigger('click');
+        await wrapper.vm.$nextTick();
     });
 
     test('should disable schedule-movie button unless all forms are filled', async () => {
@@ -137,26 +150,29 @@ describe('ScheduleMovie Component', () => {
     });
 
     test('should disable schedule-movie button after submission', async () => {
-        // Select cinema
-        wrapper.vm.cinema = cinemaArr.value[0];
+    // Select cinema
+    wrapper.vm.cinema = cinemaArr.value[0];
 
-        // Select cinema hall
-        wrapper.vm.cinemaHall = cinemaArr.value[0].cinemaHalls[0];
+    // Select cinema hall
+    wrapper.vm.cinemaHall = cinemaArr.value[0].cinemaHalls[0];
 
-        // Select movie
-        wrapper.vm.selectedMovie = movieArr.value[0];
+    // Select movie
+    wrapper.vm.selectedMovie = movieArr.value[0];
 
-        // Set date
-        const dateInput = wrapper.find('#selected-date');
-        await dateInput.setValue('2023-10-10 10:00:00');
+    // Set date
+    const dateInput = wrapper.find('#selected-date');
+    await dateInput.setValue('2023-10-10 10:00:00');
+    wrapper.vm.date = new Date('2023-10-10T10:00:00');
+    await wrapper.vm.$nextTick();
 
-        // Submit form by clicking the button
-        await wrapper.find('button[type="button"]').trigger('click');
+    // Submit form by clicking the button
+    await wrapper.find('button[type="button"]').trigger('click');
+    await wrapper.vm.$nextTick();
 
-        // Verify button is disabled after submission
-        const button = wrapper.find('#schedule-movie-button');
-        expect(button.element.disabled).toBe(true);
-    });
+    // Verify button is disabled after submission
+    const button = wrapper.find('#schedule-movie-button');
+    expect(button.element.disabled).toBe(true);
+});
 
     test('should filter movies based on query', async () => {
         wrapper.vm.movieQuery = 'godfather';
