@@ -11,12 +11,11 @@ const formattedDate = ref("");
 const movies = ref([]);
 const filteredMovies = ref([]);
 const movieQuery = ref("");
-const selectedMovie = ref(null);
 
 // Form fields
 const theatre = ref("");
 const movieHall = ref("");
-const selectedMovieId = ref("");
+const selectedMovie = ref("");
 const selectedDate = ref("");
 
 //Save fetched cinema
@@ -69,7 +68,7 @@ const isFormValid = computed(() => {
   return (
     theatre.value &&
     movieHall.value &&
-    selectedMovieId.value &&
+    selectedMovie.value &&
     formattedDate.value
   );
 });
@@ -79,7 +78,7 @@ const handleSubmit = () => {
   const submissionDetails = `
     Theatre: ${JSON.stringify(theatre.value)}
     Movie Hall: ${JSON.stringify(movieHall.value)}
-    Movie: ${JSON.stringify(selectedMovieId.value)}
+    Movie: ${JSON.stringify(selectedMovie.value)}
     Date: ${JSON.stringify(formattedDate.value)}
   `;
   alert(`Form submitted:\n${submissionDetails}`);
@@ -99,7 +98,7 @@ const handleSubmit = () => {
           v-model="theatre"
           required
         >
-          <option v-for="(cinema, index) in cinemas" :value=cinema :key=index>{{ cinema.name }}</option>
+          <option v-for="(cinema, index) in cinemas" :value="cinema" :key="index">{{ cinema.name }}</option>
         </select>
       </form>
       <form class="py-3">
@@ -111,13 +110,13 @@ const handleSubmit = () => {
           v-model="movieHall"
           required
         >
-          <option 
-          v-for="(hall,index) in theatre?.showRooms"
-          :value=hall 
-          :key=index
+          <option
+              v-for="(hall, index) in theatre?.showRooms"
+              :value="hall"
+              :key="index"
           >
           {{ hall.name }}
-        </option>
+          </option>
         </select>
       </form>
       <form class="py-3">
@@ -125,14 +124,14 @@ const handleSubmit = () => {
         <select
           class="border-solid border border-black h-8 w-full"
           id="selected-movie"
-          v-model="selectedMovieId"
+          v-model="selectedMovie"
           @focus="searchMovies"
         >
           <option value="" disabled selected>Select a movie</option>
           <option
             v-for="movie in filteredMovies"
             :key="movie.id"
-            :value=movie
+            :value="movie"
           >
             {{ movie.name }}
           </option>
