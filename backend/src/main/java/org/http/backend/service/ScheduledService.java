@@ -1,5 +1,6 @@
 package org.http.backend.service;
 
+import org.http.backend.dto.ScheduleDto;
 import org.http.backend.entity.Schedule;
 import org.http.backend.repository.ScheduleRepository;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,9 @@ public class ScheduledService {
         return schedule.orElseThrow(()-> new RuntimeException("Schedule not found"));
     }
 
-    public Schedule add(Schedule schedule) {
-        return scheduleRepository.save(schedule);
+    public Schedule add(ScheduleDto scheduleDto) {
+        Schedule schedule = scheduleDto.toEntity();
+        System.out.println("\nSCHEDULE ENTITY\n" +"DATE AND TIME:" + schedule.getDateTime()+"\nNAME OF CINEMA:" + schedule.getCinema().getName() + "\nName of Hall: " + schedule.getCinema().getShowRooms().getFirst() + "\nName of movie: " +  schedule.getCinema().getMovies().getFirst().getName());
+        return scheduleRepository.save(scheduleDto.toEntity());
     }
 }

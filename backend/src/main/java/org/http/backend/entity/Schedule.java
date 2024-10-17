@@ -1,20 +1,23 @@
 package org.http.backend.entity;
 
-import java.util.Date;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
+@Document
 public class Schedule {
 
+    @Id
     private String id;
-    private Date date;
-    private String time;
+    private LocalDateTime dateTime;
+    private Cinema cinema;
 
     public Schedule() {
     }
 
-    public Schedule(String id, Date date, String time, Cinema cinema) {
-        this.id = id;
-        this.date = date;
-        this.time = time;
+    public Schedule(LocalDateTime dateTime, Cinema cinema) {
+        this.dateTime = dateTime;
         this.cinema = cinema;
     }
 
@@ -26,20 +29,12 @@ public class Schedule {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public Cinema getCinema() {
@@ -49,7 +44,4 @@ public class Schedule {
     public void setCinema(Cinema cinema) {
         this.cinema = cinema;
     }
-
-    private Cinema cinema;
-
 }
