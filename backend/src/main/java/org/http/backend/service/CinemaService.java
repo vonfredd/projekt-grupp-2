@@ -1,6 +1,7 @@
 package org.http.backend.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.http.backend.dto.CinemaHallDto;
 import org.http.backend.entity.Cinema;
 import org.http.backend.repository.CinemaRepository;
 import org.http.backend.util.CinemaHall;
@@ -39,7 +40,7 @@ public class CinemaService {
         return cinemaRepository.save(cinema);
     }
 
-    public Cinema addCinemaHall(String cinemaName, CinemaHall cinemaHall) {
+    public Cinema addCinemaHall(String cinemaName, CinemaHallDto cinemaHallDto) {
         Cinema existingCinema = cinemaRepository.findByName(cinemaName);
 
         if (existingCinema == null) {
@@ -48,13 +49,21 @@ public class CinemaService {
 
         boolean hallExists = existingCinema.getCinemaHalls()
                 .stream()
-                .anyMatch(hall -> hall.getName().equals(cinemaHall.getName()));
+                .anyMatch(hall -> hall.getName().equals(cinemaHallDto.name()));
 
         if (hallExists) {
-            throw new RuntimeException("Cinema hall already exists: " + cinemaHall.getName());
+            throw new RuntimeException("Cinema hall already exists: " + cinemaHallDto.name());
         }
+
+        List<Boolean> seats = new ArrayList<>();
+        int numberOfSeats = cinemaHallDto.seats();
+
+        for (int i = 0; i < numberOfSeats; i++) {
+            seats.add(false);
+        }
+
         List<CinemaHall> halls = existingCinema.getCinemaHalls();
-        halls.add(cinemaHall);
+        halls.add(new CinemaHall(cinemaHallDto.name(), seats));
         existingCinema.setCinemaHalls(halls);
 
         return cinemaRepository.save(existingCinema);

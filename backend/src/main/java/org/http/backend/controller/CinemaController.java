@@ -1,5 +1,6 @@
 package org.http.backend.controller;
 
+import org.http.backend.dto.CinemaHallDto;
 import org.http.backend.entity.Cinema;
 import org.http.backend.service.CinemaService;
 import org.http.backend.util.CinemaHall;
@@ -34,8 +35,8 @@ public class CinemaController {
         return ResponseEntity.ok().body(cinemaService.create(cinema));
     }
     @PutMapping("/{cinemaName}/halls")
-    public ResponseEntity<Cinema> addCinemaHalls(@PathVariable String cinemaName, @RequestBody CinemaHall cinemaHall) {
-        Cinema updatedCinema = cinemaService.addCinemaHall(cinemaName, cinemaHall);
+    public ResponseEntity<Cinema> addCinemaHalls(@PathVariable String cinemaName, @RequestBody CinemaHallDto cinemaHallDto) {
+        Cinema updatedCinema = cinemaService.addCinemaHall(cinemaName, cinemaHallDto);
         return ResponseEntity.ok(updatedCinema);
     }
 }

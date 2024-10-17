@@ -23,4 +23,12 @@ public class CinemaHall {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void setSeats(List<Boolean> seats) {
+        this.seats = seats;
+    }
+
+    public List<Boolean> getSeats() {
+        return seats;
+    }
 }
