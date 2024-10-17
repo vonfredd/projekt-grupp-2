@@ -1,5 +1,6 @@
 package org.http.backend.controller;
 
+import org.http.backend.dto.ScheduleDto;
 import org.http.backend.entity.Schedule;
 import org.http.backend.service.ScheduledService;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/schedules")
+@CrossOrigin(origins = "http://localhost:5174")
 public class ScheduleController {
     private final ScheduledService scheduledService;
 
@@ -27,9 +29,7 @@ public class ScheduleController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Schedule> save(@RequestBody Schedule schedule) {
-        return ResponseEntity.ok().body(scheduledService.add(schedule));
+    public ResponseEntity<Schedule> save(@RequestBody ScheduleDto scheduleDto) {
+        return ResponseEntity.ok().body(scheduledService.add(scheduleDto));
     }
-
-
 }
