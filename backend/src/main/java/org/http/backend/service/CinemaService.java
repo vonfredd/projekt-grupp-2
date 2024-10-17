@@ -1,8 +1,9 @@
 package org.http.backend.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.http.backend.dto.CinemaHallDto;
 import org.http.backend.entity.Cinema;
 import org.http.backend.repository.CinemaRepository;
+import org.http.backend.util.CinemaHall;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,11 +15,9 @@ import java.util.Optional;
 public class CinemaService {
 
     private final CinemaRepository cinemaRepository;
-    private final ObjectMapper objectMapper;
 
-    public CinemaService(CinemaRepository cinemaRepository, ObjectMapper objectMapper) {
+    public CinemaService(CinemaRepository cinemaRepository) {
         this.cinemaRepository = cinemaRepository;
-        this.objectMapper = objectMapper;
     }
 
     public List<Cinema> findAll() {
@@ -34,11 +33,38 @@ public class CinemaService {
         }
     }
 
-    public Cinema create(Cinema cinema){
+    public Cinema create(Cinema cinema) {
         cinema.setMovies(new ArrayList<>());
-        cinema.setShowRooms(new ArrayList<>());
+        cinema.setCinemaHalls(new ArrayList<>());
         return cinemaRepository.save(cinema);
     }
 
+    public Cinema addCinemaHall(String cinemaName, CinemaHallDto cinemaHallDto) {
+        Cinema existingCinema = cinemaRepository.findByName(cinemaName);
 
+        if (existingCinema == null) {
+            throw new RuntimeException("Cinema not found: " + cinemaName);
+        }
+
+        boolean hallExists = existingCinema.getCinemaHalls()
+                .stream()
+                .anyMatch(hall -> hall.getName().equals(cinemaHallDto.name()));
+
+        if (hallExists) {
+            throw new RuntimeException("Cinema hall already exists: " + cinemaHallDto.name());
+        }
+
+        List<Boolean> seats = new ArrayList<>();
+        int numberOfSeats = cinemaHallDto.seats();
+
+        for (int i = 0; i < numberOfSeats; i++) {
+            seats.add(false);
+        }
+
+        List<CinemaHall> halls = existingCinema.getCinemaHalls();
+        halls.add(new CinemaHall(cinemaHallDto.name(), seats));
+        existingCinema.setCinemaHalls(halls);
+
+        return cinemaRepository.save(existingCinema);
+    }
 }

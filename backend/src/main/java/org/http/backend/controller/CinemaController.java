@@ -1,7 +1,9 @@
 package org.http.backend.controller;
 
+import org.http.backend.dto.CinemaHallDto;
 import org.http.backend.entity.Cinema;
 import org.http.backend.service.CinemaService;
+import org.http.backend.util.CinemaHall;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,8 +13,6 @@ import java.util.List;
 @RequestMapping("/cinemas")
 @CrossOrigin(origins = "http://localhost:5174")
 public class CinemaController {
-
-
 
     private final CinemaService cinemaService;
 
@@ -33,5 +33,10 @@ public class CinemaController {
     @PostMapping
     public ResponseEntity<Cinema> create(@RequestBody Cinema cinema) {
         return ResponseEntity.ok().body(cinemaService.create(cinema));
+    }
+    @PutMapping("/{cinemaName}/halls")
+    public ResponseEntity<Cinema> addCinemaHalls(@PathVariable String cinemaName, @RequestBody CinemaHallDto cinemaHallDto) {
+        Cinema updatedCinema = cinemaService.addCinemaHall(cinemaName, cinemaHallDto);
+        return ResponseEntity.ok(updatedCinema);
     }
 }
