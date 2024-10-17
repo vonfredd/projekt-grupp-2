@@ -33,7 +33,7 @@ public class CinemaController {
     public ResponseEntity<Cinema> create(@RequestBody Cinema cinema) {
         return ResponseEntity.ok().body(cinemaService.create(cinema));
     }
-    @PostMapping("/{cinemaName}/halls")
+    @PutMapping("/{cinemaName}/halls")
     public ResponseEntity<Cinema> addCinemaHalls(@PathVariable String cinemaName, @RequestBody CinemaHall cinemaHall) {
         Cinema updatedCinema = cinemaService.addCinemaHall(cinemaName, cinemaHall);
         return ResponseEntity.ok(updatedCinema);

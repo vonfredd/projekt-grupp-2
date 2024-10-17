@@ -39,16 +39,24 @@ public class CinemaService {
         return cinemaRepository.save(cinema);
     }
 
-
     public Cinema addCinemaHall(String cinemaName, CinemaHall cinemaHall) {
-        Optional<Cinema> optionalCinema = cinemaRepository.findByName(cinemaName);
+        Cinema existingCinema = cinemaRepository.findByName(cinemaName);
 
-        if (optionalCinema.isPresent()) {
-            Cinema cinema = optionalCinema.get();
-            cinema.getCinemaHalls().add(cinemaHall);
-            return cinemaRepository.save(cinema);
-        } else {
-            throw new RuntimeException("Cinema not found");
+        if (existingCinema == null) {
+            throw new RuntimeException("Cinema not found: " + cinemaName);
         }
+
+        boolean hallExists = existingCinema.getCinemaHalls()
+                .stream()
+                .anyMatch(hall -> hall.getName().equals(cinemaHall.getName()));
+
+        if (hallExists) {
+            throw new RuntimeException("Cinema hall already exists: " + cinemaHall.getName());
+        }
+        List<CinemaHall> halls = existingCinema.getCinemaHalls();
+        halls.add(cinemaHall);
+        existingCinema.setCinemaHalls(halls);
+
+        return cinemaRepository.save(existingCinema);
     }
 }

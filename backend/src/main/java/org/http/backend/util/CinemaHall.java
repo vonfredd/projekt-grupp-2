@@ -1,17 +1,19 @@
 package org.http.backend.util;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class CinemaHall {
 
     private String name;
-    private int capacity;
+    private List<Boolean> seats;
 
     public CinemaHall() {
     }
 
-    public CinemaHall(String name, int capacity) {
+    public CinemaHall(String name, List<Boolean> seats) {
         this.name = name;
-        this.capacity = capacity;
+        this.seats = seats;
     }
 
     public String getName() {
@@ -21,6 +23,4 @@ public class CinemaHall {
     public void setName(String name) {
         this.name = name;
     }
-
-
 }
