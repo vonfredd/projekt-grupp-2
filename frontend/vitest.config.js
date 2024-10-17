@@ -10,7 +10,7 @@ export default mergeConfig(
       exclude: [...configDefaults.exclude, 'e2e/**'],
       root: fileURLToPath(new URL('./', import.meta.url)),
       coverage: {
-        provider: 'c8',
+        provider: 'v8',
         reporter: ['text', 'json', 'html'],
         reportsDirectory: './coverage',
       },
