@@ -36,5 +36,5 @@ npm run test:unit
 ### Run vitest with coverage
 
 ```sh
-npm run test:unit:coverage
+npm run test:coverage
 ```

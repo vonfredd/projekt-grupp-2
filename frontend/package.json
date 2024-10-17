@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test:unit": "vitest",
-    "test:unit:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage"
   },
   "dependencies": {
     "@vuepic/vue-datepicker": "^9.0.3",
