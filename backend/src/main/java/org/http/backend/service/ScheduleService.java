@@ -1,9 +1,12 @@
 package org.http.backend.service;
 
+import org.http.backend.entity.Booking;
+import org.http.backend.entity.CinemaHall;
 import org.http.backend.entity.Schedule;
 import org.http.backend.repository.ScheduleRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,4 +31,5 @@ public class ScheduledService {
     public Schedule add(Schedule schedule) {
         return scheduleRepository.save(schedule);
     }
+
 }
