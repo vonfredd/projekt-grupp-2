@@ -165,6 +165,7 @@ const handleSubmit = () => {
     </div>
   </div>
   <button
+    id="schedule-movie-button"
     type="button"
     class="mt-3 px-4 py-2 self-center bg-primary text-white rounded disabled:bg-greyish hover:bg-secondary"
     :disabled="!isFormValid"
