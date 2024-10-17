@@ -1,2 +1,5 @@
-package org.http.backend.repository;public interface CinemaHallRepository {
+package org.http.backend.repository;
+
+public interface CinemaHallRepository {
+
 }

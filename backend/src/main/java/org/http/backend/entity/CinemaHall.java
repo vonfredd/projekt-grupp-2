@@ -1,21 +1,27 @@
-package org.http.backend.util;
+package org.http.backend.entity;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 
-
-import java.util.List;
-
-
+@Document
 public class CinemaHall {
-
+    @Id
+    private int id;
     private String name;
-    private List<Boolean> seats;
+    private int nrOfSeats;
 
-    public CinemaHall() {
+    public CinemaHall(String name, int nrOfSeats) {
+        this.name = name;
+        this.nrOfSeats = nrOfSeats;
     }
 
-    public CinemaHall(String name, List<Boolean> seats) {
-        this.name = name;
-        this.seats = seats;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -26,11 +32,12 @@ public class CinemaHall {
         this.name = name;
     }
 
-    public List<Boolean> getSeats() {
-        return seats;
+    public int getNrOfSeats() {
+        return nrOfSeats;
     }
 
-    public void setSeats(List<Boolean> seats) {
-        this.seats = seats;
+    public void setNrOfSeats(int nrOfSeats) {
+        this.nrOfSeats = nrOfSeats;
     }
+
 }

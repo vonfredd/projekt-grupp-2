@@ -13,7 +13,6 @@ const schedules = ref([]);
 
 const fetchSchedulesByMovie = async () => {
   try {
-    // Adjust the API URL to match your backend endpoint
     const response = await fetch(`http://localhost:9000/schedules/movie/${props.movie.id}`);
     if (!response.ok) {
       throw new Error("Failed to fetch schedules");

@@ -16,14 +16,13 @@ const cinemaHall = {
 
 const schedule = {
   id: 1,
-  date: "2024-10-15",  
-  time: "10:18:00",  
+  dateTime: "2024-10-15T10:18:00", 
   cinemaHall: cinemaHall, 
   movie: props.movie  
 };
 
 const user = {
-  googleId: "572264752398-aectcl91ind7ipttkh9erpdni9nq1gmb.apps.googleusercontent.com",
+  googleId: "",
   name: "Emmelie",
   email: "ej224sk@student.lnu.se"
 };
@@ -109,7 +108,6 @@ onMounted(fetchBookedSeats);
 
 <template>
     <div>
-        
         <div class="flex justify-center items-center bg-darkgrey max-w-md mx-auto rounded-3xl p-7 mt-3 mb-6">
         <div class="seat-grid grid grid-cols-7 gap-3">
             <button
