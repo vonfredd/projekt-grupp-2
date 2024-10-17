@@ -1,45 +1,41 @@
 package org.http.backend.entity;
 
-import java.util.Date;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
+@Document
 public class Schedule {
+    @Id
+    private int id;
+    private LocalDateTime localDateTime;
+    private Cinema cinema;
+    private CinemaHall cinemaHall;
+    private Movie movie;
 
-    private String id;
-    private Date date;
-    private String time;
 
-    public Schedule() {
-    }
-
-    public Schedule(String id, Date date, String time, Cinema cinema) {
-        this.id = id;
-        this.date = date;
-        this.time = time;
+    public Schedule(LocalDateTime localDateTime, Cinema cinema, CinemaHall cinemaHall, Movie movie) {
+        this.localDateTime = localDateTime;
         this.cinema = cinema;
+        this.cinemaHall = cinemaHall;
+        this.movie = movie;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
     }
 
     public Cinema getCinema() {
@@ -50,6 +46,21 @@ public class Schedule {
         this.cinema = cinema;
     }
 
-    private Cinema cinema;
+    public CinemaHall getCinemaHall() {
+        return cinemaHall;
+    }
+
+    public void setCinemaHall(CinemaHall cinemaHall) {
+        this.cinemaHall = cinemaHall;
+    }
+
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
 
 }

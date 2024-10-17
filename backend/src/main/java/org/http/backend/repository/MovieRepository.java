@@ -8,8 +8,7 @@ import java.util.List;
 
 @Repository
 public interface MovieRepository  extends MongoRepository<Movie, String> {
-    @Override
-    List<Movie> findAll();
+
 
     List<Movie> findByName(String name);
 }

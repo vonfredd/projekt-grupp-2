@@ -28,6 +28,13 @@ const router = createRouter({
       name: "admin",
       component: AdminView,
     },
+    {
+      path: '/login',
+      name: 'Login',
+      beforeEnter() {
+        window.location.href = 'http://localhost:9000/login';
+      }
+    }
   ],
 });
 
