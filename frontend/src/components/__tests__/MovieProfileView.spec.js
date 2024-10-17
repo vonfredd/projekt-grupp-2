@@ -53,7 +53,6 @@ describe("MovieProfileView", () => {
 
   it("renders movie background image with correct URL", () => {
     const mainElement = wrapper.find('main');
-    const expectedUrl = "https://image.tmdb.org/t/p/w500";
     expect(mainElement.attributes('style')).toContain(`background-image: url(https://image.tmdb.org/t/p/w500/8ZTVqvKDQ8emSGUEMjsS4yHAwrp.jpg)`);
   });
 
