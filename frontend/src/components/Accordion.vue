@@ -7,10 +7,13 @@ const selectedCinema = ref(null);
 const seats = ref(0);
 
 // Load the list of cinemas on page load
-onMounted(async () => {
+onMounted(() => {
+  populateCinemas();
+});
+const populateCinemas = async () => {
   const response = await fetch("http://localhost:9000/cinemas");
   cinemas.value = await response.json();
-});
+}
 
 const addMovieHall = async (hallName, numberOfSeats, cinemaName) => {
   try {
@@ -26,6 +29,7 @@ const addMovieHall = async (hallName, numberOfSeats, cinemaName) => {
       throw new Error('HTTP error ' + response.status);
     }
 
+    await populateCinemas()
     const responseJson = await response.json();
     console.log(responseJson);
   } catch (error) {
@@ -88,7 +92,7 @@ const addCinema = async (newCinemaName) => {
     },
     body: JSON.stringify({name: newCinemaName}),
   });
-
+  await populateCinemas()
   const responseJson = await response.json();
   console.log(responseJson);
 }
@@ -111,14 +115,8 @@ function switchAccordionEvent(idOfItem) {
       accordionItem.value = '';
       break;
     case 3:
-      if (!selectedCinema) {
-        alert('Please select a cinema');
-        return
-      } else {
-        addMovieHall(accordionItem.value, seats, selectedCinema)
-        accordionItem.value = '';
-      }
-
+      addMovieHall(accordionItem.value, seats, selectedCinema)
+      accordionItem.value = '';
       break;
   }
 }
