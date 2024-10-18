@@ -16,6 +16,9 @@ public class Schedule {
     private Movie movie;
 
 
+    public Schedule() {
+    }
+
     public Schedule(LocalDateTime localDateTime, Cinema cinema, CinemaHall cinemaHall, Movie movie) {
         this.localDateTime = localDateTime;
         this.cinema = cinema;

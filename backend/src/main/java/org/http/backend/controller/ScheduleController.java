@@ -1,5 +1,6 @@
 package org.http.backend.controller;
 
+import org.http.backend.dto.ScheduleDto;
 import org.http.backend.entity.Schedule;
 import org.http.backend.service.BookingService;
 import org.http.backend.service.ScheduleService;
@@ -33,12 +34,16 @@ public class ScheduleController {
 
     @GetMapping("/{scheduleId}/booked-seats")
     public List<Integer> getBookedSeatsForSchedule(@PathVariable int scheduleId) {
-
         return bookingService.getBookedSeatsByScheduleId(scheduleId);
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Schedule> save(Schedule schedule) {
+    public ResponseEntity<Schedule> save(ScheduleDto scheduleDto) {
+        Schedule schedule = new Schedule();
+        schedule.setLocalDateTime(scheduleDto.localDateTime());
+        schedule.setCinema(scheduleDto.cinema());
+        schedule.setCinemaHall(scheduleDto.cinemaHall());
+        schedule.setMovie(scheduleDto.movie());
         return ResponseEntity.ok().body(scheduleService.add(schedule));
     }
 
