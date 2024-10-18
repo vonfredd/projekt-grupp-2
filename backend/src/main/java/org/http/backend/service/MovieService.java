@@ -59,8 +59,8 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
-    public List<Movie> findByName(String name) {
-        return movieRepository.findByName(name);
+    public List<Movie> findByNameContainsIgnoreCase(String name) {
+        return movieRepository.findByNameContainsIgnoreCase(name);
     }
 
     public void delete(String id) {

@@ -33,3 +33,8 @@ npm run build
 ```sh
 npm run test:unit
 ```
+### Run vitest with coverage
+
+```sh
+npm run test:coverage
+```

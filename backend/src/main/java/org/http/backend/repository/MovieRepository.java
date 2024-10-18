@@ -11,5 +11,6 @@ public interface MovieRepository  extends MongoRepository<Movie, String> {
     @Override
     List<Movie> findAll();
 
-    List<Movie> findByName(String name);
+    List<Movie> findByNameContainsIgnoreCase(String name);
+
 }
