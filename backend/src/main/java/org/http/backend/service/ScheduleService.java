@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ScheduledService {
+public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
 
-    public ScheduledService(ScheduleRepository scheduleRepository) {
+    public ScheduleService(ScheduleRepository scheduleRepository) {
         this.scheduleRepository = scheduleRepository;
     }
 
@@ -20,7 +20,7 @@ public class ScheduledService {
         return scheduleRepository.findAll();
     }
 
-    public Schedule find(String id) {
+    public Schedule find(int id) {
         Optional <Schedule> schedule = scheduleRepository.findById(id);
         return schedule.orElseThrow(()-> new RuntimeException("Schedule not found"));
     }
@@ -28,4 +28,5 @@ public class ScheduledService {
     public Schedule add(Schedule schedule) {
         return scheduleRepository.save(schedule);
     }
+
 }

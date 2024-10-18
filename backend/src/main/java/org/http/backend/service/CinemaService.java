@@ -2,8 +2,8 @@ package org.http.backend.service;
 
 import org.http.backend.dto.CinemaHallDto;
 import org.http.backend.entity.Cinema;
-import org.http.backend.repository.CinemaRepository;
 import org.http.backend.util.CinemaHall;
+import org.http.backend.repository.CinemaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,7 +34,6 @@ public class CinemaService {
     }
 
     public Cinema create(Cinema cinema) {
-        cinema.setMovies(new ArrayList<>());
         cinema.setCinemaHalls(new ArrayList<>());
         return cinemaRepository.save(cinema);
     }
@@ -54,15 +53,10 @@ public class CinemaService {
             throw new RuntimeException("Cinema hall already exists: " + cinemaHallDto.name());
         }
 
-        List<Boolean> seats = new ArrayList<>();
-        int numberOfSeats = cinemaHallDto.seats();
 
-        for (int i = 0; i < numberOfSeats; i++) {
-            seats.add(false);
-        }
 
         List<CinemaHall> halls = existingCinema.getCinemaHalls();
-        halls.add(new CinemaHall(cinemaHallDto.name(), seats));
+        halls.add(new CinemaHall(cinemaHallDto.name(), cinemaHallDto.nrOfSeats()));
         existingCinema.setCinemaHalls(halls);
 
         return cinemaRepository.save(existingCinema);

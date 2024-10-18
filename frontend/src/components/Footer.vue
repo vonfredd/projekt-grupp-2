@@ -2,7 +2,7 @@
 
 <template>
   <footer class="bg-black bottom-0 p-3 text-center">
-    <h2 class="text-xl">&copy; CINEMA</h2>
+    <h2 class="text-xl uppercase">&copy; Cinema</h2>
     <div class="flex justify-center mt-3 gap-3">
       <svg
         width="30px"

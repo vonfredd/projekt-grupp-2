@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
+import Seats from "@/components/Seats.vue";
 
 const props = defineProps({
   movie: {
@@ -20,8 +21,8 @@ const formattedDuration = computed(() => {
 
 <template>
   <main
-    :style="{ backgroundImage: `url(${imageUrl})` }"
-    class="bg-cover bg-center min-h-screen relative"
+      :style="{ backgroundImage: `url(${imageUrl})` }"
+      class="bg-cover bg-center min-h-screen relative"
   >
     <div class="absolute inset-0 bg-black opacity-10 z-1"></div>
     <div class="p-4 relative z-2">
@@ -29,17 +30,17 @@ const formattedDuration = computed(() => {
         <div class="flex mb-2 mx-6 justify-center">
           <h2 class="text-5xl font-bold mr-2">{{ movie.name }}</h2>
           <div class="relative w-7 h-7 flex items-center justify-center">
-            <p class="text-xs font-semibold z-10">{{ movie.rating }}%</p>
+            <p class="text-xs z-10">{{ movie.rating }}%</p>
             <div
-              class="absolute inset-0 bg-white opacity-50 rounded-full"
+                class="absolute inset-0 bg-white opacity-50 rounded-full"
             ></div>
           </div>
         </div>
         <div class="text-xs space-x-1 mx-12">
           <span
-            v-for="(genre, index) in movie.genre"
-            :key="genre.id"
-            class="inline text-xs font-semibold flex-flow-col"
+              v-for="(genre, index) in movie.genre"
+              :key="genre.id"
+              class="inline text-xs font-semibold flex-flow-col"
           >
             {{ genre.name }}<span v-if="index < movie.genre.length - 1">,</span>
           </span>
@@ -52,6 +53,7 @@ const formattedDuration = computed(() => {
         <h2 class="text-3xl">Overview</h2>
         <p class="mt-4">{{ movie.description }}</p>
       </div>
+      <Seats :movie="movie" />
     </div>
   </main>
 </template>

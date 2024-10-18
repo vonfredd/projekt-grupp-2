@@ -10,12 +10,10 @@ public class Cinema {
 
     @Id
     private String name;
-    private List<Movie> movies;
     private List<CinemaHall> cinemaHalls;
 
-    public Cinema(String name, List<Movie> movies, List<CinemaHall> cinemaHalls) {
+    public Cinema(String name, List<CinemaHall> cinemaHalls) {
         this.name = name;
-        this.movies = movies;
         this.cinemaHalls = cinemaHalls;
     }
 
@@ -26,15 +24,6 @@ public class Cinema {
     public void setName(String name) {
         this.name = name;
     }
-
-    public List<Movie> getMovies() {
-        return movies;
-    }
-
-    public void setMovies(List<Movie> movies) {
-        this.movies = movies;
-    }
-
 
     public List<CinemaHall> getCinemaHalls() {
         return cinemaHalls;

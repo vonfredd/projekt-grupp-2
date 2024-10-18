@@ -3,7 +3,6 @@ package org.http.backend.controller;
 import org.http.backend.dto.CinemaHallDto;
 import org.http.backend.entity.Cinema;
 import org.http.backend.service.CinemaService;
-import org.http.backend.util.CinemaHall;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
