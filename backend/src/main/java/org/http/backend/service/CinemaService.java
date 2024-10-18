@@ -61,4 +61,8 @@ public class CinemaService {
 
         return cinemaRepository.save(existingCinema);
     }
+
+    public Cinema findByName(String s) {
+        return cinemaRepository.findByName(s);
+    }
 }

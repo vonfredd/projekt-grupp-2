@@ -63,6 +63,10 @@ public class MovieService {
         return movieRepository.findByNameContainsIgnoreCase(name);
     }
 
+    public Movie findByName(String name) {
+        return movieRepository.findByName(name);
+    }
+
     public void delete(String id) {
         if (!movieRepository.existsById(id)) {
             throw new RuntimeException("No such ID " + id);

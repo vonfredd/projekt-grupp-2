@@ -12,4 +12,5 @@ public interface MovieRepository  extends MongoRepository<Movie, String> {
 
     List<Movie> findByNameContainsIgnoreCase(String name);
 
+    Movie findByName(String name);
 }
