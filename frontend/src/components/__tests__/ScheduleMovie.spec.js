@@ -39,9 +39,9 @@ describe('ScheduleMovie Component', () => {
         }
     ]);
 
-    const theatreArr = ref([
-        { name: "Theatre 1", showRooms: [{ name: "Hall 1" }] },
-        { name: "Theatre 2", showRooms: [{ name: "Hall 2" }, { name: "Hall 3" }] }
+    const cinemaArr = ref([
+        { name: "Cinema 1", cinemaHalls: [{ name: "Hall 1" }] },
+        { name: "Cinema 2", cinemaHalls: [{ name: "Hall 2" }, { name: "Hall 3" }] }
     ]);
 
     // Mock fetch API
@@ -53,7 +53,7 @@ describe('ScheduleMovie Component', () => {
                 });
             } else if (url.includes('cinemas')) {
                 return Promise.resolve({
-                    json: () => Promise.resolve(theatreArr.value)
+                    json: () => Promise.resolve(cinemaArr.value)
                 });
             }
         });
@@ -83,11 +83,11 @@ describe('ScheduleMovie Component', () => {
     });
 
     test('should fill out the form, submit and verify values', async () => {
-        // Select theatre
-        wrapper.vm.theatre = theatreArr.value[0];
+        // Select Cinema
+        wrapper.vm.cinema = cinemaArr.value[0];
 
-        // Select movie hall
-        wrapper.vm.movieHall = theatreArr.value[0].showRooms[0];
+        // Select cinema hall
+        wrapper.vm.cinemaHall = cinemaArr.value[0].cinemaHalls[0];
 
         // Select movie
         wrapper.vm.selectedMovie = movieArr.value[0];
@@ -100,8 +100,8 @@ describe('ScheduleMovie Component', () => {
         await wrapper.find('button[type="button"]').trigger('click');
 
         // Verify form values after submission
-        expect(wrapper.vm.theatre.name).toBe("Theatre 1");
-        expect(wrapper.vm.movieHall.name).toBe("Hall 1");
+        expect(wrapper.vm.cinema.name).toBe("Cinema 1");
+        expect(wrapper.vm.cinemaHall.name).toBe("Hall 1");
         expect(wrapper.vm.selectedMovie.name).toBe("The Godfather");
         expect(wrapper.vm.formattedDate).toBe('2023-10-10 10:00:00');
     });
@@ -112,13 +112,14 @@ describe('ScheduleMovie Component', () => {
         // Initially, the button should be disabled
         expect(button.element.disabled).toBe(true);
 
-        // Select theatre
-        wrapper.vm.theatre = theatreArr.value[0];
+        // Select Cinema
+        wrapper.vm.cinema = cinemaArr.value[0];
         await wrapper.vm.$nextTick();
         expect(button.element.disabled).toBe(true);
 
-        // Select movie hall
-        wrapper.vm.movieHall = theatreArr.value[0].showRooms[0];
+        // Select cinema hall
+        wrapper.vm.cinemaHall = cinemaArr.value[0].cinemaHalls[0];
+        console.log(wrapper.vm.cinemaHalls);
         await wrapper.vm.$nextTick();
         expect(button.element.disabled).toBe(true);
 
@@ -132,7 +133,7 @@ describe('ScheduleMovie Component', () => {
         await dateInput.setValue('2023-10-10 10:00:00');
         await wrapper.vm.$nextTick();
 
-         // Now the button should be enabled
+        // Now the button should be enabled
         expect(button.element.disabled).toBe(false);
     });
 
