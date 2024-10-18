@@ -81,7 +81,7 @@ const handleSubmit = () => {
   `;
   alert(`Form submitted:\n${submissionDetails}`);
 
-  // Clear date form field which aslso disables the submit button
+  // Clear date form field which also disables the submit button
   formattedDate.value = "";
 
 };
