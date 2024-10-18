@@ -30,7 +30,7 @@ const formattedDuration = computed(() => {
         <div class="flex mb-2 mx-6 justify-center">
           <h2 class="text-5xl font-bold mr-2">{{ movie.name }}</h2>
           <div class="relative w-7 h-7 flex items-center justify-center">
-            <p class="text-xs font-semibold z-10">{{ movie.rating }}%</p>
+            <p class="text-xs z-10">{{ movie.rating }}%</p>
             <div
                 class="absolute inset-0 bg-white opacity-50 rounded-full"
             ></div>
@@ -53,7 +53,6 @@ const formattedDuration = computed(() => {
         <h2 class="text-3xl">Overview</h2>
         <p class="mt-4">{{ movie.description }}</p>
       </div>
-      <!-- Pass the movie object properly to Seats component -->
       <Seats :movie="movie" />
     </div>
   </main>

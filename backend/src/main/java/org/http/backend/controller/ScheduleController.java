@@ -27,7 +27,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Schedule> find(@PathVariable(name = "id") int scheduleId) {  // Consistent type
+    public ResponseEntity<Schedule> find(@PathVariable(name = "id") int scheduleId) {
         return ResponseEntity.ok().body(scheduleService.find(scheduleId));
     }
 

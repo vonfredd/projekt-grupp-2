@@ -1,5 +1,6 @@
 package org.http.backend.entity;
 
+import org.http.backend.util.CinemaHall;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

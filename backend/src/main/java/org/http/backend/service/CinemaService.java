@@ -2,8 +2,8 @@ package org.http.backend.service;
 
 import org.http.backend.dto.CinemaHallDto;
 import org.http.backend.entity.Cinema;
-import org.http.backend.repository.CinemaRepository;
 import org.http.backend.util.CinemaHall;
+import org.http.backend.repository.CinemaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class CinemaService {
 
 
         List<CinemaHall> halls = existingCinema.getCinemaHalls();
-        halls.add(new CinemaHall(cinemaHallDto.name(), cinemaHallDto.seats()));
+        halls.add(new CinemaHall(cinemaHallDto.name(), cinemaHallDto.nrOfSeats()));
         existingCinema.setCinemaHalls(halls);
 
         return cinemaRepository.save(existingCinema);
