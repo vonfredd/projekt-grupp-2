@@ -16,6 +16,9 @@ const Movie = ref({
 
 });
 
+const movie = ref(props.movie);
+const imageUrl = `https://image.tmdb.org/t/p/w500${props.movie.imageUrl}`;
+
 const formattedDuration = computed(() => {
     const hours = Math.floor(Movie.value.duration / 60);
     const minutes = Movie.value.duration % 60;
@@ -50,7 +53,7 @@ const formattedDuration = computed(() => {
                         <span>{{ formattedDuration }}</span>
                     </div>
                 </div>
-            
+
                 <div class="mb-10 max-w-lg">
                     <h2 class="text-3xl">Overview</h2>
                     <p class="mt-2">{{ Movie.description }}</p>
