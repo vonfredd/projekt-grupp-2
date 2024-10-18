@@ -104,7 +104,7 @@ const handleSubmit = () => {
         </select>
       </form>
       <form class="py-3">
-        <label class="block uppercase" for="movie-hall">Cinema Hall</label>
+        <label class="block uppercase" for="cinema-hall">Cinema Hall</label>
         <select
           class="border-solid border border-black h-8 w-full"
           name="cinema-hall"

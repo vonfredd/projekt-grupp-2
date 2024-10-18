@@ -145,7 +145,7 @@ describe('ScheduleMovie Component', () => {
         await dateInput.setValue('2023-10-10 10:00:00');
         await wrapper.vm.$nextTick();
 
-         // Now the button should be enabled
+        // Now the button should be enabled
         expect(button.element.disabled).toBe(false);
     });
 
