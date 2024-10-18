@@ -1,11 +1,14 @@
 package org.http.backend.entity;
 
+import org.http.backend.util.CinemaHall;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.util.List;
 
 @Document
 public class Cinema {
+
+    @Id
     private String name;
     private List<CinemaHall> cinemaHalls;
 
@@ -26,7 +29,7 @@ public class Cinema {
         return cinemaHalls;
     }
 
-    public void setShowRooms(List<CinemaHall> cinemaHalls) {
+    public void setCinemaHalls(List<CinemaHall> cinemaHalls) {
         this.cinemaHalls = cinemaHalls;
     }
 }
