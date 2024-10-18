@@ -81,15 +81,9 @@ const handleSubmit = () => {
   `;
   alert(`Form submitted:\n${submissionDetails}`);
 
-  // Clear form fields
-  cinema.value = "";
-  cinemaHall.value = "";
-  selectedMovie.value = "";
+  // Clear date form field which aslso disables the submit button
   formattedDate.value = "";
-  date.value = new Date();
 
-  // Disable the button by updating the form validity
-  isFormValid.value = false;
 };
 </script>
 <template>
