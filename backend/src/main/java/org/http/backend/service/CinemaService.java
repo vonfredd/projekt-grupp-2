@@ -16,7 +16,7 @@ public class CinemaService {
 
     private final CinemaRepository cinemaRepository;
 
-    public CinemaService(CinemaRepository cinemaRepository, ObjectMapper objectMapper) {
+    public CinemaService(CinemaRepository cinemaRepository) {
         this.cinemaRepository = cinemaRepository;
     }
 
@@ -53,15 +53,10 @@ public class CinemaService {
             throw new RuntimeException("Cinema hall already exists: " + cinemaHallDto.name());
         }
 
-        List<Boolean> seats = new ArrayList<>();
-        int numberOfSeats = cinemaHallDto.seats();
 
-        for (int i = 0; i < numberOfSeats; i++) {
-            seats.add(false);
-        }
 
         List<CinemaHall> halls = existingCinema.getCinemaHalls();
-        halls.add(new CinemaHall(cinemaHallDto.name(), seats));
+        halls.add(new CinemaHall(cinemaHallDto.name(), cinemaHallDto.seats()));
         existingCinema.setCinemaHalls(halls);
 
         return cinemaRepository.save(existingCinema);
