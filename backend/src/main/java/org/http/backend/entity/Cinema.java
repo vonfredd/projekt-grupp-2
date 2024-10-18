@@ -1,8 +1,8 @@
 package org.http.backend.entity;
 
-import org.http.backend.util.ShowRoom;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Document
@@ -10,12 +10,13 @@ public class Cinema {
 
     private String name;
     private List<Movie> movies;
-    private List<ShowRoom> showRooms;
+    private List<CinemaHall> cinemaHalls;
 
-    public Cinema(String name, List<Movie> movies, List<ShowRoom> showRooms) {
+
+    public Cinema(String name, List<Movie> movies, List<CinemaHall> cinemaHalls) {
         this.name = name;
         this.movies = movies;
-        this.showRooms = showRooms;
+        this.cinemaHalls = cinemaHalls;
     }
 
     public String getName() {
@@ -34,11 +35,11 @@ public class Cinema {
         this.movies = movies;
     }
 
-    public List<ShowRoom> getShowRooms() {
-        return showRooms;
+    public List<CinemaHall> getCinemaHalls() {
+        return cinemaHalls;
     }
 
-    public void setShowRooms(List<ShowRoom> showRooms) {
-        this.showRooms = showRooms;
+    public void setCinemaHalls(List<CinemaHall> cinemaHalls) {
+        this.cinemaHalls = cinemaHalls;
     }
 }

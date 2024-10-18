@@ -36,7 +36,7 @@ public class CinemaService {
 
     public Cinema create(Cinema cinema){
         cinema.setMovies(new ArrayList<>());
-        cinema.setShowRooms(new ArrayList<>());
+        cinema.setCinemaHalls(new ArrayList<>());
         return cinemaRepository.save(cinema);
     }
 

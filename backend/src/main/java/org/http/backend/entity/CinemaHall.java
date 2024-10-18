@@ -1,5 +1,4 @@
-package org.http.backend.util;
-
+package org.http.backend.entity;
 
 
 import java.util.List;

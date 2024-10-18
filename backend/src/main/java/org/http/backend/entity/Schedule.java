@@ -7,7 +7,8 @@ public class Schedule {
     private String id;
     private Date date;
     private String time;
-
+    private Cinema cinema;
+    
     public Schedule() {
     }
 
@@ -50,6 +51,6 @@ public class Schedule {
         this.cinema = cinema;
     }
 
-    private Cinema cinema;
+   
 
 }
