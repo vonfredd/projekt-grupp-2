@@ -27,13 +27,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> {
                     auth.requestMatchers(("/admin")).hasRole("ADMIN");
-                    auth.requestMatchers("/bookings").authenticated();
+                    //auth.requestMatchers("/bookings").authenticated();
                     auth.requestMatchers("/movies","/users", "/bookings", "/schedules/**").permitAll();
                     auth.anyRequest().denyAll();
                 })
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(customOAuth2SuccessHandler)
-                        .defaultSuccessUrl("http://localhost:5173/", true))
+                        .defaultSuccessUrl("http://localhost:5174/", true))
                 .formLogin(form -> form
                         .successHandler(customFormLoginSuccessHandler));
         return http.build();

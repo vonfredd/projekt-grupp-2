@@ -9,22 +9,7 @@ const props = defineProps({
   }
 });
 
-const schedules = ref([]);
 
-const fetchSchedulesByMovie = async () => {
-  try {
-    const response = await fetch(`http://localhost:9000/schedules/movie/${props.movie.id}`);
-    if (!response.ok) {
-      throw new Error("Failed to fetch schedules");
-    }
-    const data = await response.json();
-    schedules.value = data;  // Store the schedules in the reactive variable
-  } catch (error) {
-    console.error("Error fetching schedules:", error);
-  }
-};
-
-onMounted(fetchSchedulesByMovie);
 
 </script>
 

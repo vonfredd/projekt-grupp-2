@@ -1,7 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
 import Seats from "@/components/Seats.vue";
-import ScheduledMovies from "@/components/ScheduledMovies.vue";
 const Movie = ref({
     name: "Inception",
     description:
@@ -14,7 +13,7 @@ const Movie = ref({
     duration: 148,
     releaseDate: "2010-07-16",
     imageUrl: "https://image.tmdb.org/t/p/w500/8ZTVqvKDQ8emSGUEMjsS4yHAwrp.jpg",
-    rating: 75,
+
 });
 
 const formattedDuration = computed(() => {
@@ -57,7 +56,6 @@ const formattedDuration = computed(() => {
                     <p class="mt-2">{{ Movie.description }}</p>
                 </div>
              </div>
-             <ScheduledMovies :movie="Movie"/>
             <Seats :movie="Movie" />
         </div>
   </main>

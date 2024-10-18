@@ -8,14 +8,14 @@ public class Booking {
 
     @Id
     private String id;
-    private User user;
+    private String userId;
     private Schedule schedule;
     private List<Integer> bookedSeats;
 
 
-    public Booking(String id, User user, Schedule schedule, List<Integer> bookedSeats) {
+    public Booking(String id, String userId, Schedule schedule, List<Integer> bookedSeats) {
         this.id = id;
-        this.user = user;
+        this.userId = userId;
         this.schedule = schedule;
         this.bookedSeats = bookedSeats;
     }
@@ -28,13 +28,6 @@ public class Booking {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public Schedule getSchedule() {
         return schedule;
@@ -50,5 +43,13 @@ public class Booking {
 
     public void setBookedSeats(List<Integer> bookedSeats) {
         this.bookedSeats = bookedSeats;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
