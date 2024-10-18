@@ -12,6 +12,9 @@ public class Cinema {
     private String name;
     private List<CinemaHall> cinemaHalls;
 
+    public Cinema() {
+    }
+
     public Cinema(String name, List<CinemaHall> cinemaHalls) {
         this.name = name;
         this.cinemaHalls = cinemaHalls;

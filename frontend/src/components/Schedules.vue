@@ -1,5 +1,4 @@
 <script setup>
-import { ref, onMounted } from "vue";
 import { defineProps } from 'vue';
 
 const props = defineProps({
