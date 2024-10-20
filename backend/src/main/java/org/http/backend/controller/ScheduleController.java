@@ -27,20 +27,24 @@ public class ScheduleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Schedule> find(@PathVariable(name = "id") int scheduleId) {
+    public ResponseEntity<Schedule> find(@PathVariable(name = "id") String scheduleId) {
         return ResponseEntity.ok().body(scheduleService.find(scheduleId));
     }
 
     @GetMapping("/{scheduleId}/booked-seats")
-    public List<Integer> getBookedSeatsForSchedule(@PathVariable int scheduleId) {
+    public List<Integer> getBookedSeatsForSchedule(@PathVariable String scheduleId) {
 
         return bookingService.getBookedSeatsByScheduleId(scheduleId);
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Schedule> save(Schedule schedule) {
-        return ResponseEntity.ok().body(scheduleService.add(schedule));
-    }
+    public ResponseEntity<Schedule> save(@RequestBody Schedule schedule)  {
+        try {
+            return ResponseEntity.ok().body(scheduleService.add(schedule));
+        } catch (Exception e) {
+            return null;
+        }
 
+    }
 
 }

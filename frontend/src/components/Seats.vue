@@ -15,8 +15,8 @@ const cinemaHall = {
 };
 
 const schedule = {
-  id: 1,
-  dateTime: "2024-10-15T10:18:00", 
+  id: "67156dab33fe431712f1cbf3",
+  localDateTime: "2024-10-15T10:18:00",
   cinemaHall: cinemaHall, 
   movie: props.movie  
 };
@@ -44,7 +44,7 @@ const fetchBookedSeats = async () => {
     }
     const bookedSeats = await response.json();
     bookedSeats.forEach(seat => {
-      seats.value[seat - 1].booked = true; 
+      seats.value[seat - 1].booked = true;
     });
   } catch (error) {
     console.error("Error fetching booked seats:", error);
@@ -68,7 +68,7 @@ const createBooking = async () => {
   }
 
   const booking = {
-    user: user,
+    userId: user.googleId,
     schedule: schedule,
     bookedSeats: chosenSeats
   };

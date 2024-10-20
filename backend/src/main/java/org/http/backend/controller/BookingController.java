@@ -28,7 +28,12 @@ public class BookingController {
 
     @PostMapping
     public ResponseEntity<Booking> save(@RequestBody Booking booking) {
-        return ResponseEntity.ok().body(bookingService.save(booking));
+        try {
+            return ResponseEntity.ok().body(bookingService.save(booking));
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 
 }

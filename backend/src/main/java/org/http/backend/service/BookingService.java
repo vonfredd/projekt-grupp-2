@@ -28,7 +28,7 @@ public class BookingService {
         return booking.orElseThrow(() -> new RuntimeException("No such ID " + id));
     }
 
-    public List<Integer> getBookedSeatsByScheduleId(int scheduleId) {
+    public List<Integer> getBookedSeatsByScheduleId(String scheduleId) {
         List<Booking> bookingsForSchedule = bookingRepository.findByScheduleId(scheduleId);
         List<Integer> bookedSeats = new ArrayList<>();
         for (Booking booking : bookingsForSchedule) {

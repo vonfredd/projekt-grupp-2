@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ScheduleRepository extends MongoRepository<Schedule, Integer> {
 
+    Schedule findById(String id);
 }

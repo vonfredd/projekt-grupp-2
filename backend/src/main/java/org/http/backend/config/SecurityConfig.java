@@ -28,7 +28,7 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> {
                     auth.requestMatchers(("/admin")).hasRole("ADMIN");
                     //auth.requestMatchers("/bookings").authenticated();
-                    auth.requestMatchers("/movies/**", "/movies","/users", "/bookings", "/schedules/**", "/cinemas","/cinemas/**").permitAll();
+                    auth.requestMatchers("/movies/**", "/movies","/users", "/bookings", "/schedules/**", "/schedules", "/cinemas","/cinemas/**").permitAll();
                     auth.anyRequest().denyAll();
                 })
                 .oauth2Login(oauth2 -> oauth2
