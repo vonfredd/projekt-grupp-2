@@ -3,9 +3,11 @@ package org.http.backend.controller;
 import org.http.backend.entity.Schedule;
 import org.http.backend.service.BookingService;
 import org.http.backend.service.ScheduleService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:5174")
@@ -35,6 +37,18 @@ public class ScheduleController {
     public List<Integer> getBookedSeatsForSchedule(@PathVariable String scheduleId) {
 
         return bookingService.getBookedSeatsByScheduleId(scheduleId);
+    }
+
+    @GetMapping("/movie/{movieId}")
+    public ResponseEntity<List<Schedule>> findByMovieId(@PathVariable("movieId") String movieId) {
+        try {
+            List<Schedule> schedules = scheduleService.findByMovieId(movieId);
+            // Return an empty list if no schedules are found
+            return ResponseEntity.ok(schedules != null ? schedules : new ArrayList<>());
+        } catch (Exception e) {
+            // Log the error and return a proper error response
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @PostMapping("/new")

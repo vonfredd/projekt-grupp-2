@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted, ref } from "vue";
 
 const props = defineProps({
   movie: {
@@ -7,6 +8,41 @@ const props = defineProps({
   }
 });
 
+// Create a reactive variable to store the schedules
+const schedules = ref([]);
+
+const fetchSchedules = async () => {
+  if (!props.movie || !props.movie.id) {
+    console.error("Movie is not defined or movie ID is missing");
+    return;
+  }
+
+  try {
+    // Make the fetch call and expect JSON response
+    const response = await fetch(`http://localhost:9000/schedules/movie/${props.movie.id}`);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch schedules for movie with id ${props.movie.id}: ${response.statusText}`);
+    }
+
+    // Use response.json() directly to handle the parsing
+    schedules.value = await response.json();
+
+    // Log schedules to check if data was fetched successfully
+    console.log("Fetched schedules:", schedules.value);
+
+  } catch (error) {
+    console.error(`Error fetching schedules for movie with id ${props.movie?.id || "unknown"}`, error);
+  }
+};
+
+onMounted(() => {
+  if (props.movie && props.movie.id) {
+    fetchSchedules();
+  } else {
+    console.error("Movie object is not defined or missing ID");
+  }
+});
 </script>
 
 
