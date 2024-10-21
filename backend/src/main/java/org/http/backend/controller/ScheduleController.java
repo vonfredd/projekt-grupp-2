@@ -1,35 +1,50 @@
 package org.http.backend.controller;
 
 import org.http.backend.entity.Schedule;
-import org.http.backend.service.ScheduledService;
+import org.http.backend.service.BookingService;
+import org.http.backend.service.ScheduleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5174")
 @RestController
 @RequestMapping("/schedules")
 public class ScheduleController {
-    private final ScheduledService scheduledService;
+    private final ScheduleService scheduleService;
 
-    public ScheduleController(ScheduledService scheduledService) {
-        this.scheduledService = scheduledService;
+    private final BookingService bookingService;
+
+    public ScheduleController(ScheduleService scheduleService, BookingService bookingService) {
+        this.scheduleService = scheduleService;
+        this.bookingService = bookingService;
     }
 
     @GetMapping
     public ResponseEntity<List<Schedule>> all() {
-        return ResponseEntity.ok().body(scheduledService.findAll());
+        return ResponseEntity.ok().body(scheduleService.findAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Schedule> find(@PathVariable(name = "id") String scheduleId) {
-        return ResponseEntity.ok().body(scheduledService.find(scheduleId));
+        return ResponseEntity.ok().body(scheduleService.find(scheduleId));
+    }
+
+    @GetMapping("/{scheduleId}/booked-seats")
+    public List<Integer> getBookedSeatsForSchedule(@PathVariable String scheduleId) {
+
+        return bookingService.getBookedSeatsByScheduleId(scheduleId);
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Schedule> save(@RequestBody Schedule schedule) {
-        return ResponseEntity.ok().body(scheduledService.add(schedule));
-    }
+    public ResponseEntity<Schedule> save(@RequestBody Schedule schedule)  {
+        try {
+            return ResponseEntity.ok().body(scheduleService.add(schedule));
+        } catch (Exception e) {
+            return null;
+        }
 
+    }
 
 }

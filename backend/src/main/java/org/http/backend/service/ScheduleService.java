@@ -5,14 +5,13 @@ import org.http.backend.repository.ScheduleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class ScheduledService {
+public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
 
-    public ScheduledService(ScheduleRepository scheduleRepository) {
+    public ScheduleService(ScheduleRepository scheduleRepository) {
         this.scheduleRepository = scheduleRepository;
     }
 
@@ -21,11 +20,11 @@ public class ScheduledService {
     }
 
     public Schedule find(String id) {
-        Optional <Schedule> schedule = scheduleRepository.findById(id);
-        return schedule.orElseThrow(()-> new RuntimeException("Schedule not found"));
+        return scheduleRepository.findById(id);
     }
 
     public Schedule add(Schedule schedule) {
         return scheduleRepository.save(schedule);
     }
+
 }

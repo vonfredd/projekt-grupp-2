@@ -4,7 +4,7 @@ import {onMounted, ref} from 'vue';
 const activeAccordion = ref(null);
 const cinemas = ref([]);
 const selectedCinema = ref(null);
-const seats = ref(0);
+const nrOfSeats = ref(null);
 
 // Load the list of cinemas on page load
 onMounted(() => {
@@ -17,12 +17,12 @@ const populateCinemas = async () => {
 
 const addMovieHall = async (hallName, numberOfSeats, cinemaName) => {
   try {
-    const response = await fetch(`http://localhost:9000/cinemas/${cinemaName.value}/halls`, {
+    const response = await fetch(`http://localhost:9000/cinemas/${cinemaName}/halls`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({name: hallName, seats: numberOfSeats.value}),
+      body: JSON.stringify({ name: hallName, nrOfSeats: Number(numberOfSeats) }),
     });
 
     if (!response.ok) {
@@ -115,7 +115,7 @@ function switchAccordionEvent(idOfItem) {
       accordionItem.value = '';
       break;
     case 3:
-      addMovieHall(accordionItem.value, seats, selectedCinema)
+      addMovieHall(accordionItem.value, nrOfSeats.value, selectedCinema.value)
       accordionItem.value = '';
       break;
   }
@@ -154,8 +154,8 @@ function switchAccordionEvent(idOfItem) {
                 {{ cinema.name }}
               </option>
             </select>
-            <input v-model="seats" class="border-solid border border-black mb-2"
-                   type="number" min="1" placeholder="Enter number of seats"/>
+            <input v-model="nrOfSeats" class="border-solid border border-black mb-2"
+                   type="text" min="1" placeholder="Enter number of seats"/>
           </div>
 
           <input v-model="item.value" class="border-solid border border-black h-8 px-1" :id="item.inputId"

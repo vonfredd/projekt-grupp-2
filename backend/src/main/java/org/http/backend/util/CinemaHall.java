@@ -1,19 +1,17 @@
 package org.http.backend.util;
 
-import java.util.List;
+
+
 
 public class CinemaHall {
-
     private String name;
-    private List<Boolean> seats;
+    private int nrOfSeats;
 
-    public CinemaHall() {
-    }
-
-    public CinemaHall(String name, List<Boolean> seats) {
+    public CinemaHall(String name, int nrOfSeats) {
         this.name = name;
-        this.seats = seats;
+        this.nrOfSeats = nrOfSeats;
     }
+
 
     public String getName() {
         return name;
@@ -23,11 +21,12 @@ public class CinemaHall {
         this.name = name;
     }
 
-    public void setSeats(List<Boolean> seats) {
-        this.seats = seats;
+    public int getNrOfSeats() {
+        return nrOfSeats;
     }
 
-    public List<Boolean> getSeats() {
-        return seats;
+    public void setNrOfSeats(int nrOfSeats) {
+        this.nrOfSeats = nrOfSeats;
     }
+
 }

@@ -1,19 +1,21 @@
 package org.http.backend.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.http.backend.dto.GenreDto;
 import org.http.backend.dto.MovieDto;
 import org.http.backend.entity.Movie;
 import org.http.backend.repository.MovieRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 @Service
 public class MovieService {
 
+    private static final Logger logger = LoggerFactory.getLogger(MovieService.class);
     private final ObjectMapper objectMapper;
     private final MovieRepository movieRepository;
 
@@ -23,30 +25,17 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
-    public Movie save(String stringMovie) {
-        MovieDto movieDto;
-
+    public Movie save(String stringMovie) throws JsonProcessingException {
         try {
-            movieDto = objectMapper.readValue(stringMovie, MovieDto.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to parse movie data", e);
+            MovieDto movieDto = objectMapper.readValue(stringMovie, MovieDto.class);
+            return movieRepository.save(movieDto.toEntity());
+        }catch (JsonProcessingException e){
+            logger.error("Something went wrong when processing json data" + e.getMessage());
+            throw e;
+        }catch (IllegalArgumentException e){
+            logger.error("Something went wrong saving to database" + e.getMessage());
+            throw e;
         }
-        Movie movie = new Movie();
-        movie.setId(movieDto.id());
-        movie.setName(movieDto.title());
-        movie.setDescription(movieDto.overview());
-
-        List<String> genreNames = (movieDto.genres() != null ?
-                movieDto.genres().stream().map(GenreDto::name).toList() :
-                List.of());
-
-        movie.setGenres(genreNames);
-        movie.setDuration(String.valueOf(movieDto.runtime()));
-        movie.setReleaseDate(movieDto.releaseDate());
-        movie.setImageUrl(movieDto.posterPath());
-
-        return movieRepository.save(movie);
     }
 
 

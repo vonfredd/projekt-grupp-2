@@ -1,8 +1,9 @@
 package org.http.backend.controller;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import org.http.backend.entity.Movie;
 import org.http.backend.service.MovieService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,8 +34,12 @@ public class MovieController {
     }
 
     @PostMapping
-    public ResponseEntity<Movie> save(@RequestBody String jsonString) {
-        return ResponseEntity.status(201).body(movieService.save(jsonString));
+    public ResponseEntity<Movie> save(@RequestBody String jsonString) throws JsonProcessingException {
+        try{
+            return ResponseEntity.status(201).body(movieService.save(jsonString));
+        }catch (JsonMappingException | IllegalArgumentException e){
+            return ResponseEntity.status(400).body(movieService.save(jsonString));
+        }
     }
 
     @DeleteMapping("{id}")
