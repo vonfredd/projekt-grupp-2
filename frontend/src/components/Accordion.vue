@@ -57,7 +57,7 @@ const accordionItems = ref([
 const addMovieToDb = async (idToFetch) => {
   console.log('Add movie to db');
   const url = "https://api.themoviedb.org/3/movie/" + idToFetch;
-  const ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0OTJjZTUzOWY1YmFhMDdiMjcxZmRhYzg5OGQ3Y2I3MCIsIm5iZiI6MTcyODc1NDI4OC40OTIwMDksInN1YiI6IjY3MDgzMTkzZDA2MTZjN2IxOWZiOTZjZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.pOo7q5ZE-XrArgA-nTmbX2SqGLTWtP_qFJs6u8c7rgo";
+  const ACCESS_TOKEN = "";
 
   const req = await fetch(url, {headers: {'Authorization': `Bearer ${ACCESS_TOKEN}`}});
   const data = await req.json();

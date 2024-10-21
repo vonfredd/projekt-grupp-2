@@ -1,6 +1,4 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { defineProps } from 'vue';
 
 const props = defineProps({
   movie: {
@@ -8,8 +6,6 @@ const props = defineProps({
     required: true
   }
 });
-
-
 
 </script>
 

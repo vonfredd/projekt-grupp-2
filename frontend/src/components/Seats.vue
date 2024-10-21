@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { defineProps } from 'vue';
 
 const props = defineProps({
   movie: {
@@ -22,7 +21,7 @@ const schedule = {
 };
 
 const user = {
-  googleId: "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIcyODc1NDI4OC40OTIwMDksInN1YiI6IjY3MDgzMTkzZDA2MTZjN2IxOWZiOTZjZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.pOo7q5ZE-XrArgA-nTmbX2SqGLTWtP_qFJs6u8c7rgo",
+  googleId: "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOJ2ZXJzaW9uIjoxfQ.pOo7q5ZE-XrArgA-nTmbX2SqGLTWtP_qFJs6u8c7rgo",
   name: "Emmelie",
   email: "ej224sk@student.lnu.se"
 };
