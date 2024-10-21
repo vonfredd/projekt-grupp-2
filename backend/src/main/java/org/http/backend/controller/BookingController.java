@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:5174")
 @RestController
 @RequestMapping("/bookings")
 public class BookingController {
@@ -25,9 +25,15 @@ public class BookingController {
         return ResponseEntity.ok().body(bookingService.one(id));
     }
 
+
     @PostMapping
     public ResponseEntity<Booking> save(@RequestBody Booking booking) {
-        return ResponseEntity.ok().body(bookingService.save(booking));
+        try {
+            return ResponseEntity.ok().body(bookingService.save(booking));
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 
 }

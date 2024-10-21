@@ -1,70 +1,61 @@
 package org.http.backend.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.http.backend.dto.MovieDto;
 import org.http.backend.entity.Movie;
 import org.http.backend.repository.MovieRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MovieService {
 
-    private final MovieRepository movieRepository;
+    private static final Logger logger = LoggerFactory.getLogger(MovieService.class);
     private final ObjectMapper objectMapper;
+    private final MovieRepository movieRepository;
 
-    public MovieService(MovieRepository movieRepository, ObjectMapper objectMapper) {
-        this.movieRepository = movieRepository;
+    @Autowired
+    public MovieService(ObjectMapper objectMapper, MovieRepository movieRepository) {
         this.objectMapper = objectMapper;
+        this.movieRepository = movieRepository;
     }
 
-    public Movie save(String stringMovie) {
-    Movie movie = new Movie();
+    public Movie save(String stringMovie) throws JsonProcessingException {
         try {
-            JsonNode rootNode = objectMapper.readTree(stringMovie);
-
-            String movieId = rootNode.path("id").asText();
-            String name = rootNode.path("title").asText();
-            String description = rootNode.path("overview").asText();
-            List<String> genres = new ArrayList<>();
-            for (JsonNode genreNode : rootNode.path("genres")) {
-                genres.add(genreNode.path("name").asText());
-            }
-            String duration = rootNode.path("runtime").asText(); // Runtime in minutes
-            String releaseDate = rootNode.path("release_date").asText();
-            String imageUrl = rootNode.path("poster_path").asText();
-
-            movie = new Movie(movieId, name, description, genres, duration, releaseDate, imageUrl,new ArrayList<>());
-        } catch (IOException e) {
-            e.printStackTrace();
+            MovieDto movieDto = objectMapper.readValue(stringMovie, MovieDto.class);
+            return movieRepository.save(movieDto.toEntity());
+        }catch (JsonProcessingException e){
+            logger.error("Something went wrong when processing json data" + e.getMessage());
+            throw e;
+        }catch (IllegalArgumentException e){
+            logger.error("Something went wrong saving to database" + e.getMessage());
+            throw e;
         }
-
-        return movieRepository.save(movie);
     }
+
 
     public Movie findById(String id) {
-        Optional <Movie> movie = movieRepository.findById(id);
-        if (movie.isPresent()) {
-            return movie.get();
-        } else {
-            throw new RuntimeException("No such ID " + id);
-        }
+        return movieRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No such ID " + id));
     }
 
     public List<Movie> findAll() {
         return movieRepository.findAll();
     }
 
-    public List<Movie> findByName(String name) {
-        return movieRepository.findByName(name);
+    public List<Movie> findByNameContainsIgnoreCase(String name) {
+        return movieRepository.findByNameContainsIgnoreCase(name);
     }
 
     public void delete(String id) {
+        if (!movieRepository.existsById(id)) {
+            throw new RuntimeException("No such ID " + id);
+        }
         movieRepository.deleteById(id);
     }
 }
