@@ -72,7 +72,8 @@ function adjustIndex(index) {
       <div class="p-1 z-10">
         <p class="w-4/5 mt-5 m-auto text-white z-10">Which movie do you want to watch?</p>
         <form class="mt-4 w-4/6 m-auto">
-          <input class="p-2 h-10 w-full rounded-full m-auto text-black text-center" type="text" placeholder="Search movie...">
+          <input class="p-2 h-10 w-full rounded-full m-auto text-black text-center" type="text"
+                 placeholder="Search movie...">
         </form>
       </div>
       <div class="w-full flex flex-col items-center">
@@ -95,7 +96,7 @@ function adjustIndex(index) {
       <div>
         <h2 class="mt-8 mb-8 text-center text-4xl">Movies</h2>
         <div class="flex flex-col gap-10 items-center">
-          <router-link v-for="(movie, index) in props.listOfMovies" :key="index" :to="{ name: 'movieProfile', params: { id: movie.id, title: movie.name, movie: JSON.stringify(movie) } }" class="flex flex-row rounded-2xl w-5/6 bg-gray-400 p-2 bg-opacity-40">
+          <router-link v-for="(movie, index) in props.listOfMovies" :key="index" :to="{ name: 'movieProfile', params: { id: movie.id, title: movie.name.replace(/\s+/g, '-') } }" class="flex flex-row rounded-2xl w-5/6 bg-gray-400 p-2 bg-opacity-40">
             <div v-if="index % 2 === 0" class="p-2 w-1/2">
               <img class="object-contain rounded-lg" :src="`https://image.tmdb.org/t/p/w500${movie.imageUrl}`">
             </div>
