@@ -43,10 +43,8 @@ public class ScheduleController {
     public ResponseEntity<List<Schedule>> findByMovieId(@PathVariable("movieId") String movieId) {
         try {
             List<Schedule> schedules = scheduleService.findByMovieId(movieId);
-            // Return an empty list if no schedules are found
             return ResponseEntity.ok(schedules != null ? schedules : new ArrayList<>());
         } catch (Exception e) {
-            // Log the error and return a proper error response
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
