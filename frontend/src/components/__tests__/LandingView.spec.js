@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import { describe, test, expect, beforeEach } from "vitest";
 import { ref } from 'vue';
 import LandingView from "@/views/LandingView.vue"
-
+import { RouterLinkStub } from '@vue/test-utils'
 
 describe('Make sure props work and can be processed', () => {
     let wrapper;
@@ -94,6 +94,11 @@ describe('Make sure props work and can be processed', () => {
         wrapper = mount(LandingView, {
             propsData: {
                 listOfMovies: movieArr.value
+            },
+            global: {
+                stubs: {
+                    RouterLink: RouterLinkStub
+                }
             }
         })
     })
