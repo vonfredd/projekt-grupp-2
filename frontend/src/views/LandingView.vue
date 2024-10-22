@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue';
-
+import { RouterLink } from 'vue-router';
 const props = defineProps(['listOfMovies'])
 
 
@@ -12,9 +12,9 @@ const arrayOfHighestRated = computed(() => {
   if (!Array.isArray(props.listOfMovies) || props.listOfMovies.length === 0) {
     return [{
     "imageUrl": ""
-  },{ 
+  },{
     "imageUrl": ""
-  }]; 
+  }];
   }
   const arr = props.listOfMovies.toSorted((a, b) => {
     return b.rating - a.rating;
@@ -69,14 +69,10 @@ function adjustIndex(index) {
 <template>
   <main class="p-0 h-full relative">
     <div class="h-full w-full bg-[length:600%] z-0 bg-[bottom_6rem_right] bg-fixed bg-[url('/img/cinemabg.jpg')]">
-      <!-- Length is needed to properly "zoom in" on the image -->
-      <!-- This div only contains the background image -->
       <div class="p-1 z-10">
-        <!-- Need padding here to be able to add margin on P tag. Else the whole bg image will follow with the margin -->
         <p class="w-4/5 mt-5 m-auto text-white z-10">Which movie do you want to watch?</p>
         <form class="mt-4 w-4/6 m-auto">
-          <input class="p-2 h-10 w-full rounded-full m-auto text-black text-center" type="text"
-            placeholder="Search movie...">
+          <input class="p-2 h-10 w-full rounded-full m-auto text-black text-center" type="text" placeholder="Search movie...">
         </form>
       </div>
       <div class="w-full flex flex-col items-center">
@@ -85,29 +81,21 @@ function adjustIndex(index) {
         </div>
         <div class="flex justify-center p-3 gap-5">
           <div class="rounded-md bg-slate-200 shadow-[0px_0px_8px_6px_rgba(255,255,255,0.6)]">
-            <img class="object-cover" :src="arrayOfHighestRated[topFirstIndex].imageUrl" alt="">
+            <img class="object-cover" :src="`https://image.tmdb.org/t/p/w500${arrayOfHighestRated[topFirstIndex].imageUrl}`" alt="">
           </div>
           <div class="rounded-md bg-slate-200 shadow-[0px_0px_8px_6px_rgba(255,255,255,0.6)]">
-            <img class="object-cover" :src="arrayOfHighestRated[topSecondIndex].imageUrl" alt="">
+            <img class="object-cover" :src="`https://image.tmdb.org/t/p/w500${arrayOfHighestRated[topSecondIndex].imageUrl}`" alt="">
           </div>
         </div>
         <nav>
-          <button @click="adjustIndex('minus')"><span class="text-4xl material-symbols-outlined">
-              chevron_left
-            </span>
-          </button>
-          <button @click="adjustIndex('plus')"><span class="text-4xl material-symbols-outlined">
-              chevron_right
-            </span>
-          </button>
+          <button @click="adjustIndex('minus')"><span class="text-4xl material-symbols-outlined">chevron_left</span></button>
+          <button @click="adjustIndex('plus')"><span class="text-4xl material-symbols-outlined">chevron_right</span></button>
         </nav>
       </div>
-
       <div>
         <h2 class="mt-8 mb-8 text-center text-4xl">Movies</h2>
         <div class="flex flex-col gap-10 items-center">
-          <div class="flex flex-row rounded-2xl w-5/6 bg-gray-400 p-2 bg-opacity-40 " v-for="(movie, index) in props.listOfMovies"
-            :key="index">
+          <router-link v-for="(movie, index) in props.listOfMovies" :key="index" :to="{ name: 'movieProfile', params: { id: movie.id, title: movie.name, movie: JSON.stringify(movie) } }" class="flex flex-row rounded-2xl w-5/6 bg-gray-400 p-2 bg-opacity-40">
             <div v-if="index % 2 === 0" class="p-2 w-1/2">
               <img class="object-contain rounded-lg" :src="`https://image.tmdb.org/t/p/w500${movie.imageUrl}`">
             </div>
@@ -121,7 +109,7 @@ function adjustIndex(index) {
             <div v-if="index % 2 !== 0" class="p-2 w-1/2">
               <img class="object-contain rounded-lg" :src="`https://image.tmdb.org/t/p/w500${movie.imageUrl}`">
             </div>
-          </div>
+          </router-link>
         </div>
       </div>
     </div>
