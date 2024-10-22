@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import {ref, computed} from "vue";
 import Seats from "@/components/Seats.vue";
 
 const props = defineProps({
@@ -38,22 +38,22 @@ const formattedDuration = computed(() => {
         </div>
         <div class="text-xs space-x-1 mx-12">
           <span
-              v-for="(genre, index) in movie.genre"
-              :key="genre.id"
+              v-for="(genre, index) in movie.genres"
+              :key="index"
               class="inline text-xs font-semibold flex-flow-col"
           >
-            {{ genre.name }}<span v-if="index < movie.genre.length - 1">,</span>
+            {{ genre }}<span v-if="index < movie.genres.length - 1">,</span>
           </span>
           <span class="mx-2">|</span>
           <p class="inline">{{ formattedDuration }}</p>
         </div>
       </div>
-      <br />
+      <br/>
       <div class="p-8">
         <h2 class="text-3xl">Overview</h2>
         <p class="mt-4">{{ movie.description }}</p>
       </div>
-      <Seats :movie="movie" />
+      <Seats :movie="movie"/>
     </div>
   </main>
 </template>
