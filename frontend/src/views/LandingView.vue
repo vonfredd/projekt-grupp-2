@@ -109,17 +109,17 @@ function adjustIndex(index) {
           <div class="flex flex-row rounded-2xl w-5/6 bg-gray-400 p-2 bg-opacity-40 " v-for="(movie, index) in props.listOfMovies"
             :key="index">
             <div v-if="index % 2 === 0" class="p-2 w-1/2">
-              <img class="object-contain rounded-lg" :src=movie.imageUrl>
+              <img class="object-contain rounded-lg" :src="`https://image.tmdb.org/t/p/w500${movie.imageUrl}`">
             </div>
             <aside class="p-1 flex flex-col justify-between w-1/2">
               <h3 class="text-center text-xl border-b-2">{{ movie.name }}</h3>
               <p class="text-center line-clamp-5">{{ movie.description }}</p>
               <p class="mt-1 text-center">
-              <p v-for="genre in movie.genre"> {{ genre.name }}</p>
+                <p v-for="genre in movie.genre"> {{ genre.name }}</p>
               </p>
             </aside>
             <div v-if="index % 2 !== 0" class="p-2 w-1/2">
-              <img class="object-contain rounded-lg" :src=movie.imageUrl>
+              <img class="object-contain rounded-lg" :src="`https://image.tmdb.org/t/p/w500${movie.imageUrl}`">
             </div>
           </div>
         </div>
