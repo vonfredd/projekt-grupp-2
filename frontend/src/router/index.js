@@ -9,8 +9,7 @@ const router = createRouter({
         {
             path: "/",
             name: "home",
-            component: LandingView,
-            props: route => ({ listOfMovies: route.params.listOfMovies })
+            component: LandingView
         },
         {
             path: "/about",

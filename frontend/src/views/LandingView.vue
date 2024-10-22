@@ -2,21 +2,28 @@
 import { computed, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 const props = defineProps(['listOfMovies'])
+import {computed, ref, onMounted} from 'vue';
 
+const movies = ref([]);
+const fetchMovies = async () => {
+  const response = await fetch('http://localhost:9000/movies');
+  movies.value = await response.json();
+};
 
+onMounted(fetchMovies);
 
 /*
 Sort on rating and keep the top 5 movies!
 */
 const arrayOfHighestRated = computed(() => {
-  if (!Array.isArray(props.listOfMovies) || props.listOfMovies.length === 0) {
+  if (!Array.isArray(movies) || movies.length === 0) {
     return [{
     "imageUrl": ""
   },{
     "imageUrl": ""
   }];
   }
-  const arr = props.listOfMovies.toSorted((a, b) => {
+  const arr = movies.toSorted((a, b) => {
     return b.rating - a.rating;
   })
   if (arr.length >= 5) {
@@ -69,11 +76,14 @@ function adjustIndex(index) {
 <template>
   <main class="p-0 h-full relative">
     <div class="h-full w-full bg-[length:600%] z-0 bg-[bottom_6rem_right] bg-fixed bg-[url('/img/cinemabg.jpg')]">
+      <!-- Length is needed to properly "zoom in" on the image -->
+      <!-- This div only contains the background image -->
       <div class="p-1 z-10">
+        <!-- Need padding here to be able to add margin on P tag. Else the whole bg image will follow with the margin -->
         <p class="w-4/5 mt-5 m-auto text-white z-10">Which movie do you want to watch?</p>
         <form class="mt-4 w-4/6 m-auto">
           <input class="p-2 h-10 w-full rounded-full m-auto text-black text-center" type="text"
-                 placeholder="Search movie...">
+            placeholder="Search movie...">
         </form>
       </div>
       <div class="w-full flex flex-col items-center">
@@ -96,7 +106,7 @@ function adjustIndex(index) {
       <div>
         <h2 class="mt-8 mb-8 text-center text-4xl">Movies</h2>
         <div class="flex flex-col gap-10 items-center">
-          <router-link v-for="(movie, index) in props.listOfMovies" :key="index" :to="{ name: 'movieProfile', params: { id: movie.id, title: movie.name.replace(/\s+/g, '-') } }" class="flex flex-row rounded-2xl w-5/6 bg-gray-400 p-2 bg-opacity-40">
+          <router-link v-for="(movie, index) in movies" :key="index" :to="{ name: 'movieProfile', params: { id: movie.id, title: movie.name.replace(/\s+/g, '-') } }" class="flex flex-row rounded-2xl w-5/6 bg-gray-400 p-2 bg-opacity-40">
             <div v-if="index % 2 === 0" class="p-2 w-1/2">
               <img class="object-contain rounded-lg" :src="`https://image.tmdb.org/t/p/w500${movie.imageUrl}`">
             </div>
