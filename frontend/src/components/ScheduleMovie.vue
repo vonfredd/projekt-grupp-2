@@ -3,27 +3,27 @@ import { ref, watch, computed } from "vue";
 import "@vuepic/vue-datepicker/dist/main.css";
 import VueDatePicker from "@vuepic/vue-datepicker";
 
-// Date handling
 const date = ref(new Date());
 const formattedDate = ref("");
+const dateTime = ref("");
 
-// Movie handling
 const movies = ref([]);
 const filteredMovies = ref([]);
 const movieQuery = ref("");
 
-// Form fields
 const cinema = ref("");
 const cinemaHall = ref("");
 const selectedMovie = ref("");
-const selectedDate = ref("");
 
-//Save fetched cinema
 const cinemas = ref("");
 
 // Function to format the selected date
 const formatDate = (selectedDate) => {
   formattedDate.value = selectedDate ? selectedDate.toLocaleString() : "";
+};
+
+const convertDateToLocalDateTime = (selectedDate) => {
+    dateTime.value = selectedDate? selectedDate.toISOString().slice(0, 19) : "";
 };
 // Functions to search and handle movie selection
 const searchMovies = async () => {
@@ -55,9 +55,10 @@ const filterMovies = () => {
 };
 
 
-// Watcher to update formattedDate whenever date changes
+// Watcher to update formattedDate and dateTime whenever date changes
 watch(date, (newDate) => {
   formatDate(newDate);
+  convertDateToLocalDateTime(newDate);
 });
 
 // Watcher to filter movies whenever movieQuery changes
@@ -72,7 +73,7 @@ watch([cinema, cinemaHall, selectedMovie, formattedDate], () => {
 });
 
 // Function to handle form submission
-const handleSubmit = () => {
+const handleSubmit = async () => {
   const submissionDetails = `
     Cinema: ${JSON.stringify(cinema.value)}
     Cinema Hall: ${JSON.stringify(cinemaHall.value)}
@@ -81,11 +82,43 @@ const handleSubmit = () => {
   `;
   alert(`Form submitted:\n${submissionDetails}`);
 
-  // Clear date form field which also disables the submit button
-  formattedDate.value = "";
+  const schedule = {
+    localDateTime: dateTime.value,
+    cinema: cinema.value,
+    cinemaHall: cinemaHall.value,
+    movie: selectedMovie.value
+  };
 
+  try {
+    const response = await fetch('http://localhost:9000/schedules/new', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(schedule)
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.statusText}`);
+    }
+
+    const result = await response.json();
+    console.log('Schedule submitted successfully:', result);
+
+    cinema.value = null;
+    cinemaHall.value = null;
+    selectedMovie.value = null;
+    formattedDate.value = "";
+    dateTime.value = "";
+
+  } catch (error) {
+    console.error('Error submitting schedule:', error);
+  }
+  formattedDate.value = "";
 };
 </script>
+
+
 <template>
   <h2 class="text-center">Movie Schedule</h2>
   <div class="flex justify-between">
