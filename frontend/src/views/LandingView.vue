@@ -4,7 +4,6 @@ import { computed, ref } from 'vue';
 const props = defineProps(['listOfMovies'])
 
 
-
 /*
 Sort on rating and keep the top 5 movies!
 */
