@@ -1,21 +1,26 @@
 <script setup>
-import { computed, ref } from 'vue';
+import {computed, ref, onMounted} from 'vue';
 
-const props = defineProps(['listOfMovies'])
+const movies = ref([]);
+const fetchMovies = async () => {
+  const response = await fetch('http://localhost:9000/movies');
+  movies.value = await response.json();
+};
 
+onMounted(fetchMovies);
 
 /*
 Sort on rating and keep the top 5 movies!
 */
 const arrayOfHighestRated = computed(() => {
-  if (!Array.isArray(props.listOfMovies) || props.listOfMovies.length === 0) {
+  if (!Array.isArray(movies) || movies.length === 0) {
     return [{
     "imageUrl": ""
   },{ 
     "imageUrl": ""
   }]; 
   }
-  const arr = props.listOfMovies.toSorted((a, b) => {
+  const arr = movies.toSorted((a, b) => {
     return b.rating - a.rating;
   })
   if (arr.length >= 5) {
@@ -105,7 +110,7 @@ function adjustIndex(index) {
       <div>
         <h2 class="mt-8 mb-8 text-center text-4xl">Movies</h2>
         <div class="flex flex-col gap-10 items-center">
-          <div class="flex flex-row rounded-2xl w-5/6 bg-gray-400 p-2 bg-opacity-40 " v-for="(movie, index) in props.listOfMovies"
+          <div class="flex flex-row rounded-2xl w-5/6 bg-gray-400 p-2 bg-opacity-40 " v-for="(movie, index) in movies"
             :key="index">
             <div v-if="index % 2 === 0" class="p-2 w-1/2">
               <img class="object-contain rounded-lg" :src="`https://image.tmdb.org/t/p/w500${movie.imageUrl}`">
