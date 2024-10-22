@@ -4,7 +4,7 @@ import { ref } from 'vue';
 import LandingView from "@/views/LandingView.vue"
 import { RouterLinkStub } from '@vue/test-utils'
 
-describe('Make sure props work and can be processed', () => {
+describe('Make sure moviearray work and can be processed', () => {
     let wrapper;
 
     const movieArr = ref([
@@ -88,24 +88,22 @@ describe('Make sure props work and can be processed', () => {
     ]);
 
     /*
-      Load prop data before tests
+      Load mock data before tests
     */
     beforeEach(() => {
         wrapper = mount(LandingView, {
-            propsData: {
-                listOfMovies: movieArr.value
-            },
             global: {
                 stubs: {
                     RouterLink: RouterLinkStub
                 }
             }
-        })
-    })
+        });
+        wrapper.vm.movies = movieArr.value;
+    });
 
     test('Load props', () => {
         expect(LandingView).toBeTruthy();
-        expect(wrapper.vm.listOfMovies).toBeDefined();
+        expect(wrapper.vm.movies).toBeDefined();
     })
 
     test('Find first movie from proplist in DOM', () => {
@@ -123,7 +121,7 @@ describe('Make sure props work and can be processed', () => {
 
     test('arrayOfHighestRated is only 5 in length when keeping top rated movies ',()=>{
         expect(wrapper.vm.arrayOfHighestRated.length).toBe(5)
-        expect(wrapper.vm.listOfMovies.length).toBe(6)
+        expect(wrapper.vm.movies.length).toBe(6)
     })
 
 })
