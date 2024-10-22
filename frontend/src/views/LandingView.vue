@@ -81,12 +81,12 @@ function adjustIndex(index) {
           <h1 class="text-2xl ml-3 mt-16 text-left">Top 10</h1>
         </div>
         <div class="flex justify-center p-3 gap-5">
-          <div class="rounded-md bg-slate-200 shadow-[0px_0px_8px_6px_rgba(255,255,255,0.6)]">
-            <img class="object-cover" :src="`https://image.tmdb.org/t/p/w500${arrayOfHighestRated[topFirstIndex].imageUrl}`" alt="">
-          </div>
-          <div class="rounded-md bg-slate-200 shadow-[0px_0px_8px_6px_rgba(255,255,255,0.6)]">
-            <img class="object-cover" :src="`https://image.tmdb.org/t/p/w500${arrayOfHighestRated[topSecondIndex].imageUrl}`" alt="">
-          </div>
+          <router-link v-if="arrayOfHighestRated[topFirstIndex]?.id" :to="{ name: 'movieProfile', params: { id: arrayOfHighestRated[topFirstIndex]?.id, title: arrayOfHighestRated[topFirstIndex]?.name.replace(/\s+/g, '-') } }" class="rounded-md bg-slate-200 shadow-[0px_0px_8px_6px_rgba(255,255,255,0.6)]">
+            <img class="object-cover" :src="`https://image.tmdb.org/t/p/w500${arrayOfHighestRated[topFirstIndex]?.imageUrl}`" alt="">
+          </router-link>
+          <router-link v-if="arrayOfHighestRated[topSecondIndex]?.id" :to="{ name: 'movieProfile', params: { id: arrayOfHighestRated[topSecondIndex]?.id, title: arrayOfHighestRated[topSecondIndex]?.name.replace(/\s+/g, '-') } }" class="rounded-md bg-slate-200 shadow-[0px_0px_8px_6px_rgba(255,255,255,0.6)]">
+            <img class="object-cover" :src="`https://image.tmdb.org/t/p/w500${arrayOfHighestRated[topSecondIndex]?.imageUrl}`" alt="">
+          </router-link>
         </div>
         <nav>
           <button @click="adjustIndex('minus')"><span class="text-4xl material-symbols-outlined">chevron_left</span></button>
