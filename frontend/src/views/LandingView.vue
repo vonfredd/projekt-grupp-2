@@ -1,7 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue';
 import { RouterLink } from 'vue-router';
-const props = defineProps(['listOfMovies'])
 import {computed, ref, onMounted} from 'vue';
 
 const movies = ref([]);
@@ -16,22 +14,16 @@ onMounted(fetchMovies);
 Sort on rating and keep the top 5 movies!
 */
 const arrayOfHighestRated = computed(() => {
-  if (!Array.isArray(movies) || movies.length === 0) {
+  if (!Array.isArray(movies.value) || movies.value.length === 0) {
     return [{
     "imageUrl": ""
   },{
     "imageUrl": ""
   }];
   }
-  const arr = movies.toSorted((a, b) => {
-    return b.rating - a.rating;
-  })
-  if (arr.length >= 5) {
-    return arr.splice(0, 5);
-  } else {
-    return arr;
-  }
-})
+  const arr = movies.value.slice().sort((a, b) => b.rating - a.rating);
+  return arr.slice(0, 5);
+});
 
 const topFirstIndex = ref(0);
 const topSecondIndex = ref(1);
