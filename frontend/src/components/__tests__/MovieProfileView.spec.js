@@ -28,6 +28,10 @@ describe("MovieProfileView", () => {
           json: () => Promise.resolve(movie),
         })
     );
+
+    // Mock window.scrollTo
+    window.scrollTo = vi.fn();
+
     wrapper = mount(MovieProfileView, {
       props: {
         id: "1",
