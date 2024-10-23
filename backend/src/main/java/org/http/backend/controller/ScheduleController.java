@@ -3,12 +3,12 @@ package org.http.backend.controller;
 import org.http.backend.entity.Schedule;
 import org.http.backend.service.BookingService;
 import org.http.backend.service.ScheduleService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:5174")
 @RestController
 @RequestMapping("/schedules")
 public class ScheduleController {
@@ -38,13 +38,14 @@ public class ScheduleController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Schedule> save(@RequestBody Schedule schedule)  {
+    public ResponseEntity<?> save(@RequestBody Schedule schedule) {
         try {
-            return ResponseEntity.ok().body(scheduleService.add(schedule));
+            Schedule savedSchedule = scheduleService.add(schedule);
+            return ResponseEntity.ok().body(savedSchedule);
         } catch (Exception e) {
-            return null;
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error occurred while saving schedule: " + e.getMessage());
         }
-
     }
 
 }
