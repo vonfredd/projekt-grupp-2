@@ -27,7 +27,11 @@ const formattedDuration = computed(() => {
   return `${hours}h ${minutes}min`;
 });
 
-onMounted(fetchMovie);
+onMounted(() => {
+  fetchMovie();
+  window.scrollTo(0, 0);
+});
+
 </script>
 
 <template>
