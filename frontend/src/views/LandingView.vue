@@ -29,7 +29,7 @@ const topFirstIndex = ref(0);
 const topSecondIndex = ref(1);
 
 /*
-Adjust the top 10 movies shown. 
+Adjust the top 5 movies shown.
 If the user press forward and first placeholder holds last index, then the first placeholder holds the first element.
 If user press backwards and first placeholder holds first element,  then the first placeholder holds the last element
 */
@@ -80,7 +80,7 @@ function adjustIndex(index) {
       </div>
       <div class="w-full flex flex-col items-center">
         <div class="w-full">
-          <h1 class="text-2xl ml-3 mt-16 text-left">Top 10</h1>
+          <h1 class="text-2xl ml-3 mt-16 text-left">Top 5</h1>
         </div>
         <div class="flex justify-center p-3 gap-5">
           <router-link v-if="arrayOfHighestRated[topFirstIndex]?.id" :to="{ name: 'movieProfile', params: { id: arrayOfHighestRated[topFirstIndex]?.id, title: arrayOfHighestRated[topFirstIndex]?.name.replace(/\s+/g, '-') } }" class="rounded-md bg-slate-200 shadow-[0px_0px_8px_6px_rgba(255,255,255,0.6)]">
@@ -106,7 +106,7 @@ function adjustIndex(index) {
               <h3 class="text-center text-xl border-b-2">{{ movie.name }}</h3>
               <p class="text-center line-clamp-5">{{ movie.description }}</p>
               <p class="mt-1 text-center">
-                <p v-for="genre in movie.genre"> {{ genre.name }}</p>
+                <p v-for="genre in movie.genres"> {{ genre }}</p>
               </p>
             </aside>
             <div v-if="index % 2 !== 0" class="p-2 w-1/2">
