@@ -23,8 +23,8 @@ public class MovieController {
         return ResponseEntity.ok().body(movieService.findAll());
     }
 
-    @GetMapping("/id")
-    public ResponseEntity<Movie> one(String id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Movie> one(@PathVariable String id) {
         return ResponseEntity.ok().body(movieService.findById(id));
     }
 
