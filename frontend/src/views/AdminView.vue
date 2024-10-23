@@ -15,7 +15,7 @@ import ScheduleMovie from "@/components/ScheduleMovie.vue";
         <Accordion/>
       </div>
     </main>
-    <RouterView/>
+
   </div>
 </template>
 

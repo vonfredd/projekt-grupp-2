@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import { mount } from "@vue/test-utils";
 import MovieProfileView from "@/views/MovieProfileView.vue";
 
@@ -8,11 +8,11 @@ describe("MovieProfileView", () => {
   const movie = {
     name: "Inception",
     description:
-      "A mind-bending thriller where dream invasion is possible. Dom Cobb is a skilled thief, the absolute best in the dangerous art of extraction: stealing valuable secrets from deep within the subconscious during the dream state, when the mind is at its most vulnerable.",
-    genre: [
-      { id: 28, name: "Action" },
-      { id: 878, name: "Science Fiction" },
-      { id: 12, name: "Adventure" },
+        "A mind-bending thriller where dream invasion is possible. Dom Cobb is a skilled thief, the absolute best in the dangerous art of extraction: stealing valuable secrets from deep within the subconscious during the dream state, when the mind is at its most vulnerable.",
+    genres: [
+      "Action",
+      "Science Fiction",
+      "Adventure"
     ],
     duration: 148,
     releaseDate: "2010-07-16",
@@ -21,9 +21,15 @@ describe("MovieProfileView", () => {
   };
 
   beforeEach(() => {
+
+    global.fetch = vi.fn(() =>
+        Promise.resolve({
+          json: () => Promise.resolve(movie),
+        })
+    );
     wrapper = mount(MovieProfileView, {
       props: {
-        movie,
+        id: "1",
       },
     });
   });
@@ -44,12 +50,12 @@ describe("MovieProfileView", () => {
     expect(wrapper.text()).toContain("8.8");
   });
 
-  
+
   it("renders movie genres", () => {
     expect(wrapper.text()).toContain("Action");
     expect(wrapper.text()).toContain("Science Fiction");
     expect(wrapper.text()).toContain("Adventure");
-});
+  });
 
   it("renders movie background image with correct URL", () => {
     const mainElement = wrapper.find('main');
