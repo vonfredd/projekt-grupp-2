@@ -63,6 +63,20 @@ function adjustIndex(index) {
   }
 }
 
+const query = ref('');
+const isSearching = ref(false);
+const moviesContainQuery = ref();
+
+function displaySearch() {
+  isSearching.value = true;
+  if (query.value === '') {
+    moviesContainQuery.value = movies.value;
+    isSearching.value = false;
+  }
+  moviesContainQuery.value = movies.value.filter(movie => movie.name.toLowerCase().includes(query.value.toLowerCase()));
+  query.value = '';
+};
+
 </script>
 
 <template>
@@ -73,12 +87,12 @@ function adjustIndex(index) {
       <div class="p-1 z-10">
         <!-- Need padding here to be able to add margin on P tag. Else the whole bg image will follow with the margin -->
         <p class="w-4/5 mt-5 m-auto text-white z-10">Which movie do you want to watch?</p>
-        <form class="mt-4 w-4/6 m-auto">
-          <input class="p-2 h-10 w-full rounded-full m-auto text-black text-center" type="text"
+        <form @submit.prevent="displaySearch()" class="mt-4 w-4/6 m-auto">
+          <input v-model="query" class="p-2 h-10 w-full rounded-full m-auto text-black text-center" type="text"
             placeholder="Search movie...">
         </form>
       </div>
-      <div class="w-full flex flex-col items-center">
+      <div v-if="!isSearching" class="w-full flex flex-col items-center">
         <div class="w-full">
           <h1 class="text-2xl ml-3 mt-16 text-left">Top 5</h1>
         </div>
@@ -86,19 +100,26 @@ function adjustIndex(index) {
           <router-link v-if="arrayOfHighestRated[topFirstIndex]?.id" :to="{ name: 'movieProfile', params: { id: arrayOfHighestRated[topFirstIndex]?.id, title: arrayOfHighestRated[topFirstIndex]?.name.replace(/\s+/g, '-') } }" class="rounded-md bg-slate-200 shadow-[0px_0px_8px_6px_rgba(255,255,255,0.6)]">
             <img class="object-cover" :src="`https://image.tmdb.org/t/p/w500${arrayOfHighestRated[topFirstIndex]?.imageUrl}`" alt="">
           </router-link>
-          <router-link v-if="arrayOfHighestRated[topSecondIndex]?.id" :to="{ name: 'movieProfile', params: { id: arrayOfHighestRated[topSecondIndex]?.id, title: arrayOfHighestRated[topSecondIndex]?.name.replace(/\s+/g, '-') } }" class="rounded-md bg-slate-200 shadow-[0px_0px_8px_6px_rgba(255,255,255,0.6)]">
-            <img class="object-cover" :src="`https://image.tmdb.org/t/p/w500${arrayOfHighestRated[topSecondIndex]?.imageUrl}`" alt="">
+          <router-link v-if="arrayOfHighestRated[topSecondIndex]?.id"
+            :to="{ name: 'movieProfile', params: { id: arrayOfHighestRated[topSecondIndex]?.id, title: arrayOfHighestRated[topSecondIndex]?.name.replace(/\s+/g, '-') } }"
+            class="rounded-md bg-slate-200 shadow-[0px_0px_8px_6px_rgba(255,255,255,0.6)]">
+            <img class="object-cover"
+              :src="`https://image.tmdb.org/t/p/w500${arrayOfHighestRated[topSecondIndex]?.imageUrl}`" alt="">
           </router-link>
         </div>
         <nav>
-          <button @click="adjustIndex('minus')"><span class="text-4xl material-symbols-outlined">chevron_left</span></button>
-          <button @click="adjustIndex('plus')"><span class="text-4xl material-symbols-outlined">chevron_right</span></button>
+          <button @click="adjustIndex('minus')"><span
+              class="text-4xl material-symbols-outlined">chevron_left</span></button>
+          <button @click="adjustIndex('plus')"><span
+              class="text-4xl material-symbols-outlined">chevron_right</span></button>
         </nav>
       </div>
       <div>
-        <h2 class="mt-8 mb-8 text-center text-4xl">Movies</h2>
+        <h2 class="mt-8 mb-8 text-center text-4xl"> {{ isSearching ? 'Result:' : 'Movies' }}</h2>
         <div class="flex flex-col gap-10 items-center">
-          <router-link v-for="(movie, index) in movies" :key="index" :to="{ name: 'movieProfile', params: { id: movie.id, title: movie.name.replace(/\s+/g, '-') } }" class="flex flex-row rounded-2xl w-5/6 bg-gray-400 p-2 bg-opacity-40">
+          <router-link v-for="(movie, index) in (isSearching ? moviesContainQuery : movies)" :key="index"
+            :to="{ name: 'movieProfile', params: { id: movie.id, title: movie.name.replace(/\s+/g, '-') } }"
+            class="flex flex-row rounded-2xl w-5/6 bg-gray-400 p-2 bg-opacity-40">
             <div v-if="index % 2 === 0" class="p-2 w-1/2">
               <img class="object-contain rounded-lg" :src="`https://image.tmdb.org/t/p/w500${movie.imageUrl}`">
             </div>
@@ -106,7 +127,7 @@ function adjustIndex(index) {
               <h3 class="text-center text-xl border-b-2">{{ movie.name }}</h3>
               <p class="text-center line-clamp-5">{{ movie.description }}</p>
               <p class="mt-1 text-center">
-                <p v-for="genre in movie.genres"> {{ genre }}</p>
+              <p v-for="genre in movie.genres"> {{ genre }}</p>
               </p>
             </aside>
             <div v-if="index % 2 !== 0" class="p-2 w-1/2">
