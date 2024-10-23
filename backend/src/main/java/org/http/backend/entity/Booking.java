@@ -12,6 +12,8 @@ public class Booking {
     private Schedule schedule;
     private List<Integer> bookedSeats;
 
+    public Booking() {
+    }
 
     public Booking(String id, String userId, Schedule schedule, List<Integer> bookedSeats) {
         this.id = id;
