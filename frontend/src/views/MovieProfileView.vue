@@ -33,9 +33,9 @@ onMounted(fetchMovie);
 <template>
   <main
     :style="{ backgroundImage: `url(${backdropPath})` }"
-    class="bg-cover bg-center min-h-screen relative"
+    class="bg-cover bg-center min-h-screen bg-fixed relative"
   >
-    <div v-if="movie" class="absolute inset-0 bg-black opacity-10 z-1"></div>
+    <div v-if="movie" class="absolute inset-0 bg-black opacity-50 z-1"></div>
     <div v-if="movie" class="p-4 relative z-2">
       <div class="flex flex-col items-start justify-center mt-10">
         <div class="flex mb-2 mx-6 justify-center">
