@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.http.backend.dto.MovieDto;
 import org.http.backend.entity.Movie;
 import org.http.backend.repository.MovieRepository;
+import org.http.backend.util.Rating;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,10 @@ public class MovieService {
         try {
             MovieDto movieDto = objectMapper.readValue(stringMovie, MovieDto.class);
             return movieRepository.save(movieDto.toEntity());
-        }catch (JsonProcessingException e){
+        } catch (JsonProcessingException e) {
             logger.error("Something went wrong when processing json data" + e.getMessage());
             throw e;
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             logger.error("Something went wrong saving to database" + e.getMessage());
             throw e;
         }
@@ -57,5 +58,12 @@ public class MovieService {
             throw new RuntimeException("No such ID " + id);
         }
         movieRepository.deleteById(id);
+    }
+
+    public Movie addRating(String movieId, Rating rating) {
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new RuntimeException("No such ID " + movieId));
+        movie.addRating(rating);
+        return movieRepository.save(movie);
     }
 }

@@ -97,5 +97,8 @@ public class Movie {
         this.rating = rating;
     }
 
+    public void addRating(Rating rating) {
+        this.rating.add(rating);
+    }
 }
 

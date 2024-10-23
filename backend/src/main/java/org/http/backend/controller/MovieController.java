@@ -3,6 +3,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.http.backend.entity.Movie;
 import org.http.backend.service.MovieService;
+import org.http.backend.util.Rating;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +40,11 @@ public class MovieController {
         }catch (JsonMappingException | IllegalArgumentException e){
             return ResponseEntity.status(400).body(movieService.save(jsonString));
         }
+    }
+
+    @PutMapping("{movieId}/rating")
+    public ResponseEntity<Movie> addRating(@PathVariable String movieId, @RequestBody Rating rating) {
+        return ResponseEntity.ok().body(movieService.addRating(movieId, rating));
     }
 
     @DeleteMapping("{id}")
