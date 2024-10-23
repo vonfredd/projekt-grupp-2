@@ -92,6 +92,7 @@ function displaySearch() {
             placeholder="Search movie...">
         </form>
       </div>
+      <transition name="top" appear>
       <div v-if="!isSearching" class="w-full flex flex-col items-center">
         <div class="w-full">
           <h1 class="text-2xl ml-3 mt-16 text-left">Top 5</h1>
@@ -114,10 +115,12 @@ function displaySearch() {
               class="text-4xl material-symbols-outlined">chevron_right</span></button>
         </nav>
       </div>
+    </transition>
       <div>
         <h2 class="mt-8 mb-8 text-center text-4xl"> {{ isSearching ? 'Result:' : 'Movies' }}</h2>
-        <div class="flex flex-col gap-10 items-center">
-          <router-link v-for="(movie, index) in (isSearching ? moviesContainQuery : movies)" :key="index"
+        <transition>
+        <div :class="['move-up', { 'move-up-active': isSearching }]" class="flex flex-col gap-10 items-center">
+          <router-link  v-for="(movie, index) in  (isSearching ? moviesContainQuery : movies)" :key="index"
             :to="{ name: 'movieProfile', params: { id: movie.id, title: movie.name.replace(/\s+/g, '-') } }"
             class="flex flex-row rounded-2xl w-5/6 bg-gray-400 p-2 bg-opacity-40">
             <div v-if="index % 2 === 0" class="p-2 w-1/2">
@@ -134,8 +137,40 @@ function displaySearch() {
               <img class="object-contain rounded-lg" :src="`https://image.tmdb.org/t/p/w500${movie.imageUrl}`">
             </div>
           </router-link>
+          </div>
+        </transition>
         </div>
       </div>
-    </div>
   </main>
 </template>
+
+
+<style scoped>
+.top-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.top-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
+.top-leave-from {
+  opacity: 1;
+}
+.top-leave-to {
+  opacity: 0;
+}
+
+.top-enter-active{
+  transition: all 0.4s ease;
+}
+
+.move-up-active {
+  transform: translateY(-10px);
+}
+
+.move-up {
+  transition: transform 0.5s ease;
+}
+
+</style>
