@@ -50,11 +50,11 @@ public class DbInitDummyData {
 
                     new Movie("497", "The Green Mile",
                             "A supernatural tale set on death row in a Southern prison, where gentle giant John Coffey possesses the mysterious power to heal people's ailments. When the cell block's head guard, Paul Edgecomb, recognizes Coffey's miraculous gift, he tries desperately to help stave off the condemned man's execution.",
-                            Arrays.asList("Fantasy", "Drama", "Crime"), "189", "1999-12-10", "/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg", Collections.emptyList(), "/velWPhVMQeQKcxggNEU8YmIo52R.jpg"),
+                            Arrays.asList("Fantasy", "Drama", "Crime"), "189", "1999-12-10", "/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg", Collections.emptyList(), "/vxJ08SvwomfKbpboCWynC3uqUg4.jpg"),
 
                     new Movie("680", "Pulp Fiction",
                             "A burger-loving hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up boxer converge in this sprawling, comedic crime caper. Their adventures unfurl in three stories that ingeniously trip back and forth in time.",
-                            Arrays.asList("Thriller", "Crime"), "154", "1994-09-10", "/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg", Collections.emptyList(), "/plnlrtBUULT0rh3Xsjmpubiso3L.jpg"),
+                            Arrays.asList("Thriller", "Crime"), "154", "1994-09-10", "/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg", Collections.emptyList(), "/suaEOtk1N1sgg2MTM7oZd2cfVp3.jpg"),
 
                     new Movie("372058", "Your Name.",
                             "High schoolers Mitsuha and Taki are complete strangers living separate lives. But one night, they suddenly switch places. Mitsuha wakes up in Taki’s body, and he in hers. This bizarre occurrence continues to happen randomly, and the two must adjust their lives around each other.",
