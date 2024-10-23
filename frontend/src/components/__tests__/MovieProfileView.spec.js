@@ -16,8 +16,9 @@ describe("MovieProfileView", () => {
     ],
     duration: 148,
     releaseDate: "2010-07-16",
-    imageUrl: "/8ZTVqvKDQ8emSGUEMjsS4yHAwrp.jpg",
-    rating: 8.8
+    imageUrl: "/ljsZTbVsrQSqZgWeep2B1QiDKuh.jpg",
+    rating: 8.8,
+    backdropPath: "/8ZTVqvKDQ8emSGUEMjsS4yHAwrp.jpg",
   };
 
   beforeEach(() => {

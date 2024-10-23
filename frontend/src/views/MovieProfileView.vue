@@ -10,14 +10,14 @@ const props = defineProps({
 });
 
 const movie = ref(null);
-const imageUrl = ref("");
+const backdropPath = ref("");
 
 const fetchMovie = async () => {
   const response = await fetch(`http://localhost:9000/movies/${props.id}`, {
     method: "GET",
   });
   movie.value = await response.json();
-  imageUrl.value = `https://image.tmdb.org/t/p/w500${movie.value.imageUrl}`;
+  backdropPath.value = `https://image.tmdb.org/t/p/w500${movie.value.backdropPath}`;
 };
 
 const formattedDuration = computed(() => {
@@ -32,7 +32,7 @@ onMounted(fetchMovie);
 
 <template>
   <main
-    :style="{ backgroundImage: `url(${imageUrl})` }"
+    :style="{ backgroundImage: `url(${backdropPath})` }"
     class="bg-cover bg-center min-h-screen relative"
   >
     <div v-if="movie" class="absolute inset-0 bg-black opacity-10 z-1"></div>
