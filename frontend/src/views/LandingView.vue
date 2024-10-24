@@ -87,9 +87,13 @@ function displaySearch() {
       <div class="p-1 z-10">
         <!-- Need padding here to be able to add margin on P tag. Else the whole bg image will follow with the margin -->
         <p class="w-4/5 mt-5 m-auto text-white z-10">Which movie do you want to watch?</p>
-        <form @submit.prevent="displaySearch()" class="mt-4 w-4/6 m-auto">
-          <input v-model="query" class="p-2 h-10 w-full rounded-full m-auto text-black text-center" type="text"
+        <form :class="{'flex':isSearching}" @submit.prevent="displaySearch()" class="text-center mt-4 w-4/6 m-auto">
+          <input v-model="query" :class="['p-2 rounded-full h-10 w-full text-black text-center', { 'outline-none w-5/6 rounded-r-none': isSearching }]"
+  type="text"
             placeholder="Search movie...">
+            <button v-if="isSearching" class="w-1/6 flex items-center justify-center rounded-r-3xl border-l-black bg-red-600"><span class="material-symbols-outlined">
+undo
+</span></button>
         </form>
       </div>
       <transition name="top" appear>
@@ -116,7 +120,6 @@ function displaySearch() {
         </nav>
       </div>
     </transition>
-     
         <h2 v-if="isSearching && moviesContainQuery.length === 0" class="mt-8 mb-8 text-center text-4xl"> Nothing found!</h2>
         <h2 v-else class="mt-8 mb-8 text-center text-4xl"> {{ isSearching ? 'Result:' : 'Movies' }}</h2>
         <div class="m-auto" v-if="isSearching && moviesContainQuery.length === 0">
