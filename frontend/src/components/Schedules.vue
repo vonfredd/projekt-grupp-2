@@ -63,11 +63,10 @@ onMounted(() => {
   <div>
     <div class="max-w-screen-md mx-auto">
       <div class="mb-10 flex-col justify-center">
-        <div class="bg-white bg-opacity-50 p-6 mb-10">
           <div v-if="schedules.length === 0" class="text-center">
             <p>No schedules available for this movie.</p>
           </div>
-          <div v-for="(cinemaSchedules, cinemaName) in groupedSchedules" :key="cinemaName">
+          <div v-for="(cinemaSchedules, cinemaName) in groupedSchedules" :key="cinemaName" class="bg-white bg-opacity-50 p-6 mb-10">
             <p class="text-black text-2xl uppercase font-semibold pb-6 pl-4">{{ cinemaName }}</p>
             <div class="flex justify-center items-center gap-10">
               <div v-for="(schedule, index) in cinemaSchedules.slice(0, 2)" :key="index"
@@ -82,5 +81,4 @@ onMounted(() => {
         </div>
       </div>
     </div>
-  </div>
 </template>
