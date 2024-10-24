@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MovieService {
@@ -50,6 +53,7 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
+
     public List<Movie> findByNameContainsIgnoreCase(String name) {
         return movieRepository.findByNameContainsIgnoreCase(name);
     }
@@ -72,5 +76,28 @@ public class MovieService {
         movie.addOrUpdateRating(rating);
 
         return movieRepository.save(movie);
+    }
+
+    public List<Map<String, Object>> findAllWithRatingsConverted() {
+        var movies = movieRepository.findAll();
+        List<Map<String, Object>> response = new ArrayList<>();
+
+        // Loop through each movie and build a custom JSON response
+        for (Movie movie : movies) {
+            Map<String, Object> movieData = new HashMap<>();
+            movieData.put("id", movie.getId());
+            movieData.put("name", movie.getName());
+            movieData.put("description", movie.getDescription());
+            movieData.put("genres", movie.getGenres());
+            movieData.put("duration", movie.getDuration());
+            movieData.put("releaseDate", movie.getReleaseDate());
+            movieData.put("imageUrl", movie.getImageUrl());
+            movieData.put("backdropPath", movie.getBackdropPath());
+            movieData.put("averageRating", movie.getAverageRatingInPercentage());
+
+            response.add(movieData);
+        }
+
+        return response;
     }
 }

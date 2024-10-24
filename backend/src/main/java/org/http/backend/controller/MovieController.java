@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/movies")
@@ -22,6 +23,11 @@ public class MovieController {
     public ResponseEntity<List<Movie>> all() {
         return ResponseEntity.ok().body(movieService.findAll());
     }
+    @GetMapping("/allWithRatingsConverted")
+    public ResponseEntity<List<Map<String, Object>>> allWithRatingsConverted() {
+        return ResponseEntity.ok().body(movieService.findAllWithRatingsConverted());
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Movie> one(@PathVariable String id) {

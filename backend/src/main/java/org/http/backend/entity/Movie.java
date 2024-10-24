@@ -121,5 +121,20 @@ public class Movie {
         // If the user hasn't rated yet, add the new rating
         ratings.add(newRating);
     }
+
+    public double getAverageRatingInPercentage() {
+        if (ratings == null || ratings.isEmpty()) {
+            return 0;  // Return 0 if there are no ratings
+        }
+
+        double sum = 0;
+        for (Rating rating : ratings) {
+            sum += rating.getMovieRating();
+        }
+
+        double averageRating = sum / ratings.size();  // Calculate the average
+        return (averageRating / 5.0) * 100;  // Convert to percentage assuming max rating is 5
+    }
+
 }
 
