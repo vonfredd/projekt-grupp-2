@@ -66,10 +66,11 @@ public class MovieService {
             throw new RuntimeException("Rating must be between 0 and 5");
         }
 
-
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new RuntimeException("No such ID " + movieId));
-        movie.addRating(rating);
+
+        movie.addOrUpdateRating(rating);
+
         return movieRepository.save(movie);
     }
 }
