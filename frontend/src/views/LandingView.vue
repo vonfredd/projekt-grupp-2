@@ -81,13 +81,13 @@ function displaySearch() {
 
 <template>
   <main class="p-0 h-full relative">
-    <div class="h-full w-full bg-[length:600%] md:bg-[length:400%] lg:bg-[length:200%] z-0 bg-[bottom_6rem_right] lg:bg-[bottom_center] bg-fixed bg-[url('/img/cinemabg.jpg')]">
+    <div class="h-full w-full bg-[length:600%] md:bg-[length:300%] lg:bg-[length:200%] z-0 bg-[bottom_6rem_right] lg:bg-[bottom_6rem_right] bg-fixed bg-[url('/img/cinemabg.jpg')]">
       <!-- Length is needed to properly "zoom in" on the image -->
       <!-- This div only contains the background image -->
       <div class="p-1 z-10">
         <!-- Need padding here to be able to add margin on P tag. Else the whole bg image will follow with the margin -->
         <p class="w-4/5 mt-6 md:mt-10 m-auto text-center text-white z-10">Which movie do you want to watch?</p>
-        <form :class="{'flex':isSearching}" @submit.prevent="displaySearch()" class="text-center mt-4 w-4/6 sm:w-1/2 md:w-2/5  m-auto">
+        <form :class="{'flex':isSearching}" @submit.prevent="displaySearch()" class="text-center mt-4 w-4/6 sm:w-1/2 md:w-2/5 md:pb-5 m-auto">
           <input v-model="query" :class="['p-2 rounded-full h-10 md:h-14 w-full text-black text-center', { 'outline-none w-5/6 rounded-r-none': isSearching }]"
   type="text"
             placeholder="Search movie...">
@@ -100,7 +100,7 @@ undo
       <div v-if="!isSearching" class="w-full flex flex-col items-center">
         <div class="px-1 md:px-2">
         <div class="w-full">
-          <h2 class="ml-3 mt-16 text-left">Top 5</h2>
+          <h2 class="ml-3 mt-16 text-left sm:pb-2 md:pb-4">Top 5</h2>
         </div>
         <div class="flex justify-center p-3 gap-5">
           <router-link v-if="arrayOfHighestRated[topFirstIndex]?.id" :to="{ name: 'movieProfile', params: { id: arrayOfHighestRated[topFirstIndex]?.id, title: arrayOfHighestRated[topFirstIndex]?.name.replace(/\s+/g, '-') } }" class="rounded-md bg-slate-200 shadow-[0px_0px_8px_6px_rgba(255,255,255,0.6)]">
@@ -131,18 +131,18 @@ undo
         <div :class="['move-up', { 'move-up-active': isSearching }]" class="flex flex-col gap-10 items-center">
           <router-link  v-for="(movie, index) in  (isSearching ? moviesContainQuery : movies)" :key="index"
             :to="{ name: 'movieProfile', params: { id: movie.id, title: movie.name.replace(/\s+/g, '-') } }"
-            class="flex flex-row rounded-2xl w-5/6 bg-gray-400 p-2 bg-opacity-30">
+            class="flex flex-row rounded-2xl w-5/6 xl:w-2/3 2xl:w-[1000px] bg-gray-700 p-2 md:mt-5 xl:mt-8 md:p-6 md:gap-4 bg-opacity-50">
             <div v-if="index % 2 === 0" class="p-2 w-1/2">
               <img class="object-contain rounded-lg" :src="`https://image.tmdb.org/t/p/w500${movie.imageUrl}`">
             </div>
             <aside class="p-1 w-1/2">
-              <h3 class="text-center  border-b-2">{{ movie.name }}</h3>
-              <div class="flex flex-row justify-center align-super space-x-1.5 sm:space-x-2 md:space-x-3 my-2">
-                <div v-for="(genre, index) in movie.genres" :key="index" class="text-xxs sm:text-xs md:text-md lg:text-lg">
+              <h3 class="text-center border-b-2 sm:pb-3 ml:pb-4">{{ movie.name }}</h3>
+              <div class="flex flex-row justify-center align-super space-x-1.5 sm:space-x-3 md:space-x-4 ml:space-x-5 my-2">
+                <div v-for="(genre, index) in movie.genres" :key="index" class="text-xxs sm:text-xs md:text-md lg:text-lg sm:py-2 md:py-4">
                   <span>{{ genre }}</span>
                 </div>
               </div>
-              <p class="text-center line-clamp-6 sm:line-clamp-8 md:line-clamp-none">{{ movie.description }}</p>
+              <p class="text-center line-clamp-6">{{ movie.description }}</p>
               <p class="text-center">
 
               </p>

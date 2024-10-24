@@ -13,11 +13,11 @@ const closeMenu = () => {
 </script>
 
 <template>
-  <header class="bg-primary">
+  <header class="bg-primary md:px-10">
     <nav class="p-3">
       <div class="flex items-center justify-between">
         <RouterLink to="/" class="block"
-          ><h1 class="text-5xl p-1 px-7 uppercase">Cinema</h1>
+          ><h1 class="p-1 px-2 uppercase">Cinema</h1>
         </RouterLink>
 
         <!-- Hamburger Button -->
@@ -60,7 +60,7 @@ const closeMenu = () => {
         </button>
 
         <!-- Desktop Menu -->
-        <div class="hidden md:flex text-white">
+        <div class="hidden md:flex text-right pb-2">
           <RouterLink to="/login">
             <div
               class="flex items-center justify-center bg-secondary bg-opacity-50 px-5 rounded-full mx-2"

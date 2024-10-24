@@ -44,13 +44,13 @@ onMounted(() => {
     <div v-if="movie" class="p-4 relative z-2">
       <div class="flex flex-col items-start justify-center mt-10">
         <div class="flex mb-2 mx-6 justify-center">
-          <h2 class="text-5xl font-bold mr-2">{{ movie.name }}</h2>
+          <h1 class="mr-2">{{ movie.name }}</h1>
           <div class="relative w-7 h-7 flex items-center justify-center">
-            <p class="text-xs z-10">{{ movie.rating }}%</p>
+            <p class="z-10">{{ movie.rating }}%</p>
             <div class="absolute inset-0 bg-white opacity-50 rounded-full"></div>
           </div>
         </div>
-        <div class="text-xs space-x-1 mx-12">
+        <div class="space-x-1 mx-12">
           <span
             v-for="(genre, index) in movie.genres"
             :key="index"
