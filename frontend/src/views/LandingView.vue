@@ -86,7 +86,7 @@ function displaySearch() {
       <!-- This div only contains the background image -->
       <div class="p-1 z-10">
         <!-- Need padding here to be able to add margin on P tag. Else the whole bg image will follow with the margin -->
-        <p class="w-4/5 mt-5 m-auto text-white z-10">Which movie do you want to watch?</p>
+        <p class="w-4/5 mt-5 m-auto text-center text-white z-10">Which movie do you want to watch?</p>
         <form :class="{'flex':isSearching}" @submit.prevent="displaySearch()" class="text-center mt-4 w-4/6 m-auto">
           <input v-model="query" :class="['p-2 rounded-full h-10 w-full text-black text-center', { 'outline-none w-5/6 rounded-r-none': isSearching }]"
   type="text"
