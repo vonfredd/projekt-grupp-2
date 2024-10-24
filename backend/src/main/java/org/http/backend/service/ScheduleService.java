@@ -27,4 +27,7 @@ public class ScheduleService {
         return scheduleRepository.save(schedule);
     }
 
+    public List<Schedule> findByMovieId(String movieId) {
+        return scheduleRepository.findByMovie_Id(movieId);
+    }
 }

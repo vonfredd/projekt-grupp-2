@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import Seats from "@/components/Seats.vue";
+import Schedules from "@/components/Schedules.vue";
 
 const props = defineProps({
   id: {
@@ -66,7 +67,8 @@ onMounted(() => {
         <h2 class="text-3xl">Overview</h2>
         <p class="mt-4">{{ movie.description }}</p>
       </div>
-      <Seats :movie="movie"/>
+      <Schedules :movie="movie" />
+      <Seats :movie="movie" />
     </div>
     <div v-else class="p-4 relative z-2">
       <p>Loading...</p>

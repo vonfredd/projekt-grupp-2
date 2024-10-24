@@ -58,7 +58,6 @@ const addMovieToDb = async (idToFetch) => {
   console.log('Add movie to db');
   const url = "https://api.themoviedb.org/3/movie/" + idToFetch;
   const ACCESS_TOKEN = "";
-
   const req = await fetch(url, {headers: {'Authorization': `Bearer ${ACCESS_TOKEN}`}});
   const data = await req.json();
 
