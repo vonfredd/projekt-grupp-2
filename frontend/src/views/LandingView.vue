@@ -133,11 +133,16 @@ undo
             <div v-if="index % 2 === 0" class="p-2 w-1/2">
               <img class="object-contain rounded-lg" :src="`https://image.tmdb.org/t/p/w500${movie.imageUrl}`">
             </div>
-            <aside class="p-1 flex flex-col justify-between w-1/2">
+            <aside class="p-1 w-1/2">
               <h3 class="text-center text-xl border-b-2">{{ movie.name }}</h3>
-              <p class="text-center line-clamp-5">{{ movie.description }}</p>
-              <p class="mt-1 text-center">
-              <p v-for="genre in movie.genres"> {{ genre }}</p>
+              <div class="flex flex-row justify-center align-super space-x-1.5 my-2">
+                <div v-for="(genre, index) in movie.genres" :key="index" class="text-xxs m-0 p-0">
+                  <span>{{ genre }}</span>
+                </div>
+              </div>
+              <p class="text-center text-sm line-clamp-6">{{ movie.description }}</p>
+              <p class="text-center">
+
               </p>
             </aside>
             <div v-if="index % 2 !== 0" class="p-2 w-1/2">
