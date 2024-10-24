@@ -18,8 +18,9 @@ public class Movie {
     private String releaseDate;
     private String imageUrl;
     private List<Rating> rating;
+    private String backdropPath;
 
-    public Movie(String id, String name, String description, List<String> genre, String duration, String releaseDate, String imageUrl, List<Rating> rating) {
+    public Movie(String id, String name, String description, List<String> genre, String duration, String releaseDate, String imageUrl, List<Rating> rating, String backdropPath) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -28,6 +29,7 @@ public class Movie {
         this.releaseDate = releaseDate;
         this.imageUrl = imageUrl;
         this.rating = rating;
+        this.backdropPath = backdropPath;
     }
 
     public Movie() {
@@ -97,5 +99,12 @@ public class Movie {
         this.rating = rating;
     }
 
+    public String getBackdropPath() {
+        return backdropPath;
+    }
+
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
+    }
 }
 
