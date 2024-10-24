@@ -75,7 +75,7 @@ function displaySearch() {
   }
   moviesContainQuery.value = movies.value.filter(movie => movie.name.toLowerCase().includes(query.value.toLowerCase()));
   query.value = '';
-};
+}
 
 </script>
 
@@ -136,9 +136,9 @@ undo
               <img class="object-contain rounded-lg" :src="`https://image.tmdb.org/t/p/w500${movie.imageUrl}`">
             </div>
             <aside class="p-1 w-1/2">
-              <h3 class="text-center border-b-2 sm:pb-3 ml:pb-4">{{ movie.name }}</h3>
-              <div class="flex flex-row justify-center align-super space-x-1.5 sm:space-x-3 md:space-x-4 ml:space-x-5 my-2">
-                <div v-for="(genre, index) in movie.genres" :key="index" class="text-xxs sm:text-xs md:text-md lg:text-lg sm:py-2 md:py-4">
+              <h3 class="text-center border-b-2 pb-2 sm:pb-3 ml:pb-4">{{ movie.name }}</h3>
+              <div class="flex flex-row justify-center align-super space-x-2 sm:space-x-3 md:space-x-4 ml:space-x-5 my-2">
+                <div v-for="(genre, index) in movie.genres" :key="index" class="text-xxs sm:text-xs md:text-md lg:text-lg pt-2 md:py-4">
                   <span>{{ genre }}</span>
                 </div>
               </div>
@@ -159,31 +159,9 @@ undo
 
 
 <style scoped>
-.top-enter-from {
-  opacity: 0;
-  transform: translateY(20px);
-}
-.top-enter-to {
-  opacity: 1;
-  transform: translateY(0);
-}
-.top-leave-from {
-  opacity: 1;
-}
-.top-leave-to {
-  opacity: 0;
-}
 
-.top-enter-active{
-  transition: all 0.4s ease;
-}
-
-.move-up-active {
-  transform: translateY(-10px);
-}
 
 .move-up {
   transition: transform 0.5s ease;
 }
-
 </style>

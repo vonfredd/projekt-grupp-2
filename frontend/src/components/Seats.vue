@@ -107,13 +107,13 @@ onMounted(fetchBookedSeats);
 
 <template>
     <div>
-        <div class="flex justify-center items-center bg-darkgrey max-w-sm mx-auto rounded-3xl p-4 mt-3 mb-6">
+        <div class="flex justify-center items-center bg-darkgrey max-w-sm sm:max-w-lg mx-auto rounded-3xl p-4 mt-3 mb-6">
         <div class="seat-grid grid grid-cols-7 gap-3">
             <button
             v-for="(seat, index) in seats"
             :key="index"
             :class="[ 
-                'w-10 h-8 rounded-3xl transition-colors duration-300',
+                'w-10 h-8 sm:w-14 sm:h-10 rounded-3xl transition-colors duration-300',
                 seat.booked ? 'bg-secondary' : seat.chosen ? 'bg-third' : 'bg-white', 
                 'hover:bg-opacity-80 focus:outline-none' 
             ]"

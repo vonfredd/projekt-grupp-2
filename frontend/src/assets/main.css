@@ -20,7 +20,7 @@ h1 {
 }
 
 h2 {
-    font-size: 26px;
+    font-size: 30px;
 }
 
 h3 {
@@ -30,7 +30,7 @@ h3 {
 
 @media screen and (min-width: 640px) {
     h1 {
-        font-size: 60px;
+        font-size: 50px;
     }
 
     h2 {
@@ -50,7 +50,7 @@ h3 {
 
 @media screen and (min-width: 768px) {
     h1 {
-        font-size: 70px;
+        font-size: 54px;
     }
 
     h2 {
@@ -79,7 +79,7 @@ h3 {
 
     h3 {
         font-size: 42px;
-        lint-height: 1.3em;
+        line-height: 1.3em;
     }
 
     body {
@@ -98,7 +98,7 @@ h3 {
 
     h3 {
         font-size: 48px;
-        lint-height: 1.3em;
+        line-height: 1.3em;
     }
 
     body {
