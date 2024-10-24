@@ -138,5 +138,5 @@ onMounted(fetchBookedSeats);
 </template>
 
 <style scoped>
-/* Additional styling can go here */
+
 </style>
