@@ -55,23 +55,33 @@ const accordionItems = ref([
 ]);
 
 const addMovieToDb = async (idToFetch) => {
-  console.log('Add movie to db');
-  const url = "https://api.themoviedb.org/3/movie/" + idToFetch;
-  const ACCESS_TOKEN = "";
-  const req = await fetch(url, {headers: {'Authorization': `Bearer ${ACCESS_TOKEN}`}});
-  const data = await req.json();
+  console.log('Fetch movie details from backend');
+  const response = await fetch(`http://localhost:9000/movies/fetch/${idToFetch}`);
 
-  console.log(JSON.stringify(data))
+  if (!response.ok) {
+    alert("Movie not found");
+    return;
+  }
 
-  const response = await fetch("http://localhost:9000/movies", {
+  const data = await response.json();
+
+  const userConfirmed = confirm(`Do you want to add "${data.title}" to our database?`);
+
+  if (!userConfirmed) {
+    return;
+  }
+
+  const addResponse = await fetch("http://localhost:9000/movies", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   });
-  const responseJson = await response.json();
+
+  const responseJson = await addResponse.json();
   console.log(responseJson);
+  alert("Movie added: " + JSON.stringify(responseJson));
 }
 
 const removeMovie = async (idToDelete) => {
