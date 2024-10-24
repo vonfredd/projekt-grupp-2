@@ -44,9 +44,19 @@ public class MovieService {
     }
 
 
-    public Movie findById(String id) {
-        return movieRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No such ID " + id));
+    public Map<String, Object> findById(String id) {
+        var movie = movieRepository.findById(id).orElseThrow(() -> new RuntimeException("No such ID " + id));
+        Map<String, Object> movieData = new HashMap<>();
+        movieData.put("id", movie.getId());
+        movieData.put("name", movie.getName());
+        movieData.put("description", movie.getDescription());
+        movieData.put("genres", movie.getGenres());
+        movieData.put("duration", movie.getDuration());
+        movieData.put("releaseDate", movie.getReleaseDate());
+        movieData.put("imageUrl", movie.getImageUrl());
+        movieData.put("backdropPath", movie.getBackdropPath());
+        movieData.put("averageRating", movie.getAverageRatingInPercentage());
+        return movieData;
     }
 
     public List<Movie> findAll() {

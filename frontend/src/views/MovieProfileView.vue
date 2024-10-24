@@ -29,6 +29,7 @@ const formattedDuration = computed(() => {
 
 onMounted(() => {
   fetchMovie();
+  console.log(movie);
   window.scrollTo(0, 0);
 });
 
@@ -45,7 +46,7 @@ onMounted(() => {
         <div class="flex mb-2 mx-6 justify-center">
           <h2 class="text-5xl font-bold mr-2">{{ movie.name }}</h2>
           <div class="relative w-7 h-7 flex items-center justify-center">
-            <p class="text-xs z-10">{{ movie.rating }}%</p>
+            <p class="text-xs z-10">{{ movie.averageRating }}%</p>
             <div class="absolute inset-0 bg-white opacity-50 rounded-full"></div>
           </div>
         </div>

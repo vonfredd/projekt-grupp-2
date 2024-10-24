@@ -30,7 +30,7 @@ public class MovieController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Movie> one(@PathVariable String id) {
+    public ResponseEntity<Map<String, Object>> one(@PathVariable String id) {
         return ResponseEntity.ok().body(movieService.findById(id));
     }
 
