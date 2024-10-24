@@ -65,14 +65,14 @@ const addMovieToDb = async (idToFetch) => {
 
   const data = await response.json();
 
-  const response = await fetch("http://localhost:9000/movies", {
+  const addResponse = await fetch("http://localhost:9000/movies", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   });
-  const responseJson = await response.json();
+  const responseJson = await addResponse.json();
   console.log(responseJson);
   alert("Movie added: " + JSON.stringify(responseJson));
 }
