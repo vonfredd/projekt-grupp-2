@@ -9,6 +9,7 @@ import org.http.backend.util.Rating;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -61,6 +62,11 @@ public class MovieService {
     }
 
     public Movie addRating(String movieId, Rating rating) {
+        if (rating.getMovieRating() < 0 || rating.getMovieRating() > 5) {
+            throw new RuntimeException("Rating must be between 0 and 5");
+        }
+
+
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new RuntimeException("No such ID " + movieId));
         movie.addRating(rating);

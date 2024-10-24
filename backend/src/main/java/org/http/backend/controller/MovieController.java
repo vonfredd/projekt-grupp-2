@@ -43,8 +43,12 @@ public class MovieController {
     }
 
     @PutMapping("{movieId}/rating")
-    public ResponseEntity<Movie> addRating(@PathVariable String movieId, @RequestBody Rating rating) {
-        return ResponseEntity.ok().body(movieService.addRating(movieId, rating));
+    public ResponseEntity<?> addRating(@PathVariable String movieId, @RequestBody Rating rating) {
+      try {
+          return ResponseEntity.ok().body(movieService.addRating(movieId, rating));
+      } catch (Exception e) {
+          return ResponseEntity.status(400).body("Error: " + e.getMessage());
+      }
     }
 
     @DeleteMapping("{id}")
