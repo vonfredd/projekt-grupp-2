@@ -1,13 +1,12 @@
 import { mount } from '@vue/test-utils'
-import { describe, test, expect, beforeEach } from "vitest";
-import { ref } from 'vue';
+import { describe, test, expect, beforeEach , vi} from "vitest";
 import LandingView from "@/views/LandingView.vue"
 import { RouterLinkStub } from '@vue/test-utils'
 
 describe('Make sure moviearray work and can be processed', () => {
     let wrapper;
 
-    const movieArr = ref([
+    const movieArr = [
         {
             "name": "The Matrix",
             "description": "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.",
@@ -85,12 +84,18 @@ describe('Make sure moviearray work and can be processed', () => {
             "imageUrl": "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
             "rating": 65
         }
-    ]);
+    ];
 
     /*
       Load mock data before tests
     */
     beforeEach(() => {
+        global.fetch = vi.fn(() =>
+            Promise.resolve({
+                json: () => Promise.resolve(movieArr),
+            })
+        );
+
         wrapper = mount(LandingView, {
             global: {
                 stubs: {
@@ -98,7 +103,6 @@ describe('Make sure moviearray work and can be processed', () => {
                 }
             }
         });
-        wrapper.vm.movies = movieArr.value;
     });
 
     test('Load props', () => {

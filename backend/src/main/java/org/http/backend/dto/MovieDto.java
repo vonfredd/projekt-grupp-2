@@ -7,7 +7,7 @@ import org.http.backend.util.Rating;
 import java.util.ArrayList;
 import java.util.List;
 
-public record MovieDto(String id, String title, String overview, String runtime, @JsonProperty("release_date") String releaseDate, @JsonProperty("poster_path") String posterPath, List<GenreDto> genres) {
+public record MovieDto(String id, String title, String overview, String runtime, @JsonProperty("release_date") String releaseDate, @JsonProperty("poster_path") String posterPath, List<GenreDto> genres, String backdropPath) {
     public MovieDto {
         if (genres == null) {
             genres = List.of();
@@ -25,6 +25,7 @@ public record MovieDto(String id, String title, String overview, String runtime,
         movie.setGenres(genres.stream().map(GenreDto::name).toList());
         List<Rating> ratings = new ArrayList<>();
         movie.setRating(ratings);
+        movie.setBackdropPath(backdropPath);
         return movie;
     }
 }
