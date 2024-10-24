@@ -116,9 +116,13 @@ function displaySearch() {
         </nav>
       </div>
     </transition>
-      <div>
-        <h2 class="mt-8 mb-8 text-center text-4xl"> {{ isSearching ? 'Result:' : 'Movies' }}</h2>
-        <transition>
+     
+        <h2 v-if="isSearching && moviesContainQuery.length === 0" class="mt-8 mb-8 text-center text-4xl"> Nothing found!</h2>
+        <h2 v-else class="mt-8 mb-8 text-center text-4xl"> {{ isSearching ? 'Result:' : 'Movies' }}</h2>
+        <div class="m-auto" v-if="isSearching && moviesContainQuery.length === 0">
+            <img class="h-full w-full rounded-2xl" src="/img/camera.png" alt="">
+          </div>
+        <transition v-else>
         <div :class="['move-up', { 'move-up-active': isSearching }]" class="flex flex-col gap-10 items-center">
           <router-link  v-for="(movie, index) in  (isSearching ? moviesContainQuery : movies)" :key="index"
             :to="{ name: 'movieProfile', params: { id: movie.id, title: movie.name.replace(/\s+/g, '-') } }"
@@ -140,7 +144,6 @@ function displaySearch() {
           </div>
         </transition>
         </div>
-      </div>
   </main>
 </template>
 
