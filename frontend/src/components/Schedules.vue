@@ -1,5 +1,6 @@
 <script setup>
 import {onMounted, ref, computed} from "vue";
+import Seats from "@/components/Seats.vue";
 
 const props = defineProps({
   movie: {
@@ -17,7 +18,7 @@ const fetchSchedules = async () => {
       throw new Error(`Failed to fetch schedules for movie with id ${props.movie.id}: ${response.statusText}`);
     }
     schedules.value = await response.json();
-    alert("Fetched schedules: " + JSON.stringify(schedules.value));
+    schedules.value.forEach(schedule => fetchBookings(schedule.id))
   } catch (error) {
     console.error(`Error fetching schedules for movie with id ${props.movie?.id || "unknown"}`, error);
   }
@@ -57,29 +58,57 @@ onMounted(() => {
     console.error("Movie object is not defined or missing ID");
   }
 });
+
+const chosenSchedule = ref(null);
+const bookedSeatsMap = ref(new Map());
+
+function displaySeat(schedule) {
+  chosenSchedule.value = schedule;
+  fetchBookings(schedule.id); 
+}
+
+async function fetchBookings(scheduleId) {
+  try{
+    const res = await fetch('http://localhost:9000/bookings');
+    const allBookings = await res.json();
+  
+    const bookings = allBookings.filter(booking => booking.schedule.id === scheduleId);
+    const totalBookedSeats = bookings.reduce((total, booking) => {
+      return total + booking.bookedSeats.length;
+    }, 0);
+  
+    bookedSeatsMap.value.set(scheduleId, totalBookedSeats);
+  }catch(e){
+    console.error(e)
+  }
+}
+
 </script>
 
 <template>
   <div>
     <div class="max-w-screen-md mx-auto">
       <div class="mb-10 flex-col justify-center">
-        <div class="bg-white bg-opacity-50 p-6 mb-10">
+        <div v-for="(cinemaSchedules, cinemaName) in groupedSchedules" :key="cinemaName" class="bg-white bg-opacity-50 p-6 mb-10">
           <div v-if="schedules.length === 0" class="text-center">
             <p>No schedules available for this movie.</p>
           </div>
-          <div v-for="(cinemaSchedules, cinemaName) in groupedSchedules" :key="cinemaName">
+          <div>
             <p class="text-black text-2xl uppercase font-semibold pb-6 pl-4">{{ cinemaName }}</p>
             <div class="flex justify-center items-center gap-10">
-              <div v-for="(schedule, index) in cinemaSchedules.slice(0, 2)" :key="index"
-                   class="bg-secondary rounded-3xl p-8 uppercase flex flex-col items-center gap-2">
-                <p class="text-3xl font-semibold">{{ formatDate(schedule.localDateTime) }}</p>
-                <p class="text-xl uppercase pb-3">{{ formatTime(schedule.localDateTime) }}</p>
+              <div @click="displaySeat(schedule)" v-for="(schedule, index) in cinemaSchedules.slice(0, 2)" :key="index"
+                   class='bg-secondary rounded-3xl p-6 uppercase flex flex-col items-center gap-2'>
+                <p class="text-4xl font-semibold">{{ formatDate(schedule.localDateTime) }}</p>
+                <p class="text-xl uppercase pb-3">KL {{ formatTime(schedule.localDateTime) }}</p>
                 <p class="text-sm uppercase">seats:</p>
-                <p class="text-3xl font-semibold">{{ schedule.availableSeats }} / {{ schedule.cinemaHall.nrOfSeats }}</p>
+                <p class="text-4xl font-semibold">{{ 
+                    schedule.cinemaHall.nrOfSeats - (bookedSeatsMap.get(schedule.id) || 0) 
+                  }}/{{ schedule.cinemaHall.nrOfSeats }}</p>
               </div>
             </div>
           </div>
         </div>
+        <Seats v-if="chosenSchedule !== null" @update="fetchBookings(chosenSchedule.id)" :key="chosenSchedule.id" :schedule="chosenSchedule" />
       </div>
     </div>
   </div>

@@ -1,24 +1,15 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, defineEmits } from "vue";
+
 
 const props = defineProps({
-  movie: {
+  schedule: {
     type: Object,
-    required: true
+    required: true 
   }
 });
 
-const cinemaHall = {
-  name: "Hall 1",
-  seatCount: 56
-};
-
-const schedule = {
-  id: "67156dab33fe431712f1cbf3",
-  localDateTime: "2024-10-15T10:18:00",
-  cinemaHall: cinemaHall, 
-  movie: props.movie  
-};
+const emit = defineEmits(['update'])
 
 const user = {
   googleId: "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOJ2ZXJzaW9uIjoxfQ.pOo7q5ZE-XrArgA-nTmbX2SqGLTWtP_qFJs6u8c7rgo",
@@ -26,7 +17,7 @@ const user = {
   email: "ej224sk@student.lnu.se"
 };
 
-const seats = ref(Array.from({ length: cinemaHall.seatCount }, (_, i) => ({
+const seats = ref(Array.from({ length: props.schedule.cinemaHall.nrOfSeats }, (_, i) => ({
   seat: i + 1,
   booked: false,
   chosen: false,
@@ -36,8 +27,8 @@ const isBooking = ref(false);
 
 const fetchBookedSeats = async () => {
   try {
-    const response = await fetch(`http://localhost:9000/schedules/${schedule.id}/booked-seats`);
-    console.log('Schedule ID:', schedule.id);
+    const response = await fetch(`http://localhost:9000/schedules/${props.schedule.id}/booked-seats`);
+    console.log('Schedule ID:', props.schedule.id);
     if (!response.ok) {
       throw new Error("Failed to fetch booked seats");
     }
@@ -68,7 +59,7 @@ const createBooking = async () => {
 
   const booking = {
     userId: user.googleId,
-    schedule: schedule,
+    schedule: props.schedule,
     bookedSeats: chosenSeats
   };
 
@@ -89,6 +80,7 @@ const createBooking = async () => {
     }
 
     alert("Booking successful!");
+    emit('update')
 
     seats.value.forEach(seat => {
       seat.chosen = false;
