@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted, ref } from "vue";
 
 const props = defineProps({
   movie: {
@@ -7,6 +8,33 @@ const props = defineProps({
   }
 });
 
+const schedules = ref([]);
+
+const fetchSchedules = async () => {
+
+  try {
+    const response = await fetch(`http://localhost:9000/schedules/movie/${props.movie.id}`);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch schedules for movie with id ${props.movie.id}: ${response.statusText}`);
+    }
+
+    schedules.value = await response.json();
+
+    alert("Fetched schedules: " + JSON.stringify(schedules.value));
+
+  } catch (error) {
+    console.error(`Error fetching schedules for movie with id ${props.movie?.id || "unknown"}`, error);
+  }
+};
+
+onMounted(() => {
+  if (props.movie && props.movie.id) {
+    fetchSchedules();
+  } else {
+    console.error("Movie object is not defined or missing ID");
+  }
+});
 </script>
 
 

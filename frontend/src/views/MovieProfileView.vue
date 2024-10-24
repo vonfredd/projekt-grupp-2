@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import Seats from "@/components/Seats.vue";
+import Schedules from "@/components/Schedules.vue";
 
 const props = defineProps({
   id: {
@@ -10,14 +11,14 @@ const props = defineProps({
 });
 
 const movie = ref(null);
-const imageUrl = ref("");
+const backdropPath = ref("");
 
 const fetchMovie = async () => {
   const response = await fetch(`http://localhost:9000/movies/${props.id}`, {
     method: "GET",
   });
   movie.value = await response.json();
-  imageUrl.value = `https://image.tmdb.org/t/p/w500${movie.value.imageUrl}`;
+  backdropPath.value = `https://image.tmdb.org/t/p/w500${movie.value.backdropPath}`;
 };
 
 const formattedDuration = computed(() => {
@@ -27,15 +28,19 @@ const formattedDuration = computed(() => {
   return `${hours}h ${minutes}min`;
 });
 
-onMounted(fetchMovie);
+onMounted(() => {
+  fetchMovie();
+  window.scrollTo(0, 0);
+});
+
 </script>
 
 <template>
   <main
-    :style="{ backgroundImage: `url(${imageUrl})` }"
-    class="bg-cover bg-center min-h-screen relative"
+    :style="{ backgroundImage: `url(${backdropPath})` }"
+    class="bg-cover bg-center min-h-screen bg-fixed relative"
   >
-    <div v-if="movie" class="absolute inset-0 bg-black opacity-10 z-1"></div>
+    <div v-if="movie" class="absolute inset-0 bg-black opacity-50 z-1"></div>
     <div v-if="movie" class="p-4 relative z-2">
       <div class="flex flex-col items-start justify-center mt-10">
         <div class="flex mb-2 mx-6 justify-center">
@@ -62,7 +67,8 @@ onMounted(fetchMovie);
         <h2 class="text-3xl">Overview</h2>
         <p class="mt-4">{{ movie.description }}</p>
       </div>
-      <Seats :movie="movie"/>
+      <Schedules :movie="movie" />
+      <Seats :movie="movie" />
     </div>
     <div v-else class="p-4 relative z-2">
       <p>Loading...</p>

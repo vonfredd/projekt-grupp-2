@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -37,14 +38,25 @@ public class ScheduleController {
         return bookingService.getBookedSeatsByScheduleId(scheduleId);
     }
 
+    @GetMapping("/movie/{movieId}")
+    public ResponseEntity<List<Schedule>> findByMovieId(@PathVariable("movieId") String movieId) {
+        try {
+            List<Schedule> schedules = scheduleService.findByMovieId(movieId);
+            return ResponseEntity.ok(schedules);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(Collections.emptyList());
+        }
+    }
+
     @PostMapping("/new")
-    public ResponseEntity<?> save(@RequestBody Schedule schedule) {
+    public ResponseEntity<Schedule> save(@RequestBody Schedule schedule) {
         try {
             Schedule savedSchedule = scheduleService.add(schedule);
             return ResponseEntity.ok().body(savedSchedule);
         } catch (Exception e) {
+            Schedule emptySchedule = new Schedule();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error occurred while saving schedule: " + e.getMessage());
+                    .body(emptySchedule);
         }
     }
 
