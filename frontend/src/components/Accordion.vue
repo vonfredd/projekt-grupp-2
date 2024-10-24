@@ -65,6 +65,12 @@ const addMovieToDb = async (idToFetch) => {
 
   const data = await response.json();
 
+  const userConfirmed = confirm(`Do you want to add "${data.title}" to our database?`);
+
+  if (!userConfirmed) {
+    return;
+  }
+
   const addResponse = await fetch("http://localhost:9000/movies", {
     method: "POST",
     headers: {
@@ -72,6 +78,7 @@ const addMovieToDb = async (idToFetch) => {
     },
     body: JSON.stringify(data),
   });
+
   const responseJson = await addResponse.json();
   console.log(responseJson);
   alert("Movie added: " + JSON.stringify(responseJson));
