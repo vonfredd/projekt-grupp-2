@@ -4,6 +4,7 @@
 body {
     color: white;
     font-family: "Montserrat", sans-serif;
+    font-size: 14px;
 }
 
 h1,
@@ -19,15 +20,50 @@ h1 {
 }
 
 h2 {
-    font-size: 48px;
+    font-size: 26px;
 }
 
-@media screen and (min-width: 800px) {
+h3 {
+    font-size: 18px;
+}
+
+@media screen and (min-width: 640px) {
     h1 {
         font-size: 60px;
     }
+
+    h2 {
+        font-size: 34px;
+    }
+
+    h3 {
+        font-size: 26px;
+    }
+
+    body {
+        font-size: 18px;
+    }
 }
 
+
+@media screen and (min-width: 768px) {
+    h1 {
+        font-size: 70px;
+    }
+
+    h2 {
+        font-size: 48px;
+    }
+
+    h3 {
+        font-size: 34px;
+        lint-height: 1.3em;
+    }
+
+    body {
+        font-size: 22px;
+    }
+}
 
 
 

@@ -81,12 +81,12 @@ function displaySearch() {
 
 <template>
   <main class="p-0 h-full relative">
-    <div class="h-full w-full bg-[length:600%] sm:bg-[length:200%] z-0 bg-[bottom_6rem_right] md:bg-[bottom_center] bg-fixed bg-[url('/img/cinemabg.jpg')]">
+    <div class="h-full w-full bg-[length:600%] md:bg-[length:400%] lg:bg-[length:200%] z-0 bg-[bottom_6rem_right] lg:bg-[bottom_center] bg-fixed bg-[url('/img/cinemabg.jpg')]">
       <!-- Length is needed to properly "zoom in" on the image -->
       <!-- This div only contains the background image -->
       <div class="p-1 z-10">
         <!-- Need padding here to be able to add margin on P tag. Else the whole bg image will follow with the margin -->
-        <p class="w-4/5 mt-5 m-auto text-center text-white z-10">Which movie do you want to watch?</p>
+        <p class="w-4/5 mt-6 md:mt-10 m-auto text-center text-white z-10">Which movie do you want to watch?</p>
         <form :class="{'flex':isSearching}" @submit.prevent="displaySearch()" class="text-center mt-4 w-4/6 sm:w-1/2 md:w-2/5  m-auto">
           <input v-model="query" :class="['p-2 rounded-full h-10 md:h-14 w-full text-black text-center', { 'outline-none w-5/6 rounded-r-none': isSearching }]"
   type="text"
@@ -98,8 +98,9 @@ undo
       </div>
       <transition name="top" appear>
       <div v-if="!isSearching" class="w-full flex flex-col items-center">
+        <div class="px-1 md:px-2">
         <div class="w-full">
-          <h1 class="text-2xl ml-3 mt-16 text-left">Top 5</h1>
+          <h2 class="ml-3 mt-16 text-left">Top 5</h2>
         </div>
         <div class="flex justify-center p-3 gap-5">
           <router-link v-if="arrayOfHighestRated[topFirstIndex]?.id" :to="{ name: 'movieProfile', params: { id: arrayOfHighestRated[topFirstIndex]?.id, title: arrayOfHighestRated[topFirstIndex]?.name.replace(/\s+/g, '-') } }" class="rounded-md bg-slate-200 shadow-[0px_0px_8px_6px_rgba(255,255,255,0.6)]">
@@ -112,6 +113,7 @@ undo
               :src="`https://image.tmdb.org/t/p/w500${arrayOfHighestRated[topSecondIndex]?.imageUrl}`" alt="">
           </router-link>
         </div>
+        </div>
         <nav>
           <button @click="adjustIndex('minus')"><span
               class="text-4xl material-symbols-outlined">chevron_left</span></button>
@@ -120,8 +122,8 @@ undo
         </nav>
       </div>
     </transition>
-        <h2 v-if="isSearching && moviesContainQuery.length === 0" class="mt-8 mb-8 text-center text-4xl"> Nothing found!</h2>
-        <h2 v-else class="mt-8 mb-8 text-center text-4xl"> {{ isSearching ? 'Result:' : 'Movies' }}</h2>
+        <h2 v-if="isSearching && moviesContainQuery.length === 0" class="mt-8 mb-8 text-center"> Nothing found!</h2>
+        <h2 v-else class="mt-8 mb-8 text-center"> {{ isSearching ? 'Result:' : 'Movies' }}</h2>
         <div class="m-auto" v-if="isSearching && moviesContainQuery.length === 0">
             <img class="h-full w-full rounded-2xl" src="/img/camera.png" alt="">
           </div>
@@ -129,18 +131,18 @@ undo
         <div :class="['move-up', { 'move-up-active': isSearching }]" class="flex flex-col gap-10 items-center">
           <router-link  v-for="(movie, index) in  (isSearching ? moviesContainQuery : movies)" :key="index"
             :to="{ name: 'movieProfile', params: { id: movie.id, title: movie.name.replace(/\s+/g, '-') } }"
-            class="flex flex-row rounded-2xl w-5/6 bg-gray-400 p-2 bg-opacity-40">
+            class="flex flex-row rounded-2xl w-5/6 bg-gray-400 p-2 bg-opacity-30">
             <div v-if="index % 2 === 0" class="p-2 w-1/2">
               <img class="object-contain rounded-lg" :src="`https://image.tmdb.org/t/p/w500${movie.imageUrl}`">
             </div>
             <aside class="p-1 w-1/2">
-              <h3 class="text-center text-xl border-b-2">{{ movie.name }}</h3>
-              <div class="flex flex-row justify-center align-super space-x-1.5 my-2">
-                <div v-for="(genre, index) in movie.genres" :key="index" class="text-xxs">
+              <h3 class="text-center  border-b-2">{{ movie.name }}</h3>
+              <div class="flex flex-row justify-center align-super space-x-1.5 sm:space-x-2 md:space-x-3 my-2">
+                <div v-for="(genre, index) in movie.genres" :key="index" class="text-xxs sm:text-xs md:text-md lg:text-lg">
                   <span>{{ genre }}</span>
                 </div>
               </div>
-              <p class="text-center text-sm line-clamp-6 sm:line-clamp-8">{{ movie.description }}</p>
+              <p class="text-center line-clamp-6 sm:line-clamp-8 md:line-clamp-none">{{ movie.description }}</p>
               <p class="text-center">
 
               </p>
