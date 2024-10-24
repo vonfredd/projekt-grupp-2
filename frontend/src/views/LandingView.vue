@@ -81,14 +81,14 @@ function displaySearch() {
 
 <template>
   <main class="p-0 h-full relative">
-    <div class="h-full w-full bg-[length:600%] z-0 bg-[bottom_6rem_right] bg-fixed bg-[url('/img/cinemabg.jpg')]">
+    <div class="h-full w-full bg-[length:600%] sm:bg-[length:200%] z-0 bg-[bottom_6rem_right] md:bg-[bottom_center] bg-fixed bg-[url('/img/cinemabg.jpg')]">
       <!-- Length is needed to properly "zoom in" on the image -->
       <!-- This div only contains the background image -->
       <div class="p-1 z-10">
         <!-- Need padding here to be able to add margin on P tag. Else the whole bg image will follow with the margin -->
         <p class="w-4/5 mt-5 m-auto text-center text-white z-10">Which movie do you want to watch?</p>
-        <form :class="{'flex':isSearching}" @submit.prevent="displaySearch()" class="text-center mt-4 w-4/6 m-auto">
-          <input v-model="query" :class="['p-2 rounded-full h-10 w-full text-black text-center', { 'outline-none w-5/6 rounded-r-none': isSearching }]"
+        <form :class="{'flex':isSearching}" @submit.prevent="displaySearch()" class="text-center mt-4 w-4/6 sm:w-1/2 md:w-2/5  m-auto">
+          <input v-model="query" :class="['p-2 rounded-full h-10 md:h-14 w-full text-black text-center', { 'outline-none w-5/6 rounded-r-none': isSearching }]"
   type="text"
             placeholder="Search movie...">
             <button v-if="isSearching" class="w-1/6 flex items-center justify-center rounded-r-3xl border-l-black bg-red-600"><span class="material-symbols-outlined">
@@ -136,11 +136,11 @@ undo
             <aside class="p-1 w-1/2">
               <h3 class="text-center text-xl border-b-2">{{ movie.name }}</h3>
               <div class="flex flex-row justify-center align-super space-x-1.5 my-2">
-                <div v-for="(genre, index) in movie.genres" :key="index" class="text-xxs m-0 p-0">
+                <div v-for="(genre, index) in movie.genres" :key="index" class="text-xxs">
                   <span>{{ genre }}</span>
                 </div>
               </div>
-              <p class="text-center text-sm line-clamp-6">{{ movie.description }}</p>
+              <p class="text-center text-sm line-clamp-6 sm:line-clamp-8">{{ movie.description }}</p>
               <p class="text-center">
 
               </p>
