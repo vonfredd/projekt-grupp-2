@@ -95,30 +95,29 @@ const sortedArr = computed(() => {
 </script>
 
 <template>
-  <div>
-    <div class="max-w-screen-md mx-auto">
-      <div class="mb-10 flex-col justify-center">
+    <div class="mx-auto">
+      <div class="mb-10 flex flex-row justify-center md:gap-10">
         <div class="text-center bg-gray-200 bg-opacity-40 pl-10 pr-10 pb-3 pt-3 mb-4" v-if="schedules.length === 0" >
           <p>No schedules available</p>
         </div>
-        <div v-for="(cinemaSchedules, cinemaName) in sortedArr" :key="cinemaName" class="bg-gray-200 bg-opacity-40 pl-10 pr-10 pb-3 pt-3 mb-4">
+        <div v-for="(cinemaSchedules, cinemaName) in sortedArr" :key="cinemaName" class="bg-gray-700 bg-opacity-50 pl-10 pr-10 pb-3 pt-3 mb-4">
           <div>
-            <p class="text-black text-2xl uppercase font-semibold pb-2">{{ cinemaName }}</p>
-            <div class="flex flex-wrap justify-between items-center gap-2">
+            <p class="text-2xl uppercase font-semibold pb-2">Cinema: {{ cinemaName }}</p>
+            <div class="flex flex-wrap justify-between items-center gap-4">
               <div @click="displaySeat(schedule)" v-for="(schedule, index) in cinemaSchedules" :key="index"
-                   :class="['rounded-3xl','w-[45%]','flex','p-4','uppercase','flex','flex-col','items-center','gap-1',(schedule.cinemaHall.nrOfSeats - bookedSeatsMap.get(schedule.id)) === 0 ? 'bg-secondary' : 'bg-black']">
-                <p class="text-4xl font-semibold">{{ formatDate(schedule.localDateTime) }}</p>
-                <p class="text-xl uppercase ">KL {{ formatTime(schedule.localDateTime) }}</p>
-                <p class="text-sm uppercase">seats:</p>
-                <p class="text-4xl font-semibold">
+                   :class="['rounded-3xl','flex','p-4','uppercase','flex','flex-col','items-center',(schedule.cinemaHall.nrOfSeats - bookedSeatsMap.get(schedule.id)) === 0 ? 'bg-black' : 'bg-secondary']">
+                <p class="text-3xl font-semibold">{{ formatDate(schedule.localDateTime) }}</p>
+                <p class="text-xl uppercase mt-1">{{ formatTime(schedule.localDateTime) }}</p>
+                <p class="text-xs uppercase mt-2">seats left:</p>
+                <p class="text-3xl font-semibold">
                   {{ schedule.cinemaHall.nrOfSeats - (bookedSeatsMap.get(schedule.id)) === 0 ? 'FULL' :  `${schedule.cinemaHall.nrOfSeats - (bookedSeatsMap.get(schedule.id) || 0)}/${schedule.cinemaHall.nrOfSeats }` }}
                   </p>
               </div>
             </div>
           </div>
         </div>
-        <Seats v-if="chosenSchedule !== null" @update="fetchBookings(chosenSchedule.id)" :key="chosenSchedule.id" :schedule="chosenSchedule" />
       </div>
+        <Seats v-if="chosenSchedule !== null" @update="fetchBookings(chosenSchedule.id)" :key="chosenSchedule.id" :schedule="chosenSchedule" />
+
     </div>
-  </div>
 </template>
