@@ -100,7 +100,7 @@ undo
       <div v-if="!isSearching" class="w-full flex flex-col items-center">
         <div class="px-1 md:px-2">
         <div class="w-full">
-          <h2 class="ml-3 mt-16 text-left sm:pb-2 md:pb-4">Top 5</h2>
+          <h3 class="ml-3 mt-16 text-left sm:pb-2 md:pb-2">Top 5</h3>
         </div>
         <div class="flex justify-center p-3 gap-5">
           <router-link v-if="arrayOfHighestRated[topFirstIndex]?.id" :to="{ name: 'movieProfile', params: { id: arrayOfHighestRated[topFirstIndex]?.id, title: arrayOfHighestRated[topFirstIndex]?.name.replace(/\s+/g, '-') } }" class="rounded-md bg-slate-200 shadow-[0px_0px_8px_6px_rgba(255,255,255,0.6)]">
@@ -137,12 +137,12 @@ undo
             </div>
             <aside class="p-1 w-1/2">
               <h3 class="text-center border-b-2 pb-2 sm:pb-3 ml:pb-4">{{ movie.name }}</h3>
-              <div class="flex flex-row justify-center align-super space-x-2 sm:space-x-3 md:space-x-4 ml:space-x-5 my-2">
-                <div v-for="(genre, index) in movie.genres" :key="index" class="text-xxs sm:text-xs md:text-md lg:text-lg pt-2 md:py-4">
+              <div class="flex flex-row justify-center align-super space-x-2 sm:space-x-3 md:space-x-4 ml:space-x-5 my-1 sm:my-2">
+                <div v-for="(genre, index) in movie.genres" :key="index" class="text-xxs sm:text-xs md:text-md lg:text-lg pt-1 sm:pt-2 md:py-4">
                   <span>{{ genre }}</span>
                 </div>
               </div>
-              <p class="text-center line-clamp-6">{{ movie.description }}</p>
+              <p class="text-center line-clamp-5 sm:line-clamp-6">{{ movie.description }}</p>
               <p class="text-center">
 
               </p>

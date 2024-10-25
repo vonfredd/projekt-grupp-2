@@ -1,14 +1,18 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import Seats from "@/components/Seats.vue";
 import Schedules from "@/components/Schedules.vue";
 
 const props = defineProps({
   id: {
     type: String,
     required: true
+  },
+  title: {
+    type: String,
+    required:true,
   }
 });
+
 
 const movie = ref(null);
 const backdropPath = ref("");
@@ -25,7 +29,7 @@ const formattedDuration = computed(() => {
   if (!movie.value) return "";
   const hours = Math.floor(movie.value.duration / 60);
   const minutes = movie.value.duration % 60;
-  return `${hours} h ${minutes} min`;
+  return `${hours}h ${minutes}min`;
 });
 
 onMounted(() => {
@@ -73,7 +77,6 @@ onMounted(() => {
         </div>
       </div>
       <Schedules :movie="movie" />
-      <Seats :movie="movie" />
     </div>
     <div v-else class="p-4 relative z-2">
       <p>Loading...</p>
@@ -122,7 +125,6 @@ onMounted(() => {
       </div>
       </div>
       <Schedules :movie="movie" class="sm:size-2/3 mx-auto" />
-      <Seats :movie="movie" />
     </div>
     <div v-else class="p-4 relative z-2">
       <p>Loading...</p>
