@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.http.backend.dto.MovieDto;
 import org.http.backend.entity.Movie;
 import org.http.backend.service.MovieService;
+import org.http.backend.util.Rating;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/movies")
@@ -31,9 +33,14 @@ public class MovieController {
     public ResponseEntity<List<Movie>> all() {
         return ResponseEntity.ok().body(movieService.findAll());
     }
+    @GetMapping("/allWithRatingsConverted")
+    public ResponseEntity<List<Map<String, Object>>> allWithRatingsConverted() {
+        return ResponseEntity.ok().body(movieService.findAllWithRatingsConverted());
+    }
+
 
     @GetMapping("/{id}")
-    public ResponseEntity<Movie> one(@PathVariable String id) {
+    public ResponseEntity<Map<String, Object>> one(@PathVariable String id) {
         return ResponseEntity.ok().body(movieService.findById(id));
     }
 
@@ -49,6 +56,15 @@ public class MovieController {
         }catch (JsonMappingException | IllegalArgumentException e){
             return ResponseEntity.status(400).body(movieService.save(jsonString));
         }
+    }
+
+    @PutMapping("{movieId}/rating")
+    public ResponseEntity<?> addRating(@PathVariable String movieId, @RequestBody Rating rating) {
+      try {
+          return ResponseEntity.ok().body(movieService.addRating(movieId, rating));
+      } catch (Exception e) {
+          return ResponseEntity.status(400).body("Error: " + e.getMessage());
+      }
     }
 
     @DeleteMapping("{id}")
