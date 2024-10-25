@@ -30,6 +30,7 @@ const formattedDuration = computed(() => {
 
 onMounted(() => {
   fetchMovie();
+  console.log(movie);
   window.scrollTo(0, 0);
 });
 
@@ -45,11 +46,11 @@ onMounted(() => {
     <div v-if="movie" class="absolute inset-0 bg-black opacity-70 z-1"></div>
     <div v-if="movie" class="p-4 relative z-2">
       <div class="mx-6">
-        <div class="flex flex-col items-start md:items-center justify-center mt-10">
-          <div class="flex mb-2 justify-center items-center">
-            <h1 class="inline md:text-center mr-2">{{ movie.name }}</h1>
+        <div class="flex flex-col items-start justify-center mt-10">
+          <div class="flex mb-2 justify-center">
+            <h1 class="inline mr-2">{{ movie.name }}</h1>
             <div class="relative w-10 h-10 flex items-center justify-center">
-              <span class="z-10">{{ movie.rating }}%</span>
+              <span class="z-10">{{ movie.averageRating }}%</span>
               <span class="absolute inset-0 bg-white opacity-30 rounded-full"></span>
             </div>
           </div>
