@@ -60,7 +60,7 @@ const closeMenu = () => {
         </button>
 
         <!-- Desktop Menu -->
-        <div class="hidden md:flex text-right pb-2">
+        <div class="hidden md:flex text-right">
           <RouterLink to="/login">
             <div
               class="flex items-center justify-center bg-secondary bg-opacity-50 px-5 rounded-full mx-2"

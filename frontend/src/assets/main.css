@@ -70,7 +70,7 @@ h3 {
 
 @media screen and (min-width: 1024px) {
     h1 {
-        font-size: 60px;
+        font-size: 56px;
     }
 
     h2 {
@@ -89,7 +89,7 @@ h3 {
 
 @media screen and (min-width: 1280px) {
     h1 {
-        font-size: 60px;
+        font-size: 56px;
     }
 
     h2 {
@@ -97,12 +97,12 @@ h3 {
     }
 
     h3 {
-        font-size: 48px;
+        font-size: 44px;
         line-height: 1.3em;
     }
 
     body {
-        font-size: 22px;
+        font-size: 20px;
     }
 }
 
