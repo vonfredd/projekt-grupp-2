@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import Schedules from "@/components/Schedules.vue";
+import RatingCircle from "@/components/RatingCircle.vue";
 
 const props = defineProps({
   id: {
@@ -45,10 +46,11 @@ onMounted(() => {
       <div class="flex flex-col items-start justify-center mt-10">
         <div class="flex mb-2 mx-6 justify-center">
           <h2 class="text-5xl font-bold mr-2">{{ movie.name }}</h2>
-          <div class="relative w-10 h-10 flex items-center justify-center">
-            <p class="text-xs z-10 ">{{ movie.averageRating }}%</p>
-            <div class="absolute inset-0 bg-white opacity-50 rounded-full "></div>
-          </div>
+<!--          <div class="relative w-10 h-10 flex items-center justify-center">-->
+<!--            <p class="text-xs z-10 ">{{ movie.averageRating }}%</p>-->
+<!--            <div class="absolute inset-0 bg-white opacity-50 rounded-full "></div>-->
+<!--          </div>-->
+          <RatingCircle :progress="movie.averageRating" :size="70"/>
         </div>
         <div class="text-xs space-x-1 mx-12">
           <span
