@@ -98,10 +98,10 @@ const sortedArr = computed(() => {
   <div>
     <div class="max-w-screen-md mx-auto">
       <div class="mb-10 flex-col justify-center">
+        <div class="text-center bg-gray-200 bg-opacity-40 pl-10 pr-10 pb-3 pt-3 mb-4" v-if="schedules.length === 0" >
+          <p>No schedules available</p>
+        </div>
         <div v-for="(cinemaSchedules, cinemaName) in sortedArr" :key="cinemaName" class="bg-gray-200 bg-opacity-40 pl-10 pr-10 pb-3 pt-3 mb-4">
-          <div v-if="schedules.length === 0" class="text-center">
-            <p>No schedules available for this movie.</p>
-          </div>
           <div>
             <p class="text-black text-2xl uppercase font-semibold pb-2">{{ cinemaName }}</p>
             <div class="flex flex-wrap justify-between items-center gap-2">
