@@ -83,27 +83,36 @@ async function fetchBookings(scheduleId) {
   }
 }
 
+const sortedArr = computed(() => {
+  return Object.fromEntries(
+    Object.entries(groupedSchedules.value).map(([key, schedules]) => [
+      key,
+      schedules.sort((a, b) => new Date(a.localDateTime) - new Date(b.localDateTime)),
+    ])
+  );
+});
+
 </script>
 
 <template>
   <div>
     <div class="max-w-screen-md mx-auto">
       <div class="mb-10 flex-col justify-center">
-        <div v-for="(cinemaSchedules, cinemaName) in groupedSchedules" :key="cinemaName" class="bg-white bg-opacity-50 p-6 mb-10">
+        <div v-for="(cinemaSchedules, cinemaName) in sortedArr" :key="cinemaName" class="bg-gray-200 bg-opacity-40 pl-10 pr-10 pb-3 pt-3 mb-4">
           <div v-if="schedules.length === 0" class="text-center">
             <p>No schedules available for this movie.</p>
           </div>
           <div>
-            <p class="text-black text-2xl uppercase font-semibold pb-6 pl-4">{{ cinemaName }}</p>
-            <div class="flex justify-center items-center gap-10">
-              <div @click="displaySeat(schedule)" v-for="(schedule, index) in cinemaSchedules.slice(0, 2)" :key="index"
-                   class='bg-secondary rounded-3xl p-6 uppercase flex flex-col items-center gap-2'>
+            <p class="text-black text-2xl uppercase font-semibold pb-2">{{ cinemaName }}</p>
+            <div class="flex flex-wrap justify-between items-center gap-2">
+              <div @click="displaySeat(schedule)" v-for="(schedule, index) in cinemaSchedules" :key="index"
+                   :class="['rounded-3xl','w-[45%]','flex','p-4','uppercase','flex','flex-col','items-center','gap-1',(schedule.cinemaHall.nrOfSeats - bookedSeatsMap.get(schedule.id)) === 0 ? 'bg-secondary' : 'bg-black']">
                 <p class="text-4xl font-semibold">{{ formatDate(schedule.localDateTime) }}</p>
-                <p class="text-xl uppercase pb-3">KL {{ formatTime(schedule.localDateTime) }}</p>
+                <p class="text-xl uppercase ">KL {{ formatTime(schedule.localDateTime) }}</p>
                 <p class="text-sm uppercase">seats:</p>
-                <p class="text-4xl font-semibold">{{ 
-                    schedule.cinemaHall.nrOfSeats - (bookedSeatsMap.get(schedule.id) || 0) 
-                  }}/{{ schedule.cinemaHall.nrOfSeats }}</p>
+                <p class="text-4xl font-semibold">
+                  {{ schedule.cinemaHall.nrOfSeats - (bookedSeatsMap.get(schedule.id)) === 0 ? 'FULL' :  `${schedule.cinemaHall.nrOfSeats - (bookedSeatsMap.get(schedule.id) || 0)}/${schedule.cinemaHall.nrOfSeats }` }}
+                  </p>
               </div>
             </div>
           </div>
