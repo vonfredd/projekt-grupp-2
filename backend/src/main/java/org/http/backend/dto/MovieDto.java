@@ -8,7 +8,7 @@ import org.http.backend.util.Rating;
 import java.util.ArrayList;
 import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record MovieDto(String id, String title, String overview, String runtime, @JsonProperty("release_date") String releaseDate, @JsonProperty("poster_path") String posterPath, List<GenreDto> genres, String backdropPath) {
+public record MovieDto(String id, String title, String overview, String runtime, @JsonProperty("release_date") String releaseDate, @JsonProperty("poster_path") String posterPath, List<GenreDto> genres, @JsonProperty("backdrop_path") String backdropPath) {
     public MovieDto {
         if (genres == null) {
             genres = List.of();
