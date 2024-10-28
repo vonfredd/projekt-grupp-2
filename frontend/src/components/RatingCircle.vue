@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, defineProps } from 'vue';
 
 const props = defineProps({
   progress: {
@@ -48,7 +48,7 @@ const circumference = computed(() => 2 * Math.PI * radius.value);
 .bg-circle {
   fill: none;
   stroke: #e6e6e6;
-  stroke-width: 7;
+  stroke-width: 8;
 }
 
 .progress-circle {
@@ -61,7 +61,7 @@ const circumference = computed(() => 2 * Math.PI * radius.value);
 
 .progress-text {
   position: absolute;
-  font-size: 0.8em;
+  font-size: 1em;
   font-weight: bold;
 }
 </style>

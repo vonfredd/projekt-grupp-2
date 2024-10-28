@@ -52,7 +52,7 @@ onMounted(() => {
       <div class="mx-6">
         <div class="flex justify-start max-w-[400px] mt-10">
           <h1 class="mr-2 pt-4">{{ movie.name }}</h1>
-          <RatingCircle :progress="movie.averageRating" :size="60"/>
+          <RatingCircle :progress="movie.averageRating" :size="70"/>
         </div>
         <div class="space-x-1 uppercase">
           <span
@@ -86,7 +86,7 @@ onMounted(() => {
       </div>
       <div class="mx-6">
         <!-- Same content as mobile or adjust as necessary for desktop -->
-        <div class="flex justify-center">
+        <div class="flex justify-center md:size-4/5 lg:size-2/3 xl:size:3/5 max-w-screen-xl mx-auto">
           <div class="place-self-center">
             <div class="text-center mt-10 mb-2">
               <h2 class="mr-3">{{ movie.name }}</h2>
@@ -104,11 +104,11 @@ onMounted(() => {
             </div>
           </div>
           <div class="place-self-start">
-            <RatingCircle :progress="movie.averageRating" :size="60"/>
+            <RatingCircle :progress="movie.averageRating" :size="80"/>
           </div>
         </div>
-        <hr class="border-2 size-2/3 mx-auto">
-        <div class="pt-10 pb-20 flex size-2/3 mx-auto">
+        <hr class="border-2 md:size-4/5 lg:size-2/3 xl:size-3/5 max-w-screen-lg mx-auto">
+        <div class="pt-10 pb-20 flex md:size-4/5 lg:size-2/3 xl:size:3/5 max-w-screen-lg mx-auto">
           <div class="lg:mx-4 px-10">
             <h3>Overview</h3>
             <p class="mt-2">{{ movie.description }}</p>
