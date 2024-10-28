@@ -65,7 +65,7 @@ onMounted(() => {
           <span class="mx-2">|</span>
           <p class="inline">{{ formattedDuration }}</p>
         </div>
-        <div class="py-8 mb-10 max-w-[400px] sm:max-w-[500px]">
+        <div class="py-10 max-w-[400px] sm:max-w-[500px]">
           <h2>Overview</h2>
           <p class="mt-2">{{ movie.description }}</p>
         </div>
@@ -80,7 +80,7 @@ onMounted(() => {
   <!-- Desktop Background -->
   <div class="hidden md:block bg-cover min-h-screen bg-fixed relative bg-[url('/img/cinemacurtains.jpg')] bg-[bottom_center]">
     <div v-if="movie" class="absolute inset-0 bg-black opacity-50 z-1"></div>
-    <div v-if="movie" class="p-4 relative z-2">
+    <div v-if="movie" class="p-4 relative z-2 pb-20">
       <div class="md:show flex justify-center p-2 px-10 pt-2">
         <img :src="`https://image.tmdb.org/t/p/w500${movie.imageUrl}`" alt="" class=" sm:size-1/2 md:size-2/5 lg:size-1/3 xl:size-1/4 shadow-[0px_0px_8px_6px_rgba(255,255,255,0.6)]">
       </div>
@@ -107,8 +107,8 @@ onMounted(() => {
             <RatingCircle :progress="movie.averageRating" :size="80"/>
           </div>
         </div>
-        <hr class="border-2 md:size-4/5 lg:size-2/3 xl:size-3/5 max-w-screen-lg mx-auto">
-        <div class="pt-10 pb-20 flex md:size-4/5 lg:size-2/3 xl:size:3/5 max-w-screen-lg mx-auto">
+        <hr class="border-2 md:size-4/5 lg:size-2/3 max-w-screen-lg mx-auto">
+        <div class="pt-10 pb-20 flex md:size-4/5 lg:size-2/3  max-w-screen-lg mx-auto">
           <div class="lg:mx-4 px-10">
             <h3>Overview</h3>
             <p class="mt-2">{{ movie.description }}</p>
