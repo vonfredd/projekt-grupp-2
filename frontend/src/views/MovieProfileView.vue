@@ -78,7 +78,7 @@ onMounted(() => {
   </main>
 
   <!-- Desktop Background -->
-  <div class="hidden md:block bg-cover min-h-screen bg-fixed relative bg-[url('/img/cinemacurtains.jpg')] bg-[length:200%] bg-[bottom_center]">
+  <div class="hidden md:block bg-cover min-h-screen bg-fixed relative bg-[url('/img/cinemacurtains.jpg')] bg-[bottom_center]">
     <div v-if="movie" class="absolute inset-0 bg-black opacity-50 z-1"></div>
     <div v-if="movie" class="p-4 relative z-2">
       <div class="md:show flex justify-center p-2 px-10 pt-2">
