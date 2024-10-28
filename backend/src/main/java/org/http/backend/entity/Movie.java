@@ -122,7 +122,7 @@ public class Movie {
         ratings.add(newRating);
     }
 
-    public double getAverageRatingInPercentage() {
+    public int getAverageRatingInPercentage() {
         if (ratings == null || ratings.isEmpty()) {
             return 0;  // Return 0 if there are no ratings
         }
@@ -133,8 +133,7 @@ public class Movie {
         }
 
         double averageRating = sum / ratings.size();  // Calculate the average
-        return (averageRating / 5.0) * 100;  // Convert to percentage assuming max rating is 5
+        return (int) Math.round((averageRating / 5.0) * 100); // Convert to percentage assuming max rating is 5
     }
-
 }
 
