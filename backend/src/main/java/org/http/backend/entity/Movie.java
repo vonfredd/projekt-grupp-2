@@ -17,9 +17,10 @@ public class Movie {
     private String duration;
     private String releaseDate;
     private String imageUrl;
-    private List<Rating> rating;
+    private List<Rating> ratings;
+    private String backdropPath;
 
-    public Movie(String id, String name, String description, List<String> genre, String duration, String releaseDate, String imageUrl, List<Rating> rating) {
+    public Movie(String id, String name, String description, List<String> genre, String duration, String releaseDate, String imageUrl, List<Rating> ratings, String backdropPath) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -27,7 +28,8 @@ public class Movie {
         this.duration = duration;
         this.releaseDate = releaseDate;
         this.imageUrl = imageUrl;
-        this.rating = rating;
+        this.ratings = ratings;
+        this.backdropPath = backdropPath;
     }
 
     public Movie() {
@@ -90,11 +92,48 @@ public class Movie {
     }
 
     public List<Rating> getRating() {
-        return rating;
+        return ratings;
     }
 
     public void setRating(List<Rating> rating) {
-        this.rating = rating;
+        this.ratings = rating;
+    }
+
+    public String getBackdropPath() {
+        return backdropPath;
+    }
+
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
+    }
+    public void addRating(Rating rating) {
+        this.ratings.add(rating);
+    }
+    public void addOrUpdateRating(Rating newRating) {
+        // Check if this user has already rated
+        for (Rating rating : ratings) {
+            if (rating.getUserId().equals(newRating.getUserId())) {
+                // Update the existing rating
+                rating.setMovieRating(newRating.getMovieRating());
+                return;
+            }
+        }
+        // If the user hasn't rated yet, add the new rating
+        ratings.add(newRating);
+    }
+
+    public double getAverageRatingInPercentage() {
+        if (ratings == null || ratings.isEmpty()) {
+            return 0;  // Return 0 if there are no ratings
+        }
+
+        double sum = 0;
+        for (Rating rating : ratings) {
+            sum += rating.getMovieRating();
+        }
+
+        double averageRating = sum / ratings.size();  // Calculate the average
+        return (averageRating / 5.0) * 100;  // Convert to percentage assuming max rating is 5
     }
 
 }

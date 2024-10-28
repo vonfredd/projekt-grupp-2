@@ -1,103 +1,113 @@
 import { mount } from '@vue/test-utils'
-import { describe, test, expect, beforeEach } from "vitest";
-import { ref } from 'vue';
+import { describe, test, expect, beforeEach , vi} from "vitest";
 import LandingView from "@/views/LandingView.vue"
+import { RouterLinkStub } from '@vue/test-utils'
 
-
-describe('Make sure props work and can be processed', () => {
+describe('Make sure moviearray work and can be processed', () => {
     let wrapper;
 
-    const movieArr = ref([
+    const movieArr = [
         {
             "name": "The Matrix",
             "description": "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.",
-            "genre": [
-                { "id": 28, "name": "Action" },
-                { "id": 878, "name": "Science Fiction" }
+            "genres": [
+                "Action",
+                "Science Fiction"
             ],
             "duration": 136,
             "releaseDate": "1999-03-31",
-            "imageUrl": "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+            "imageUrl": "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
             "rating": 87
         },
         {
             "name": "Interstellar",
             "description": "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
-            "genre": [
-                { "id": 12, "name": "Adventure" },
-                { "id": 18, "name": "Drama" },
-                { "id": 878, "name": "Science Fiction" }
+            "genres": [
+                "Adventure",
+                "Drama",
+                "Science Fiction"
             ],
             "duration": 169,
             "releaseDate": "2014-11-07",
-            "imageUrl": "https://image.tmdb.org/t/p/w500/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+            "imageUrl": "/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
             "rating": 81
         },
         {
             "name": "The Dark Knight",
             "description": "When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.",
-            "genre": [
-                { "id": 28, "name": "Action" },
-                { "id": 80, "name": "Crime" },
-                { "id": 18, "name": "Drama" }
+            "genres": [
+                "Action",
+                "Crime",
+                "Drama"
             ],
             "duration": 152,
             "releaseDate": "2008-07-18",
-            "imageUrl": "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+            "imageUrl": "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
             "rating": 85
-        },{
+        },
+        {
             "name": "The Dark Knight",
             "description": "When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.",
-            "genre": [
-                { "id": 28, "name": "Action" },
-                { "id": 80, "name": "Crime" },
-                { "id": 18, "name": "Drama" }
+            "genres": [
+                "Action",
+                "Crime",
+                "Drama"
             ],
             "duration": 152,
             "releaseDate": "2008-07-18",
-            "imageUrl": "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+            "imageUrl": "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
             "rating": 75
-        },{
+        },
+        {
             "name": "The Dark Knight",
             "description": "When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.",
-            "genre": [
-                { "id": 28, "name": "Action" },
-                { "id": 80, "name": "Crime" },
-                { "id": 18, "name": "Drama" }
+            "genres": [
+                "Action",
+                "Crime",
+                "Drama"
             ],
             "duration": 152,
             "releaseDate": "2008-07-18",
-            "imageUrl": "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+            "imageUrl": "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
             "rating": 82
-        },{
+        },
+        {
             "name": "The Dark Knight",
             "description": "When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.",
-            "genre": [
-                { "id": 28, "name": "Action" },
-                { "id": 80, "name": "Crime" },
-                { "id": 18, "name": "Drama" }
+            "genres": [
+                "Action",
+                "Crime",
+                "Drama"
             ],
             "duration": 152,
             "releaseDate": "2008-07-18",
-            "imageUrl": "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+            "imageUrl": "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
             "rating": 65
         }
-    ]);
+    ];
 
     /*
-      Load prop data before tests
+      Load mock data before tests
     */
     beforeEach(() => {
+        global.fetch = vi.fn(() =>
+            Promise.resolve({
+                json: () => Promise.resolve(movieArr),
+            })
+        );
+
         wrapper = mount(LandingView, {
-            propsData: {
-                listOfMovies: movieArr.value
+            global: {
+                stubs: {
+                    RouterLink: RouterLinkStub
+                }
             }
-        })
-    })
+        });
+    });
 
     test('Load props', () => {
         expect(LandingView).toBeTruthy();
-        expect(wrapper.vm.listOfMovies).toBeDefined();
+        expect(wrapper.vm.movies).toBeDefined();
     })
 
     test('Find first movie from proplist in DOM', () => {
@@ -106,16 +116,16 @@ describe('Make sure props work and can be processed', () => {
         const firstMovieDescription = wrapper.findAll('p').at(1);
         const firstMovieTitle = wrapper.findAll('h3').at(0);
         const firstMovieImgUrl = wrapper.findAll('img').at(0).element.src;
-        
+
         expect(firstMovieTitle.text()).toBe('The Matrix')
         expect(firstMovieDescription.text()).toContain('A computer hacker learns from mysterious rebels')
         expect(firstMovieImgUrl).toBe('https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg')
 
     })
-    
+
     test('arrayOfHighestRated is only 5 in length when keeping top rated movies ',()=>{
         expect(wrapper.vm.arrayOfHighestRated.length).toBe(5)
-        expect(wrapper.vm.listOfMovies.length).toBe(6)
+        expect(wrapper.vm.movies.length).toBe(6)
     })
 
 })

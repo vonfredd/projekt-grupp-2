@@ -2,11 +2,11 @@ package org.http.backend.controller;
 
 import org.http.backend.entity.Booking;
 import org.http.backend.service.BookingService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin(origins = "http://localhost:5174")
 @RestController
 @RequestMapping("/bookings")
 public class BookingController {
@@ -31,9 +31,10 @@ public class BookingController {
         try {
             return ResponseEntity.ok().body(bookingService.save(booking));
         } catch (Exception e) {
-            return null;
+            e.printStackTrace();
+            Booking emptyBooking = new Booking();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(emptyBooking);
         }
-
     }
 
 }
