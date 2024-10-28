@@ -14,6 +14,7 @@ const resetFormFields = (wrapper) => {
 
 describe('ScheduleMovie Component Default Setup', () => {
     let wrapper;
+    const movieQuery = ref("");
 
     const movieArr = ref([
         {
@@ -56,11 +57,11 @@ describe('ScheduleMovie Component Default Setup', () => {
     // Mock fetch API
     beforeEach(async () => {
         global.fetch = vi.fn((url) => {
-            if (url.includes('movies/name')) {
+            if (url === `http://localhost:9000/movies/name?name=${movieQuery.value}`) {
                 return Promise.resolve({
                     json: () => Promise.resolve(movieArr.value)
                 });
-            } else if (url.includes('cinemas')) {
+            } else if (url === 'http://localhost:9000/cinemas') {
                 return Promise.resolve({
                     json: () => Promise.resolve(cinemaArr.value)
                 });
@@ -204,9 +205,9 @@ describe('ScheduleMovie Component - test response', () => {
     let wrapper;
 
     beforeEach(async () => {
-        global.fetch = vi.fn((url, options) => {
-            if (url.includes('schedules/new') && options.method === 'POST') {
-                const body = JSON.parse(options.body);
+        global.fetch = vi.fn((url, scheduleRequest) => {
+            if (url === 'http://localhost:9000/schedules/new' && scheduleRequest.method === 'POST') {
+                const body = JSON.parse(scheduleRequest.body);
 
 
                 if (body.movie && body.cinema && body.cinemaHall && body.localDateTime) {
@@ -249,7 +250,6 @@ describe('ScheduleMovie Component - test response', () => {
         vi.clearAllMocks();
     });
 
-
     test('should verify 200 OK response when posting a schedule', async () => {
         wrapper.vm.cinema = {name: "Cinema 1", cinemaHalls: [{name: "Hall 1"}]};
         wrapper.vm.cinemaHall = {name: "Hall 1"};
@@ -273,12 +273,14 @@ describe('ScheduleMovie Component - test response', () => {
             })
         }));
 
+        // Assert the response code
+        const response = await global.fetch.mock.results[0].value;
+        expect(response.status).toBe(200);
     });
 
     test('should handle 500 Internal Server Error response when some fields are missing', async () => {
-        // Fill only some of the form fields
+        // Fill only cinema field
         wrapper.vm.cinema = {name: "Cinema 1", cinemaHalls: [{name: "Hall 1"}]};
-        // Leave cinemaHall, selectedMovie, and date empty
         wrapper.vm.cinemaHall = null;
         wrapper.vm.selectedMovie = null;
         wrapper.vm.date = null;
@@ -304,6 +306,9 @@ describe('ScheduleMovie Component - test response', () => {
             })
         }));
 
+        // Assert the response code
+        const response = await global.fetch.mock.results[0].value;
+        expect(response.status).toBe(500);
     });
 });
 
