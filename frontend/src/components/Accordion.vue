@@ -135,12 +135,12 @@ function switchAccordionEvent(idOfItem) {
             :aria-expanded="activeAccordion === item.id"
             :aria-controls="'section-' + item.id"
         >
-          <div class="flex justify-between items-center uppercase">
+          <form class="flex justify-between items-center uppercase">
             <label class="block uppercase" :for="item.inputId">{{ item.label }}</label>
             <span :class="{ 'rotate-180': activeAccordion === item.id }" class="transform transition-transform">
               <i class="fas fa-chevron-down"></i>
             </span>
-          </div>
+          </form>
         </button>
       </p>
 

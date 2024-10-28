@@ -172,7 +172,7 @@ const handleSubmit = async () => {
           </option>
         </select>
         <input
-          class="border-solid border border-grey h-6 w-full mt-1 h-8 px-1"
+          class="border-solid border border-grey h-8 w-full mt-1 px-1"
           type="text"
           v-model="movieQuery"
           placeholder="Type to filter movies"
