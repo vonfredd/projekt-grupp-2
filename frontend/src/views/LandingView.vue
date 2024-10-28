@@ -21,7 +21,7 @@ const arrayOfHighestRated = computed(() => {
     "imageUrl": ""
   }];
   }
-  const arr = movies.value.slice().sort((a, b) => b.rating - a.rating);
+  const arr = movies.value.slice().sort((a, b) => b.averageRatingInPercentage - a.averageRatingInPercentage);
   return arr.slice(0, 5);
 });
 
