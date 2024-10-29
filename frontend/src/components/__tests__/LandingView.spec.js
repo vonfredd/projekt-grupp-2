@@ -114,7 +114,7 @@ describe('Make sure moviearray work and can be processed', () => {
         expect(wrapper.find('h2').text()).toBe('Movies');
 
         const firstMovieDescription = wrapper.findAll('p').at(1);
-        const firstMovieTitle = wrapper.findAll('h3').at(0);
+        const firstMovieTitle = wrapper.findAll('h3').at(1);
         const firstMovieImgUrl = wrapper.findAll('img').at(0).element.src;
 
         expect(firstMovieTitle.text()).toBe('The Matrix')
