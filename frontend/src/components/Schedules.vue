@@ -107,7 +107,7 @@ const sortedArr = computed(() => {
         <div class="flex flex-col md:flex-row justify-center gap-4">
           <div v-for="(cinemaSchedules, cinemaName) in sortedArr" :key="cinemaName" class="bg-gray-700 bg-opacity-60 px-5 py-3 mb-4">
             <div>
-              <h4 class="text-2xl md:text-3xl lg:text-4xl uppercase pb-3 md:pb-4 lg:pb-5 xl:pb-6">Cinema: {{ cinemaName }}</h4>
+              <h4 class="text-2xl md:text-3xl lg:text-4xl uppercase pb-3 md:pb-4 lg:pb-5 xl:pb-6">{{ cinemaName }}</h4>
               <div class="flex flex-wrap justify-start items-center gap-3">
                 <div @click="displaySeat(schedule)" v-for="(schedule, index) in cinemaSchedules" :key="index"
                      :class="['rounded-3xl','flex','p-4','uppercase','flex','flex-col','items-center','gap-1',(schedule.cinemaHall.nrOfSeats - bookedSeatsMap.get(schedule.id)) === 0 ? 'bg-secondary' : 'bg-black']">
