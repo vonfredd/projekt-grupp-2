@@ -105,16 +105,12 @@ const handleSubmit = async () => {
     const result = await response.json();
     console.log('Schedule submitted successfully:', result);
 
-    cinema.value = null;
-    cinemaHall.value = null;
-    selectedMovie.value = null;
     formattedDate.value = "";
     dateTime.value = "";
 
   } catch (error) {
     console.error('Error submitting schedule:', error);
   }
-  formattedDate.value = "";
 };
 </script>
 
