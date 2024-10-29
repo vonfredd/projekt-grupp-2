@@ -6,8 +6,8 @@ import ScheduleMovie from "@/components/ScheduleMovie.vue";
 
 <template>
   <div id="admin-view">
-    <main class="px-[10%] py-[5%] flex justify-between max-w-[2000px] mx-auto">
-      <div class="bg-gray-100 w-3/5 text-black p-10">
+    <main class="px-10 py-20 flex gap-3 max-w-7xl mx-auto">
+      <div class="bg-gray-100 w-2/3 text-black px-5 py-10">
         <ScheduleMovie/>
       </div>
 
