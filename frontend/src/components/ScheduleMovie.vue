@@ -120,10 +120,10 @@ const handleSubmit = async () => {
 
 
 <template>
-  <h2 class="text-center">Movie Schedule</h2>
-  <div class="flex justify-between">
-    <div class="text-center p-4 my-8 w-2/4">
-      <form class="py-3">
+  <h2 class="text-center mb-6">Movie Schedule</h2>
+  <div class="flex justify-between gap-10">
+    <div class="max-w-lg ml-5">
+      <form class="py-3 text-center">
         <label class="block uppercase" for="cinema">Cinema</label>
         <select
           @click="getCinemas"
@@ -136,7 +136,7 @@ const handleSubmit = async () => {
           <option v-for="(cinema, index) in cinemas" :value="cinema" :key="index">{{ cinema.name }}</option>
         </select>
       </form>
-      <form class="py-3">
+      <form class="py-3 text-center">
         <label class="block uppercase" for="cinema-hall">Cinema Hall</label>
         <select
           class="border-solid border border-black h-8 w-full"
@@ -154,7 +154,7 @@ const handleSubmit = async () => {
           </option>
         </select>
       </form>
-      <form class="py-3">
+      <form class="py-3 text-center">
         <label class="block uppercase" for="selected-movie">Movie</label>
         <select
           class="border-solid border border-black h-8 w-full"
@@ -172,16 +172,16 @@ const handleSubmit = async () => {
           </option>
         </select>
         <input
-          class="border-solid border border-grey h-6 w-full mt-1 ml-0"
+          class="border-solid border border-grey h-8 w-full mt-1 px-1"
           type="text"
           v-model="movieQuery"
           placeholder="Type to filter movies"
           @keydown.enter.prevent
         />
       </form>
-      <form class="py-3">
+      <form class="py-3 text-center">
         <label class="block uppercase" for="selected-date"
-          >Selected Date and Time</label
+          >Selected Date & Time</label
         >
         <input
           class="px-1 border-solid border border-black h-8 w-full"
@@ -192,20 +192,21 @@ const handleSubmit = async () => {
           readonly
         />
       </form>
+      <button
+          id="schedule-movie-button"
+          type="button"
+          class="mt-6 px-4 py-2 bg-primary text-white rounded disabled:bg-greyish hover:bg-secondary justify-start uppercase"
+          :disabled="!isFormValid"
+          @click="handleSubmit"
+      >
+        Schedule Movie
+      </button>
+
     </div>
 
     <div class="p-5 my-10">
       <VueDatePicker v-model="date" inline auto-apply />
     </div>
   </div>
-  <button
-    id="schedule-movie-button"
-    type="button"
-    class="mt-3 px-4 py-2 self-center bg-primary text-white rounded disabled:bg-greyish hover:bg-secondary"
-    :disabled="!isFormValid"
-    @click="handleSubmit"
-  >
-    Schedule Movie
-  </button>
 </template>
 <style scoped></style>
