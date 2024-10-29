@@ -13,11 +13,11 @@ const closeMenu = () => {
 </script>
 
 <template>
-  <header class="bg-primary">
+  <header class="bg-primary md:px-5">
     <nav class="p-3">
       <div class="flex items-center justify-between">
         <RouterLink to="/" class="block"
-          ><h1 class="text-5xl p-1 px-7 uppercase">Cinema</h1>
+          ><h1 class="p-1 px-2 uppercase">Cinema</h1>
         </RouterLink>
 
         <!-- Hamburger Button -->
@@ -60,7 +60,7 @@ const closeMenu = () => {
         </button>
 
         <!-- Desktop Menu -->
-        <div class="hidden md:flex text-white">
+        <div class="hidden md:flex text-right">
           <RouterLink to="/login">
             <div
               class="flex items-center justify-center bg-secondary bg-opacity-50 px-5 rounded-full mx-2"
@@ -70,10 +70,8 @@ const closeMenu = () => {
                 width="20px"
                 height="20px"
                 viewBox="0 0 34 34"
-                version="1.1"
                 preserveAspectRatio="xMidYMid meet"
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
               >
                 <title>user-solid</title>
                 <path
@@ -113,10 +111,8 @@ const closeMenu = () => {
               width="25px"
               height="25px"
               viewBox="0 0 36 36"
-              version="1.1"
               preserveAspectRatio="xMidYMid meet"
               xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <title>user-solid</title>
               <path
