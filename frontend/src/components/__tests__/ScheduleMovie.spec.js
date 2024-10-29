@@ -12,6 +12,29 @@ const resetFormFields = (wrapper) => {
     wrapper.vm.date = new Date();
 };
 
+// Function to mock POST schedule response
+const mockPostSchedule = (url, scheduleRequest) => {
+    if (url === 'http://localhost:9000/schedules/new' && scheduleRequest.method === 'POST') {
+        const body = JSON.parse(scheduleRequest.body);
+
+        if (body.movie && body.cinema && body.cinemaHall && body.localDateTime) {
+            return Promise.resolve({
+                ok: true,
+                status: 200,
+                statusText: 'OK',
+                json: () => Promise.resolve({})
+            });
+        } else {
+            return Promise.resolve({
+                ok: false,
+                status: 500,
+                statusText: 'Internal Server Error',
+                json: () => Promise.resolve({})
+            });
+        }
+    }
+};
+
 describe('ScheduleMovie Component Default Setup', () => {
     let wrapper;
     const movieQuery = ref("");
@@ -56,7 +79,7 @@ describe('ScheduleMovie Component Default Setup', () => {
 
     // Mock fetch API
     beforeEach(async () => {
-        global.fetch = vi.fn((url) => {
+        global.fetch = vi.fn((url, scheduleRequest) => {
             if (url === `http://localhost:9000/movies/name?name=${movieQuery.value}`) {
                 return Promise.resolve({
                     json: () => Promise.resolve(movieArr.value)
@@ -65,6 +88,8 @@ describe('ScheduleMovie Component Default Setup', () => {
                 return Promise.resolve({
                     json: () => Promise.resolve(cinemaArr.value)
                 });
+            } else {
+                return mockPostSchedule(url, scheduleRequest);
             }
         });
 
@@ -205,45 +230,20 @@ describe('ScheduleMovie Component - test response', () => {
     let wrapper;
 
     beforeEach(async () => {
-        global.fetch = vi.fn((url, scheduleRequest) => {
-            if (url === 'http://localhost:9000/schedules/new' && scheduleRequest.method === 'POST') {
-                const body = JSON.parse(scheduleRequest.body);
-
-
-                if (body.movie && body.cinema && body.cinemaHall && body.localDateTime) {
-                    return Promise.resolve({
-                        ok: true,
-                        status: 200,
-                        statusText: 'OK',
-                        json: () => Promise.resolve({})
-                    });
-                } else {
-                    return Promise.resolve({
-                        ok: false,
-                        status: 500,
-                        statusText: 'Internal Server Error',
-                        json: () => Promise.resolve({})
-                    });
-                }
-            }
-            return Promise.resolve({
-                ok: false,
-                status: 404,
-                statusText: 'Not Found',
-                json: () => Promise.resolve({})
-            });
-        });
-
-        wrapper = mount(ScheduleMovie, {
-            global: {
-                mocks: {
-                    fetch: global.fetch
-                }
-            }
-        });
-
-        await wrapper.vm.$nextTick();
+    global.fetch = vi.fn((url, scheduleRequest) => {
+        return mockPostSchedule(url, scheduleRequest);
     });
+
+    wrapper = mount(ScheduleMovie, {
+        global: {
+            mocks: {
+                fetch: global.fetch
+            }
+        }
+    });
+
+    await wrapper.vm.$nextTick();
+});
 
     afterEach(() => {
         resetFormFields(wrapper);
