@@ -36,9 +36,13 @@ public class SecurityConfig {
                     auth.requestMatchers("/movies/**", "/movies","/users", "/bookings", "/schedules/**", "/schedules", "/cinemas","/cinemas/**").permitAll();
                     auth.anyRequest().denyAll();
                 })
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("http://localhost:5174/")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID"))
                 .oauth2Login(oauth2 -> oauth2
-                        .successHandler(customOAuth2SuccessHandler)
-                        .defaultSuccessUrl("http://localhost:5174/", true))
+                        .successHandler(customOAuth2SuccessHandler))
                 .formLogin(form -> form
                         .successHandler(customFormLoginSuccessHandler));
         return http.build();

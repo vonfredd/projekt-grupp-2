@@ -38,6 +38,43 @@ const router = createRouter({
             beforeEnter() {
                 window.location.href = 'http://localhost:9000/login';
             }
+        },
+        {
+            path:'/logout',
+            name: 'Logout',
+            beforeEnter() {
+                localStorage.removeItem('userData');
+                window.location.href = 'http://localhost:9000/logout';
+            },
+        },
+        {
+            path: '/redirect',
+            name: 'RedirectHandler',
+            beforeEnter(to, from, next) {
+                if (to.query.redirected) {
+                    fetch('http://localhost:9000/users/data', {
+                        method: 'GET', 
+                        credentials: 'include' 
+                    }) 
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(userData => {
+                            localStorage.setItem('userData', JSON.stringify(userData));
+                            window.dispatchEvent(new Event("storage"));
+                            next({ name: 'home' });
+                        })
+                        .catch(error => {
+                            console.error('Failed to fetch user data:', error);
+                            next({ name: 'home' }); 
+                        });
+                } else {
+                    next();
+                }
+            }
         }
     ],
 });

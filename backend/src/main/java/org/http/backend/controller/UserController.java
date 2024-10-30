@@ -20,8 +20,8 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<User> one(@RequestParam String id) {
-        return ResponseEntity.ok().body(userService.find(id));
+    public ResponseEntity<User> one(@RequestParam String googleId) {
+        return ResponseEntity.ok().body(userService.find(googleId));
     }
 
     @PostMapping
