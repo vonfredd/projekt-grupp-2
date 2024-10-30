@@ -34,7 +34,6 @@ const formattedDuration = computed(() => {
 
 onMounted(() => {
   fetchMovie();
-  console.log(movie);
   window.scrollTo(0, 0);
 });
 

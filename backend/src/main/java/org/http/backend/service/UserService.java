@@ -14,7 +14,7 @@ public class UserService {
     public UserService(UserRepository userRepository) {this.userRepository = userRepository;}
 
     public User find(String id) {
-        Optional<User> user = userRepository.findById(id);
+        Optional<User> user = userRepository.findByGoogleId(id);
         return user.orElseThrow(() -> new RuntimeException("No such ID " + id));
     }
 
