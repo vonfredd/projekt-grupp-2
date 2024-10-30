@@ -80,7 +80,6 @@ const handleSubmit = async () => {
     Movie: ${JSON.stringify(selectedMovie.value)}
     Date: ${JSON.stringify(formattedDate.value)}
   `;
-  alert(`Form submitted:\n${submissionDetails}`);
 
   const schedule = {
     localDateTime: dateTime.value,
@@ -92,12 +91,23 @@ const handleSubmit = async () => {
   try {
     const response = await fetch('http://localhost:9000/schedules/new', {
       method: 'POST',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(schedule)
     });
 
+    if(response.url == 'http://localhost:9000/login'){
+      alert('Please login as admin to schedule a movie')
+      return;
+    }
+
+    if(response.status === 403){
+      alert('Only admin can schedule a movie');
+      return;
+    }
+    
     if (!response.ok) {
       throw new Error(`Error: ${response.statusText}`);
     }
