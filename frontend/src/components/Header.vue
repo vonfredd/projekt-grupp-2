@@ -44,7 +44,7 @@ onMounted(() => {
 
         <!-- Desktop Menu -->
         <div class="hidden md:flex text-right">
-          <RouterLink v-if="isLoggedIn" to="/login">
+          <RouterLink v-if="isLoggedIn" to="/logout">
             <div
               class="flex items-center justify-center bg-secondary bg-opacity-50 px-5 rounded-full mx-2"
             >
@@ -98,7 +98,7 @@ onMounted(() => {
 
       <!-- Mobile Menu -->
       <div v-if="isMenuOpen" class="md:hidden">
-        <RouterLink v-if="isLoggedIn" to="/login">
+        <RouterLink v-if="isLoggedIn" to="/logout">
             <div
               class="flex items-center justify-center bg-secondary bg-opacity-50 px-5 rounded-full mx-2"
             >

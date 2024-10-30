@@ -42,11 +42,9 @@ public class SecurityConfig {
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID"))
                 .oauth2Login(oauth2 -> oauth2
-                        .successHandler(customOAuth2SuccessHandler)
-                        .defaultSuccessUrl("http://localhost:5174/redirect?redirected=true", true))
+                        .successHandler(customOAuth2SuccessHandler))
                 .formLogin(form -> form
                         .successHandler(customFormLoginSuccessHandler));
-
         return http.build();
     }
 

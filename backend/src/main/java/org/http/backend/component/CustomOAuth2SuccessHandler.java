@@ -33,10 +33,11 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
         response.setCharacterEncoding("UTF-8");
         String userData = "{ \"googleId\": \"" + googleId + "\", \"email\": \"" + email + "\", \"fullName\": \"" + name + "\" }";
         response.getWriter().write(userData);
+        Optional<User> existingUser = userRepository.findByGoogleId(googleId);
 
-        Optional<User> existingUser = userRepository.findById(googleId);
         if (existingUser.isEmpty()) {
             userRepository.save(new User(googleId, email, name));
         }
+        response.sendRedirect("http://localhost:5174/redirect?redirected=true");
     }
 }

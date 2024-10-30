@@ -11,11 +11,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update'])
 
-const user = {
-  googleId: "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOJ2ZXJzaW9uIjoxfQ.pOo7q5ZE-XrArgA-nTmbX2SqGLTWtP_qFJs6u8c7rgo",
-  name: "Emmelie",
-  email: "ej224sk@student.lnu.se"
-};
+const user = localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null;
 
 const seats = ref(Array.from({ length: props.schedule.cinemaHall.nrOfSeats }, (_, i) => ({
   seat: i + 1,
@@ -57,11 +53,17 @@ const createBooking = async () => {
     return; 
   }
 
-  const booking = {
+  let booking;
+  try{
+  booking = {
     userId: user.googleId,
     schedule: props.schedule,
     bookedSeats: chosenSeats
   };
+}catch(e){
+  alert('You need to sign in with google to book a seat!');
+  return;
+}
 
   isBooking.value = true; 
 

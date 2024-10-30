@@ -50,6 +50,10 @@ describe('Booking success', () => {
     };
 
     beforeEach(async () => {
+        const mockUser = {
+            googleId: "1234567890abcdef"
+        };
+        localStorage.setItem('userData', JSON.stringify(mockUser));
         global.fetch = vi.fn()
             .mockResolvedValueOnce(
                 Promise.resolve({
@@ -61,7 +65,12 @@ describe('Booking success', () => {
                 ok: true,
                 status: 200,
                 json: () => Promise.resolve()
-            }));
+            })).mockResolvedValueOnce(
+                Promise.resolve({
+                    ok: true,
+                    status: 200,
+                    json: () => Promise.resolve([1, 2, 3, 4])
+                }));
         wrapper = mount(Seats, {
             props: {
                 schedule: mockSchedule
@@ -72,9 +81,11 @@ describe('Booking success', () => {
     });
 
     afterEach(() => {
+        localStorage.removeItem('userData');
     })
 
     it('Should fetch booked seats from schedule', async () => {
+        
         expect(fetch).toBeCalledWith(`http://localhost:9000/schedules/${mockSchedule.id}/booked-seats`);
         expect(wrapper.vm.seats[0].booked).toBe(true);
         expect(wrapper.vm.seats[1].booked).toBe(true);
@@ -137,6 +148,10 @@ describe('Booking failure', () => {
     };
 
     beforeEach(async () => {
+        const mockUser = {
+            googleId: "1234567890abcdef"
+        };
+        localStorage.setItem('userData', JSON.stringify(mockUser));
         global.fetch = vi.fn()
         .mockResolvedValueOnce(
             Promise.resolve({
@@ -159,6 +174,7 @@ describe('Booking failure', () => {
     });
 
     afterEach(() => {
+        localStorage.removeItem('userData');
     })
 
     it('Should fetch booked seats from schedule', async () => {
