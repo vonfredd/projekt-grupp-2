@@ -1,17 +1,15 @@
 <script setup>
-
-import Accordion from "@/components/Accordion.vue";
 </script>
 
 <template>
-  <main class="bg-cover min-h-screen bg-fixed relative bg-[bottom_right] bg-[url('/img/userbg.jpg')]">
+  <main class="bg-cover min-h-screen bg-fixed relative bg-[bottom_right] bg-[url('/img/userbg.jpg')] flex justify-center">
     <div class="absolute inset-0 bg-black opacity-50"></div>
-    <div>
-      <div class="bg-gray-700 bg-opacity-90 p-10">
-      </div>
+    <div class="bg-gray-700 bg-opacity-90 rounded-3xl w-full xl:w-2/3 mx-5 md:mx-10 lg:mx-20 py-10 my-20 relative z-10">
+
     </div>
   </main>
 </template>
+
 
 <style scoped>
 
