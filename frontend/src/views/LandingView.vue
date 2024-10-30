@@ -159,7 +159,32 @@ undo
 
 
 <style scoped>
+.top-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.top-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
+.top-leave-from {
+  opacity: 1;
+}
+.top-leave-to {
+  opacity: 0;
+}
 
+.top-enter-active{
+  transition: all 0.4s ease;
+}
+
+.move-up-active {
+  transform: translateY(-10px);
+}
+
+.move-up {
+  transition: transform 0.5s ease;
+}
 
 .move-up {
   transition: transform 0.5s ease;
