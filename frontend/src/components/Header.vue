@@ -21,7 +21,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <header class="bg-primary md:px-5">
+  <header class="bg-primary md:px-10">
     <nav class="p-3">
       <div class="flex items-center justify-between">
         <RouterLink to="/" class="block"
@@ -64,7 +64,7 @@ onMounted(() => {
                 <rect x="0" y="0" width="36" height="36" fill-opacity="0" />
               </svg>
 
-              <h5 class="block p-4 hover:text-gray-300 uppercase">Logout</h5>
+              <h5 class="block p-3 hover:text-gray-300 uppercase">Logout</h5>
             </div>
           </RouterLink>
 
@@ -88,11 +88,11 @@ onMounted(() => {
                 <rect x="0" y="0" width="36" height="36" fill-opacity="0" />
               </svg>
 
-              <h5 class="block p-4 hover:text-gray-300 uppercase">Login</h5>
+              <h5 class="block p-3 hover:text-gray-300 uppercase">Login</h5>
             </div>
           </RouterLink>
 
-          <RouterLink v-if="!isLoggedIn" to="/admin" class="block p-4 hover:text-gray-300">Admin</RouterLink>
+          <RouterLink v-if="!isLoggedIn" to="/admin"></RouterLink>
         </div>
       </div>
 
