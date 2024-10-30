@@ -2,7 +2,8 @@ import {createRouter, createWebHistory} from "vue-router";
 import LandingView from "@/views/LandingView.vue";
 import MovieProfileView from "@/views/MovieProfileView.vue";
 import AdminView from "@/views/AdminView.vue";
-import ProfileView from "@/views/ProfileView.vue";
+import ProfileView from "@/views/UserProfileView.vue";
+import UserProfileView from "@/views/UserProfileView.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -51,7 +52,7 @@ const router = createRouter({
         {
             path: "/user",
             name: "userProfile",
-            component: ProfileView,
+            component: UserProfileView,
         },
         {
             path: '/redirect',
