@@ -25,7 +25,11 @@ public class BookingController {
         return ResponseEntity.ok().body(bookingService.one(id));
     }
 
-
+    @GetMapping("/user/{googleId}")
+    public ResponseEntity<List<Booking>> findByUser(@PathVariable(name="googleId") String googleId) {
+        return ResponseEntity.ok().body(bookingService.findByUserId(googleId));
+    }
+    
     @PostMapping
     public ResponseEntity<Booking> save(@RequestBody Booking booking) {
         try {
