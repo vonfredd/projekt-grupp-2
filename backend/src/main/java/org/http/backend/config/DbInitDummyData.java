@@ -1,8 +1,10 @@
 package org.http.backend.config;
 
+import org.http.backend.entity.Booking;
 import org.http.backend.entity.Cinema;
 import org.http.backend.entity.Movie;
 import org.http.backend.entity.Schedule;
+import org.http.backend.repository.BookingRepository;
 import org.http.backend.repository.CinemaRepository;
 import org.http.backend.repository.MovieRepository;
 import org.http.backend.repository.ScheduleRepository;
@@ -16,12 +18,14 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Configuration
 public class DbInitDummyData {
 
     @Bean
-    ApplicationRunner dbInit(MovieRepository movieRepository, CinemaRepository cinemaRepository, ScheduleRepository scheduleRepository) {
+    ApplicationRunner dbInit(MovieRepository movieRepository, CinemaRepository cinemaRepository, ScheduleRepository scheduleRepository, BookingRepository bookingRepository) {
         return args -> {
             List<Rating> ratingsList1 = Arrays.asList(
                     new Rating("120001", 5),
@@ -231,6 +235,41 @@ public class DbInitDummyData {
                     new Schedule(LocalDateTime.of(2024, 11, 3, 21, 0), cinemas[3], cinemas[3].getCinemaHalls().get(2), movies[7])
             };
             scheduleRepository.saveAll(Arrays.asList(schedules));
+
+            List<Schedule> schedulesToBook = scheduleRepository.findAll();
+           bookingRepository.deleteAll();
+            Booking[] bookings = new Booking[]{
+                    new Booking(null, "user1", schedulesToBook.get(0), List.of(1, 2, 3)),
+                    new Booking(null, "user2", schedulesToBook.get(1), List.of(4, 5)),
+                    new Booking(null, "user3", schedulesToBook.get(2), List.of(6)),
+                    new Booking(null, "user4", schedulesToBook.get(3), List.of(7, 8, 9)),
+                    new Booking(null, "user5", schedulesToBook.get(4), List.of(2, 3)),
+                    new Booking(null, "user6", schedulesToBook.get(5), List.of(4, 5, 6)),
+                    new Booking(null, "user7", schedulesToBook.get(6), List.of(7)),
+                    new Booking(null, "user8", schedulesToBook.get(7), List.of(1, 3)),
+                    new Booking(null, "user9", schedulesToBook.get(8), List.of(2, 4, 6)),
+                    new Booking(null, "user10", schedulesToBook.get(9), IntStream.rangeClosed(1, 40).boxed().collect(Collectors.toList())),
+                    new Booking(null, "user11", schedulesToBook.get(10), List.of(1)),
+                    new Booking(null, "user12", schedulesToBook.get(11), List.of(2, 5, 7)),
+                    new Booking(null, "user13", schedulesToBook.get(12), List.of(3, 6)),
+                    new Booking(null, "user14", schedulesToBook.get(13), List.of(8, 10)),
+                    new Booking(null, "user15", schedulesToBook.get(14), List.of(1, 4, 9)),
+                    new Booking(null, "user16", schedulesToBook.get(15), List.of(2, 3, 10)),
+                    new Booking(null, "user17", schedulesToBook.get(16), List.of(5)),
+                    new Booking(null, "user18", schedulesToBook.get(17), List.of(1, 7)),
+                    new Booking(null, "user19", schedulesToBook.get(18), List.of(6, 8)),
+                    new Booking(null, "user20", schedulesToBook.get(19), List.of(2, 9)),
+                    new Booking(null, "user1", schedulesToBook.get(10), List.of(4, 7, 8)),
+                    new Booking(null, "user2", schedulesToBook.get(3), List.of(1, 5)),
+                    new Booking(null, "user3", schedulesToBook.get(7), List.of(6, 9)),
+                    new Booking(null, "user4", schedulesToBook.get(14), List.of(2, 3)),
+                    new Booking(null, "user5", schedulesToBook.get(0), List.of(1, 10)),
+                    new Booking(null, "user6", schedulesToBook.get(11), List.of(5, 7)),
+                    new Booking(null, "user7", schedulesToBook.get(15), List.of(3)),
+                    new Booking(null, "user9", schedulesToBook.get(13), List.of(1, 5, 8)),
+                    new Booking(null, "user10", schedulesToBook.get(2), List.of(3, 7))
+            };
+            bookingRepository.saveAll(Arrays.asList(bookings));
         };
     }
 }
