@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink } from 'vue-router';
 import {computed, ref, onMounted} from 'vue';
+import PlannedMovies from '@/components/PlannedMovies.vue';
 
 const movies = ref([]);
 const fetchMovies = async () => {
@@ -77,6 +78,11 @@ function displaySearch() {
   query.value = '';
 }
 
+const isShowingPlanner = ref(false);
+
+function showMoviePlanner(){
+isShowingPlanner.value = !isShowingPlanner.value;
+}
 </script>
 
 <template>
@@ -84,6 +90,15 @@ function displaySearch() {
     <div class="min-h-screen h-full w-full bg-[length:600%] md:bg-[length:300%] lg:bg-[length:100%] z-0 bg-[bottom_6rem_right] lg:bg-[bottom_right] bg-fixed bg-[url('/img/cinemabg.jpg')]">
       <!-- Length is needed to properly "zoom in" on the image -->
       <!-- This div only contains the background image -->
+       <div  class="text-center">
+        <div class="cursor-pointer" @click="showMoviePlanner()">
+        <h4 v-if="!isShowingPlanner">Show calendar</h4>
+         <span :style="{ transform: isShowingPlanner ? 'rotate(90deg)' : 'rotate(-90deg)' }" class="rotate-90 text-6xl material-symbols-outlined">
+           chevron_left
+          </span>
+         <PlannedMovies v-if="isShowingPlanner"/>
+        </div>
+      </div>
       <div class="p-1 z-10">
         <!-- Need padding here to be able to add margin on P tag. Else the whole bg image will follow with the margin -->
         <p class="w-4/5 mt-6 md:mt-10 m-auto text-center text-white z-10">Which movie do you want to watch?</p>
@@ -153,7 +168,6 @@ undo
         </div>
   </main>
 </template>
-
 
 <style scoped>
 .top-enter-from {
