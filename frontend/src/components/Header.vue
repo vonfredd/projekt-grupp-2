@@ -12,9 +12,14 @@ const closeMenu = () => {
 };
 
 const isLoggedIn = ref(false);
+const isAdmin = ref(false);
 
 onMounted(() => {
   window.addEventListener('storage', () => {
+    isLoggedIn.value = !isLoggedIn.value;
+});
+window.addEventListener('admin', () => {
+    isAdmin.value = !isAdmin.value;
     isLoggedIn.value = !isLoggedIn.value;
 })
 });
@@ -91,8 +96,8 @@ onMounted(() => {
               <h5 class="block p-3 hover:text-gray-300 uppercase">Login</h5>
             </div>
           </RouterLink>
-
-          <RouterLink v-if="!isLoggedIn" to="/admin"></RouterLink>
+          <RouterLink v-if="isAdmin" to="/admin"> <div
+            class="p-3 flex items-center justify-center bg-secondary bg-opacity-50 px-5 rounded-full mx-2">Admin panel</div></RouterLink>
         </div>
       </div>
 
