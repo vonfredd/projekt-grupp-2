@@ -81,7 +81,7 @@ function displaySearch() {
 
 <template>
   <main class="p-0 h-full relative">
-    <div class="h-full w-full bg-[length:600%] md:bg-[length:300%] lg:bg-[length:100%] z-0 bg-[bottom_6rem_right] lg:bg-[bottom_right] bg-fixed bg-[url('/img/cinemabg.jpg')]">
+    <div class="min-h-screen h-full w-full bg-[length:600%] md:bg-[length:300%] lg:bg-[length:100%] z-0 bg-[bottom_6rem_right] lg:bg-[bottom_right] bg-fixed bg-[url('/img/cinemabg.jpg')]">
       <!-- Length is needed to properly "zoom in" on the image -->
       <!-- This div only contains the background image -->
       <div class="p-1 z-10">
