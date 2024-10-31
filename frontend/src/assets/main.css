@@ -34,6 +34,7 @@ h4 {
     font-size: 15px;
 }
 
+
 @media screen and (min-width: 640px) {
     h1 {
         font-size: 50px;
@@ -54,6 +55,10 @@ h4 {
     body {
         font-size: 16px;
         line-height: 1.8em;
+    }
+
+    h5 {
+        font-size: 15px;
     }
 }
 
@@ -79,6 +84,10 @@ h4 {
         font-size: 18px;
         line-height: 1.7em;
     }
+
+    h5 {
+        font-size: 16px;
+    }
 }
 
 
@@ -102,6 +111,10 @@ h4 {
 
     body {
         font-size: 20px;
+    }
+
+    h5 {
+        font-size: 18px;
     }
 }
 
