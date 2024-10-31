@@ -38,7 +38,6 @@ public class MovieController {
         return ResponseEntity.ok().body(movieService.findAllWithRatingsConverted());
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> one(@PathVariable String id) {
         return ResponseEntity.ok().body(movieService.findById(id));
