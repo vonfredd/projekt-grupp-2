@@ -56,6 +56,10 @@ public class MovieController {
             return ResponseEntity.status(400).body(movieService.save(jsonString));
         }
     }
+    @GetMapping("/{movieId}/ratings")
+    public ResponseEntity<List<Rating>> getRatings(@PathVariable String movieId) {
+        return ResponseEntity.ok().body(movieService.getRatings(movieId));
+    }
 
     @PutMapping("{movieId}/rating")
     public ResponseEntity<?> addRating(@PathVariable String movieId, @RequestBody Rating rating) {

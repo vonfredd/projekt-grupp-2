@@ -91,7 +91,7 @@ public class Movie {
         this.imageUrl = imageUrl;
     }
 
-    public List<Rating> getRating() {
+    public List<Rating> getRatings() {
         return ratings;
     }
 
