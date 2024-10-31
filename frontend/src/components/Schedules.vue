@@ -110,7 +110,7 @@ const sortedArr = computed(() => {
               <h4 class="text-2xl md:text-3xl lg:text-4xl uppercase pb-3 md:pb-4 lg:pb-5 xl:pb-6">{{ cinemaName }}</h4>
               <div class="flex flex-wrap justify-between gap-5">
                 <div @click="displaySeat(schedule)" v-for="(schedule, index) in cinemaSchedules" :key="index"
-                     :class="['rounded-3xl','flex','p-4','uppercase','flex','flex-col','items-center','gap-1',(schedule.cinemaHall.nrOfSeats - bookedSeatsMap.get(schedule.id)) === 0 ? 'bg-secondary' : 'bg-black']">
+                     :class="['rounded-3xl','flex','p-4','uppercase','flex','flex-col','items-center','gap-1', 'cursor-pointer', (schedule.cinemaHall.nrOfSeats - bookedSeatsMap.get(schedule.id)) === 0 ? 'bg-secondary' : 'bg-black']">
                   <p class="text-2xl md:text-3xl lg:text-4xl font-semibold">{{ formatDate(schedule.localDateTime) }}</p>
                   <p class="text-lg md:text-xl lg:text-2xl uppercase ">{{ formatTime(schedule.localDateTime) }}</p>
                   <p class="text-xs md:text-sm lg:text-md uppercase">seats left:</p>

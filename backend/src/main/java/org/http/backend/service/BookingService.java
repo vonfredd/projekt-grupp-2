@@ -38,4 +38,8 @@ public class BookingService {
 
         return bookedSeats;
     }
+    public List<Booking> findByUserId(String userId) {
+        return bookingRepository.findByUserId(userId);
+    }
+
 }

@@ -33,7 +33,7 @@ public class SecurityConfig {
         http.cors(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> {
                     auth.requestMatchers(("/admin")).hasRole("ADMIN");
                     auth.requestMatchers("/users/data").authenticated();
-                    auth.requestMatchers("/movies/**", "/movies","/users", "/bookings", "/schedules/**", "/schedules", "/cinemas","/cinemas/**").permitAll();
+                    auth.requestMatchers("/movies/**", "/movies","/users", "/bookings", "/schedules/**", "/schedules", "/cinemas","/cinemas/**", "/bookings/**").permitAll();
                     auth.anyRequest().denyAll();
                 })
                 .logout(logout -> logout
