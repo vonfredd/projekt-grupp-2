@@ -86,7 +86,7 @@ const createBooking = async () => {
       throw new Error(`Failed to create booking: ${errorResponse.message}`);
     }
 
-    useToast().success("Booking successful!", {
+    toast.success("Booking successful!", {
       position: 'top'
     });
     emit('update')
@@ -141,7 +141,4 @@ onMounted(fetchBookedSeats);
 </template>
 
 <style scoped>
-.toast{
-  opacity: 2
-}
 </style>
