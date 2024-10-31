@@ -24,7 +24,6 @@ const isBooking = ref(false);
 const fetchBookedSeats = async () => {
   try {
     const response = await fetch(`http://localhost:9000/schedules/${props.schedule.id}/booked-seats`);
-    console.log('Schedule ID:', props.schedule.id);
     if (!response.ok) {
       throw new Error("Failed to fetch booked seats");
     }

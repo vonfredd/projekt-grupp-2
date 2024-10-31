@@ -31,7 +31,6 @@ const addMovieHall = async (hallName, numberOfSeats, cinemaName) => {
 
     await populateCinemas()
     const responseJson = await response.json();
-    console.log(responseJson);
   } catch (error) {
     console.error('Error adding movie hall:', error);
   }
@@ -49,7 +48,6 @@ const accordionItems = ref([
 ]);
 
 const addMovieToDb = async (idToFetch) => {
-  console.log('Fetch movie details from backend');
   const response = await fetch(`http://localhost:9000/movies/fetch/${idToFetch}`);
 
   if (!response.ok) {
@@ -74,7 +72,6 @@ const addMovieToDb = async (idToFetch) => {
   });
 
   const responseJson = await addResponse.json();
-  console.log(responseJson);
   alert("Movie added: " + JSON.stringify(responseJson));
 }
 
@@ -97,7 +94,6 @@ const addCinema = async (newCinemaName) => {
   });
   await populateCinemas()
   const responseJson = await response.json();
-  console.log(responseJson);
 }
 
 function switchAccordionEvent(idOfItem) {
