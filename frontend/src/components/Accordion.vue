@@ -1,5 +1,7 @@
 <script setup>
 import {onMounted, ref} from 'vue';
+import {useToast} from 'vue-toast-notification';
+const toast = useToast();
 
 const activeAccordion = ref(null);
 const cinemas = ref([]);
@@ -51,7 +53,7 @@ const addMovieToDb = async (idToFetch) => {
   const response = await fetch(`http://localhost:9000/movies/fetch/${idToFetch}`);
 
   if (!response.ok) {
-    alert("Movie not found");
+    toast.error("Movie not found",{position: 'top'});
     return;
   }
 
@@ -72,7 +74,7 @@ const addMovieToDb = async (idToFetch) => {
   });
 
   const responseJson = await addResponse.json();
-  alert("Movie added: " + JSON.stringify(responseJson));
+  toast.success("Movie added: " + JSON.stringify(responseJson));
 }
 
 const removeMovie = async (idToDelete) => {
