@@ -23,7 +23,7 @@ onMounted(() => {
 <template>
   <header class="bg-primary p-3">
     <nav>
-      <div class="flex items-center justify-between px-5">
+      <div class="flex items-center justify-between md:px-3 lg:px-5">
         <RouterLink to="/" class="block"
           ><h1 class="py-1 px-2 uppercase">Cinema</h1>
         </RouterLink>
@@ -65,13 +65,15 @@ onMounted(() => {
           </RouterLink>
           <RouterLink v-if="isLoggedIn" to="/logout">
             <div class="flex items-center justify-center bg-secondary bg-opacity-70 px-4 rounded-full">
-              <h5 class="block px-3 py-2.5 hover:text-gray-300 uppercase">Logout</h5>
+              <i class="fa-solid fa-right-to-bracket"></i>
+              <h5 class="block px-3 py-3 hover:text-gray-300 uppercase">Logout</h5>
             </div>
           </RouterLink>
 
           <RouterLink v-if="!isLoggedIn" to="/login">
             <div class="flex items-center justify-center bg-secondary bg-opacity-70 px-4 rounded-full mx-2">
-              <h5 class="block px-4 py-2.5 hover:text-gray-300 uppercase">Login</h5>
+              <i class="fa-solid fa-right-to-bracket"></i>
+              <h5 class="block px-4 py-3 hover:text-gray-300 uppercase">Login</h5>
             </div>
           </RouterLink>
 
