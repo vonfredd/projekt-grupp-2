@@ -53,6 +53,14 @@ const router = createRouter({
             path: "/user",
             name: "userProfile",
             component: UserProfileView,
+            beforeEnter: (to, from, next) => {
+                if (localStorage.getItem('userData') !== null) {
+                    next();
+                } else {
+                    alert('You need to sign in to see your profile')
+                    next({ name: 'home' }); 
+                }
+            }
         },
         {
             path: '/redirect',
