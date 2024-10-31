@@ -81,7 +81,7 @@ function displaySearch() {
 
 <template>
   <main class="p-0 h-full relative">
-    <div class="h-full w-full bg-[length:600%] md:bg-[length:300%] lg:bg-[length:100%] z-0 bg-[bottom_6rem_right] lg:bg-[bottom_right] bg-fixed bg-[url('/img/cinemabg.jpg')]">
+    <div class="min-h-screen h-full w-full bg-[length:600%] md:bg-[length:300%] lg:bg-[length:100%] z-0 bg-[bottom_6rem_right] lg:bg-[bottom_right] bg-fixed bg-[url('/img/cinemabg.jpg')]">
       <!-- Length is needed to properly "zoom in" on the image -->
       <!-- This div only contains the background image -->
       <div class="p-1 z-10">
@@ -127,7 +127,7 @@ undo
         <div class="m-auto" v-if="isSearching && moviesContainQuery.length === 0">
             <img class="h-full w-full rounded-2xl" src="/img/camera.png" alt="">
           </div>
-        <transition v-else>
+        <transition>
         <div :class="['move-up', { 'move-up-active': isSearching }]" class="flex flex-col gap-10 items-center">
           <router-link  v-for="(movie, index) in  (isSearching ? moviesContainQuery : movies)" :key="index"
             :to="{ name: 'movieProfile', params: { id: movie.id, title: movie.name.replace(/\s+/g, '-') } }"
@@ -143,9 +143,6 @@ undo
                 </div>
               </div>
               <p class="text-center line-clamp-5 sm:line-clamp-6">{{ movie.description }}</p>
-              <p class="text-center">
-
-              </p>
             </aside>
             <div v-if="index % 2 !== 0" class="p-2 w-1/2">
               <img class="object-contain rounded-lg" :src="`https://image.tmdb.org/t/p/w500${movie.imageUrl}`">
