@@ -75,7 +75,6 @@ const submitRating = async (rating) => {
     selectedRating.value = rating;
 
     emit('ratingSubmitted', responseData.averageRatingInPercentage);
-    alert(`You rated this movie ${rating} stars!`);
   } catch (error) {
     console.error('Error submitting rating:', error);
     alert('Failed to submit rating. Please try again later.');
