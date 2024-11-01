@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -32,9 +33,23 @@ public class SecurityConfig {
     }
 
     @Bean
+    public CookieCsrfTokenRepository cookieCsrfTokenRepository() {
+        CookieCsrfTokenRepository repository = CookieCsrfTokenRepository.withHttpOnlyFalse();
+        repository.setCookieCustomizer(cookie -> {
+            cookie.domain("localhost");
+            cookie.path("/");
+            cookie.sameSite("None"); // Set SameSite to None to allow cross-site cookies, must use HTTPS to work - port 443 instead of 9000
+        });
+        return repository;
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.cors(Customizer.withDefaults())
-                .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+                .csrf(csrf -> csrf
+                        .csrfTokenRepository(cookieCsrfTokenRepository())
+                )
+                //.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/admin").hasRole("ADMIN");
                     auth.requestMatchers("/users/data").authenticated();
@@ -69,7 +84,8 @@ public class SecurityConfig {
                         .allowedOrigins("http://localhost:5174")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowCredentials(true)
-                        .allowedHeaders("*");
+                        .allowedHeaders("*")
+                        .exposedHeaders("X-XSRF-TOKEN"); // Expose the CSRF token header to the client
             }
         };
     }

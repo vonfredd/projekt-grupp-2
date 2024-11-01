@@ -3,7 +3,9 @@ import {onMounted, ref} from 'vue';
 import {useToast} from 'vue-toast-notification';
 const toast = useToast();
 
+// Extract the CSRF token from the cookie
 const csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+
 const activeAccordion = ref(null);
 const cinemas = ref([]);
 const selectedCinema = ref(null);
@@ -74,7 +76,7 @@ const addMovieToDb = async (idToFetch) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-XSRF-TOKEN": csrfToken,
+      "X-XSRF-TOKEN": csrfToken, // Send the CSRF token in the header
     },
     body: JSON.stringify(data),
   });
