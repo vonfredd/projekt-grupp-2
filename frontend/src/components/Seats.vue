@@ -1,5 +1,6 @@
 <script setup>
-import { ref, onMounted, defineEmits } from "vue";
+import { ref, onMounted } from "vue";
+import {useToast} from 'vue-toast-notification';
 
 
 const props = defineProps({
@@ -9,6 +10,7 @@ const props = defineProps({
   }
 });
 
+const toast = useToast();
 const emit = defineEmits(['update'])
 
 const user = localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null;
@@ -24,7 +26,6 @@ const isBooking = ref(false);
 const fetchBookedSeats = async () => {
   try {
     const response = await fetch(`http://localhost:9000/schedules/${props.schedule.id}/booked-seats`);
-    console.log('Schedule ID:', props.schedule.id);
     if (!response.ok) {
       throw new Error("Failed to fetch booked seats");
     }
@@ -49,7 +50,9 @@ const createBooking = async () => {
     .map(seat => seat.seat); 
 
   if (chosenSeats.length === 0) {
-    alert("No seats chosen!");
+    toast.info("No seats chosen!",{
+      position: 'top'
+    });
     return; 
   }
 
@@ -61,7 +64,9 @@ const createBooking = async () => {
     bookedSeats: chosenSeats
   };
 }catch(e){
-  alert('You need to sign in with google to book a seat!');
+  toast.warning('You need to sign in with google to book a seat!',{
+    position: 'top',
+  });
   return;
 }
 
@@ -81,7 +86,9 @@ const createBooking = async () => {
       throw new Error(`Failed to create booking: ${errorResponse.message}`);
     }
 
-    alert("Booking successful!");
+    toast.success("Booking successful!", {
+      position: 'top'
+    });
     emit('update')
 
     seats.value.forEach(seat => {
@@ -90,7 +97,9 @@ const createBooking = async () => {
 
     await fetchBookedSeats();
   } catch (error) {
-    alert("Booking failed. Please try again.");
+    toast.error("Booking failed. Please try again.",{
+      position: 'top'
+    });
   } finally {
     isBooking.value = false; 
   }
@@ -132,5 +141,4 @@ onMounted(fetchBookedSeats);
 </template>
 
 <style scoped>
-
 </style>

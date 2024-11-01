@@ -18,7 +18,7 @@ public class CustomFormLoginSuccessHandler implements AuthenticationSuccessHandl
 
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         if (roles.contains("ROLE_ADMIN")) {
-            response.sendRedirect("http://localhost:5174/admin");
+            response.sendRedirect("http://localhost:5174/redirect?admin=true");
         } else {
             response.sendRedirect("http://localhost:5174/");
         }
