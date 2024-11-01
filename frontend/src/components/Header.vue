@@ -126,9 +126,6 @@ window.addEventListener('admin', () => {
               <h5 class="block p-4 hover:text-gray-300 uppercase">Logout</h5>
             </div>
           </RouterLink>
-        <RouterLink v-if="!isLoggedIn" to="/admin" class="block p-4 hover:text-gray-300"
-          >Admin</RouterLink
-        >
         <RouterLink v-if="!isLoggedIn" to="/login">
           <div
             class="flex items-center justify-center bg-gray-400 bg-opacity-50 rounded-3xl px-2 mx-2"
