@@ -78,12 +78,33 @@ const addMovieToDb = async (idToFetch) => {
 }
 
 const removeMovie = async (idToDelete) => {
+  try {
+    const response = await fetch(`http://localhost:9000/movies/${idToDelete}`);
 
-  await fetch(`http://localhost:9000/movies/${idToDelete}`, {
-    method: "DELETE"
-  });
+    if (!response.ok) {
+      toast.error("Movie not found", { position: 'top' });
+      return;
+    }
 
-}
+    const data = await response.json();
+    if (!confirm(`Do you want to delete "${data.name}" from our database?`)) {
+      return;
+    }
+
+    const deleteResponse = await fetch(`http://localhost:9000/movies/${idToDelete}`, {
+      method: "DELETE"
+    });
+
+    if (!deleteResponse.ok) {
+      throw new Error('HTTP error ' + deleteResponse.status);
+    }
+
+    toast.success(`${data.name} deleted successfully`, { position: 'top' });
+  } catch (error) {
+    console.error('Error deleting movie:', error);
+    toast.error("Failed to delete movie", { position: 'top' });
+  }
+};
 
 const addCinema = async (newCinemaName) => {
 
