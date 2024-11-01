@@ -2,6 +2,14 @@ import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import Seats from '../Seats.vue';
 import { mount } from '@vue/test-utils';
 
+vi.mock('vue-toast-notification', () => ({
+    useToast: vi.fn(() => ({
+      warning: vi.fn(),
+      success: vi.fn(),
+      error: vi.fn(),
+    })),
+  }));
+
 describe('Booking success', () => {
     let wrapper;
     const mockSchedule = {
@@ -77,7 +85,6 @@ describe('Booking success', () => {
             }
         }
         );
-        window.alert = vi.fn();
     });
 
     afterEach(() => {
@@ -95,7 +102,7 @@ describe('Booking success', () => {
         wrapper.vm.seats[0].chosen = true;
         expect(wrapper.vm.seats[0].chosen).toBe(true);
         await wrapper.vm.createBooking();
-        expect(window.alert).toHaveBeenCalledWith('Booking successful!')
+        expect(wrapper.vm.toast.success).toHaveBeenCalledWith('Booking successful!',{position: 'top'})
     })
 })
 
@@ -170,7 +177,6 @@ describe('Booking failure', () => {
             }
         }
         );
-        window.alert = vi.fn();
     });
 
     afterEach(() => {
@@ -187,6 +193,6 @@ describe('Booking failure', () => {
         wrapper.vm.seats[0].chosen = true;
         expect(wrapper.vm.seats[0].chosen).toBe(true);
         await wrapper.vm.createBooking();
-        expect(window.alert).toHaveBeenCalledWith('Booking failed. Please try again.')
+        expect(wrapper.vm.toast.error).toHaveBeenCalledWith('Booking failed. Please try again.', { position: 'top' })
     })
 })

@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink } from 'vue-router';
 import {computed, ref, onMounted} from 'vue';
+import ToTopButton from "@/components/ToTopButton.vue";
 import PlannedMovies from '@/components/PlannedMovies.vue';
 
 const movies = ref([]);
@@ -165,6 +166,7 @@ isShowingPlanner.value = !isShowingPlanner.value;
           </router-link>
           </div>
         </transition>
+        <ToTopButton />
         </div>
   </main>
 </template>

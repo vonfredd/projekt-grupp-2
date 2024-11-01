@@ -2,6 +2,13 @@ import {createRouter, createWebHistory} from "vue-router";
 import LandingView from "@/views/LandingView.vue";
 import MovieProfileView from "@/views/MovieProfileView.vue";
 import AdminView from "@/views/AdminView.vue";
+import ProfileView from "@/views/UserProfileView.vue";
+import UserProfileView from "@/views/UserProfileView.vue";
+
+const isAdminLoggedIn = () => {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    return userData && userData.role === 'admin';
+};
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,6 +38,14 @@ const router = createRouter({
             path: "/admin",
             name: "admin",
             component: AdminView,
+            beforeEnter: (to, from, next) => {
+                if (isAdminLoggedIn()) {
+                    next();
+                } else {
+                    alert('Only admin is allowed to enter /admin')
+                    next({ name: 'home' }); 
+                }
+            }
         },
         {
             path: '/login',
@@ -46,6 +61,19 @@ const router = createRouter({
                 localStorage.removeItem('userData');
                 window.location.href = 'http://localhost:9000/logout';
             },
+        },
+        {
+            path: "/user",
+            name: "userProfile",
+            component: UserProfileView,
+            beforeEnter: (to, from, next) => {
+                if (localStorage.getItem('userData') !== null) {
+                    next();
+                } else {
+                    alert('You need to sign in to see your profile')
+                    next({ name: 'home' }); 
+                }
+            }
         },
         {
             path: '/redirect',
@@ -71,6 +99,11 @@ const router = createRouter({
                             console.error('Failed to fetch user data:', error);
                             next({ name: 'home' }); 
                         });
+                }else if(to.query.admin){
+                    const adminData = { role: 'admin' }; 
+                    localStorage.setItem('userData', JSON.stringify(adminData));
+                    window.dispatchEvent(new Event("admin"));
+                    next({name: 'admin'})
                 } else {
                     next();
                 }

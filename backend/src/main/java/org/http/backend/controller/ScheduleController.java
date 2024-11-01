@@ -5,6 +5,7 @@ import org.http.backend.service.BookingService;
 import org.http.backend.service.ScheduleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -49,6 +50,7 @@ public class ScheduleController {
     }
 
     @PostMapping("/new")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Schedule> save(@RequestBody Schedule schedule) {
         try {
             Schedule savedSchedule = scheduleService.add(schedule);
