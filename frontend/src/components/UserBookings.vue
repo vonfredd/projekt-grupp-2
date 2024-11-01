@@ -50,7 +50,6 @@ const fetchAverageRating = async (movieId) => {
     if (!response.ok) throw new Error('Failed to fetch movie data');
 
     const movieData = await response.json();
-    console.log('Fetched movie data:', movieData);
 
     if (movieData.averageRating !== undefined) {
       averageRatings.value[movieId] = movieData.averageRating;
@@ -62,12 +61,9 @@ const fetchAverageRating = async (movieId) => {
   }
 };
 
-const updateAverageRating = (movieId, newAverageRating) => {
-  if (newAverageRating !== undefined) {
-    averageRatings.value[movieId] = newAverageRating;
-  } else {
-    console.warn(`Attempted to update with undefined rating for movie ${movieId}`);
-  }
+const updateAverageRating = (updateObject) => {
+    averageRatings.value[updateObject.movieId] = updateObject.newRating;
+    window.dispatchEvent(new Event("updateRating"));
 };
 
 onMounted(() => {

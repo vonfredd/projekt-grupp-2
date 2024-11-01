@@ -47,7 +47,12 @@ const fetchMovieRating = async () => {
 };
 
 // Fetch the movie data when the component is mounted or when movieId changes
-onMounted(fetchMovieRating);
+onMounted(() => {
+  fetchMovieRating();
+  window.addEventListener('updateRating', () => {
+    fetchMovieRating();
+  });
+});
 
 watch(() => props.movieId, fetchMovieRating);
 const submitRating = async (rating) => {
@@ -74,7 +79,7 @@ const submitRating = async (rating) => {
     const responseData = await response.json();
     selectedRating.value = rating;
 
-    emit('ratingSubmitted', responseData.averageRatingInPercentage);
+    emit('ratingSubmitted', {'newRating':responseData.averageRatingInPercentage, 'movieId':props.movieId});
   } catch (error) {
     console.error('Error submitting rating:', error);
     alert('Failed to submit rating. Please try again later.');
