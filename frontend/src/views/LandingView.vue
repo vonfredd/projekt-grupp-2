@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink } from 'vue-router';
 import {computed, ref, onMounted} from 'vue';
+import ToTopButton from "@/components/ToTopButton.vue";
 
 const movies = ref([]);
 const fetchMovies = async () => {
@@ -150,6 +151,7 @@ undo
           </router-link>
           </div>
         </transition>
+        <ToTopButton />
         </div>
   </main>
 </template>
