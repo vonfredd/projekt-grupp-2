@@ -25,7 +25,9 @@ const formatDate = (selectedDate) => {
 };
 
 const convertDateToLocalDateTime = (selectedDate) => {
-    dateTime.value = selectedDate? selectedDate.toISOString().slice(0, 19) : "";
+  dateTime.value = selectedDate
+      ? new Date(selectedDate.getTime() + 60 * 60 * 1000).toISOString().slice(0, 19)
+      : "";
 };
 // Functions to search and handle movie selection
 const searchMovies = async () => {
