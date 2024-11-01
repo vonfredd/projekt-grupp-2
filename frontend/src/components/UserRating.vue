@@ -74,7 +74,7 @@ const submitRating = async (rating) => {
     const responseData = await response.json();
     selectedRating.value = rating;
 
-    emit('ratingSubmitted', responseData.averageRatingInPercentage);
+    emit('ratingSubmitted',  props.movieId, responseData.averageRatingInPercentage);
   } catch (error) {
     console.error('Error submitting rating:', error);
     alert('Failed to submit rating. Please try again later.');

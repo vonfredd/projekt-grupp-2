@@ -12,8 +12,7 @@
           <p><strong>Booked Seats:</strong> {{ booking.bookedSeats.join(', ') }}</p>
           <hr v-if="isLastBooking(booking)" class="mt-6">
         </div>
-        <user-rating :movieId="booking.schedule.movie.id" @ratingSubmitted="updateAverageRating"></user-rating>
-
+       <user-rating :movieId="booking.schedule.movie.id" @ratingSubmitted="(movieId, newAverageRating) => updateAverageRating(movieId, newAverageRating)"></user-rating>
     </div>
 
   </div>
