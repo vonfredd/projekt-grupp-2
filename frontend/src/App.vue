@@ -6,7 +6,6 @@ import ToTopButton from "@/components/ToTopButton.vue";
 
 
 </script>
-
 <template>
   <Header />
   <RouterView />
