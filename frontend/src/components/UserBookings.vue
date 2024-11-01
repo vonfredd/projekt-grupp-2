@@ -1,28 +1,30 @@
 <template>
   <div v-if="bookings.length">
-    <h2 class="text-center" >Your Bookings</h2>
-    <div class="container mx-auto p-3 flex justify-evenly" v-for="booking in bookings" :key="booking.id">
-      <div>
-        <h4>{{ booking.schedule.movie.name }}</h4>
-        <h5 class="pt-3"><strong>Cinema:</strong> {{ booking.schedule.cinema.name }} - {{ booking.schedule.cinemaHall.name }}</h5>
-        <p><strong>Duration:</strong> {{ booking.schedule.movie.duration }} minutes</p>
-        <p><strong>Average Rating:</strong> {{ averageRatings[booking.schedule.movie.id] || 'Loading...' }}%</p>
-        <p><strong>Showtime:</strong> {{ new Date(booking.schedule.localDateTime).toLocaleString() }}</p>
-        <p><strong>Booked Seats:</strong> {{ booking.bookedSeats.join(', ') }}</p>
-      </div>
-      <user-rating :movieId="booking.schedule.movie.id" @ratingSubmitted="updateAverageRating"></user-rating>
-      <hr>
+    <h2 class="text-center">Bookings</h2>
+    <div class="container mx-auto p-3 flex justify-evenly" v-for="(booking, index) in bookings" :key="booking.id">
+        <div>
+          <h4>{{ booking.schedule.movie.name }}</h4>
+          <h5 class="pt-3"><strong>Cinema:</strong> {{ booking.schedule.cinema.name }} -
+            {{ booking.schedule.cinemaHall.name }}</h5>
+          <p><strong>Duration:</strong> {{ booking.schedule.movie.duration }} minutes</p>
+          <p><strong>Average Rating:</strong> {{ averageRatings[booking.schedule.movie.id] || 'Loading...' }}%</p>
+          <p><strong>Showtime:</strong> {{ new Date(booking.schedule.localDateTime).toLocaleString() }}</p>
+          <p><strong>Booked Seats:</strong> {{ booking.bookedSeats.join(', ') }}</p>
+          <hr v-if="isLastBooking(booking)" class="mt-6">
+        </div>
+        <user-rating :movieId="booking.schedule.movie.id" @ratingSubmitted="updateAverageRating"></user-rating>
+
     </div>
 
   </div>
 
-  <p v-else>Loading bookings...</p>
+  <p v-else>You have no bookings yet...</p>
 </template>
 
 <script setup>
 import {onMounted, ref} from 'vue';
 import UserRating from "@/components/UserRating.vue";
-
+const isLastBooking = (booking) => bookings.value.indexOf(booking) !== bookings.value.length - 1;
 const bookings = ref([]);
 const newRating = ref(0);
 const averageRatings = ref({});
