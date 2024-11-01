@@ -2,6 +2,7 @@
 import { RouterLink } from 'vue-router';
 import {computed, ref, onMounted} from 'vue';
 import ToTopButton from "@/components/ToTopButton.vue";
+import PlannedMovies from '@/components/PlannedMovies.vue';
 
 const movies = ref([]);
 const fetchMovies = async () => {
@@ -78,6 +79,11 @@ function displaySearch() {
   query.value = '';
 }
 
+const isShowingPlanner = ref(false);
+
+function showMoviePlanner(){
+isShowingPlanner.value = !isShowingPlanner.value;
+}
 </script>
 
 <template>
@@ -90,12 +96,21 @@ function displaySearch() {
         <p class="w-4/5 mt-6 md:mt-10 m-auto text-center text-white z-10">Which movie do you want to watch?</p>
         <form :class="{'flex':isSearching}" @submit.prevent="displaySearch()" class="text-center mt-4 w-4/6 sm:w-1/2 md:w-2/5 md:pb-5 m-auto">
           <input v-model="query" :class="['p-2 rounded-full h-10 md:h-14 w-full text-black text-center', { 'outline-none w-5/6 rounded-r-none': isSearching }]"
-  type="text"
-            placeholder="Search movie...">
-            <button v-if="isSearching" class="w-1/6 flex items-center justify-center rounded-r-3xl border-l-black bg-red-600"><span class="material-symbols-outlined">
-undo
-</span></button>
+          type="text"
+          placeholder="Search movie...">
+          <button v-if="isSearching" class="w-1/6 flex items-center justify-center rounded-r-3xl border-l-black bg-red-600"><span class="material-symbols-outlined">
+            undo
+          </span></button>
         </form>
+        <div class="w-full text-center pt-5">
+          <div class="w-1/4 m-auto cursor-pointer" @click="showMoviePlanner()">
+          <h4 v-if="!isShowingPlanner">Show calendar</h4>
+           <span :style="{ transform: isShowingPlanner ? 'rotate(90deg)' : 'rotate(-90deg)' }" class="rotate-90 text-4xl material-symbols-outlined">
+             chevron_left
+            </span>
+           <PlannedMovies v-if="isShowingPlanner"/>
+          </div>
+       </div>
       </div>
       <transition name="top" appear>
       <div v-if="!isSearching" class="w-full flex flex-col items-center">
@@ -155,7 +170,6 @@ undo
         </div>
   </main>
 </template>
-
 
 <style scoped>
 .top-enter-from {
