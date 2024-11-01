@@ -3,6 +3,7 @@ import {onMounted, ref} from 'vue';
 import {useToast} from 'vue-toast-notification';
 const toast = useToast();
 
+const csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
 const activeAccordion = ref(null);
 const cinemas = ref([]);
 const selectedCinema = ref(null);
@@ -61,6 +62,10 @@ const addMovieToDb = async (idToFetch) => {
 
   const userConfirmed = confirm(`Do you want to add "${data.title}" to our database?`);
 
+  console.log('CSRF Token:', csrfToken);
+
+  console.log("This is the cookie: " + document.cookie);
+
   if (!userConfirmed) {
     return;
   }
@@ -69,6 +74,7 @@ const addMovieToDb = async (idToFetch) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "X-XSRF-TOKEN": csrfToken,
     },
     body: JSON.stringify(data),
   });
