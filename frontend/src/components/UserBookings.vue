@@ -1,5 +1,6 @@
 <template>
   <div v-if="bookings.length">
+    <h2 class="text-center" >Your Bookings</h2>
     <div class="container mx-auto p-3 flex justify-evenly" v-for="booking in bookings" :key="booking.id">
       <div>
         <h4>{{ booking.schedule.movie.name }}</h4>
@@ -10,8 +11,9 @@
         <p><strong>Booked Seats:</strong> {{ booking.bookedSeats.join(', ') }}</p>
       </div>
       <user-rating :movieId="booking.schedule.movie.id" @ratingSubmitted="updateAverageRating"></user-rating>
+      <hr>
     </div>
-    <hr>
+
   </div>
 
   <p v-else>Loading bookings...</p>
