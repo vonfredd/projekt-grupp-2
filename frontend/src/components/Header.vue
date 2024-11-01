@@ -15,6 +15,7 @@ const isLoggedIn = ref(false);
 const isAdmin = ref(false);
 
 onMounted(() => {
+  isLoggedIn.value = localStorage.getItem('userData') !== null;
   window.addEventListener('storage', () => {
     isLoggedIn.value = !isLoggedIn.value;
   });

@@ -103,7 +103,7 @@ isShowingPlanner.value = !isShowingPlanner.value;
           </span></button>
         </form>
         <div class="w-full text-center pt-5">
-          <div class="w-1/4 m-auto cursor-pointer" @click="showMoviePlanner()">
+          <div class="m-auto cursor-pointer" @click="showMoviePlanner()">
           <h4 v-if="!isShowingPlanner">Show calendar</h4>
            <span :style="{ transform: isShowingPlanner ? 'rotate(90deg)' : 'rotate(-90deg)' }" class="rotate-90 text-4xl material-symbols-outlined">
              chevron_left
