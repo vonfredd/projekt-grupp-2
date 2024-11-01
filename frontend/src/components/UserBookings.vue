@@ -1,5 +1,6 @@
 <template>
-  <div v-if="bookings.length">
+  <div class="bg-gray-700 bg-opacity-50 rounded-3xl p-5 my-10" v-if="bookings.length">
+
     <h2 class="text-center">Bookings</h2>
     <div class="container mx-auto p-3 flex justify-evenly" v-for="(booking, index) in bookings" :key="booking.id">
         <div>
