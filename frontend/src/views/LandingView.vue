@@ -1,7 +1,6 @@
 <script setup>
 import { RouterLink } from 'vue-router';
 import {computed, ref, onMounted} from 'vue';
-import UserBookings from "@/components/UserBookings.vue";
 
 const movies = ref([]);
 const fetchMovies = async () => {
@@ -82,7 +81,6 @@ function displaySearch() {
 
 <template>
   <main class="p-0 h-full relative">
-    <UserBookings></UserBookings>
     <div class="h-full w-full bg-[length:600%] md:bg-[length:300%] lg:bg-[length:100%] z-0 bg-[bottom_6rem_right] lg:bg-[bottom_right] bg-fixed bg-[url('/img/cinemabg.jpg')]">
       <!-- Length is needed to properly "zoom in" on the image -->
       <!-- This div only contains the background image -->
