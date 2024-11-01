@@ -2,6 +2,8 @@ import {createRouter, createWebHistory} from "vue-router";
 import LandingView from "@/views/LandingView.vue";
 import MovieProfileView from "@/views/MovieProfileView.vue";
 import AdminView from "@/views/AdminView.vue";
+import ProfileView from "@/views/UserProfileView.vue";
+import UserProfileView from "@/views/UserProfileView.vue";
 
 const isAdminLoggedIn = () => {
     const userData = JSON.parse(localStorage.getItem('userData'));
@@ -59,6 +61,19 @@ const router = createRouter({
                 localStorage.removeItem('userData');
                 window.location.href = 'http://localhost:9000/logout';
             },
+        },
+        {
+            path: "/user",
+            name: "userProfile",
+            component: UserProfileView,
+            beforeEnter: (to, from, next) => {
+                if (localStorage.getItem('userData') !== null) {
+                    next();
+                } else {
+                    alert('You need to sign in to see your profile')
+                    next({ name: 'home' }); 
+                }
+            }
         },
         {
             path: '/redirect',
