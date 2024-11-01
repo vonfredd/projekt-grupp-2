@@ -2,6 +2,8 @@
 import { ref, watch } from "vue";
 import "@vuepic/vue-datepicker/dist/main.css";
 import VueDatePicker from "@vuepic/vue-datepicker";
+import {useToast} from 'vue-toast-notification';
+const toast = useToast();
 
 const date = ref(new Date());
 const formattedDate = ref("");
@@ -113,13 +115,13 @@ const handleSubmit = async () => {
     }
 
     const result = await response.json();
-    console.log('Schedule submitted successfully:', result);
+    toast.success("Schedule submitted successfully" ,{position: 'top'});
 
     formattedDate.value = "";
     dateTime.value = "";
 
   } catch (error) {
-    console.error('Error submitting schedule:', error);
+    toast.error('Error submitting schedule:', error);
   }
 };
 </script>
