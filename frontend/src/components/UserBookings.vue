@@ -23,7 +23,7 @@
       </div>
 
       <!-- Divider Line After Each Booking Entry on Mobile -->
-      <hr v-if="isNotLastBooking(booking)" class="col-span-1 border-t border-gray-500 my-6">
+      <hr v-if="isNotLastBooking(index)" class="col-span-1 border-t border-gray-500 my-6">
     </div>
   </div>
 
@@ -34,7 +34,7 @@
 <script setup>
 import {onMounted, ref} from 'vue';
 import UserRating from "@/components/UserRating.vue";
-const isNotLastBooking = (index) => bookings.value.indexOf(index) !== bookings.value.length - 1;
+const isNotLastBooking = (index) => index !== bookings.value.length - 1;
 const bookings = ref([]);
 const newRating = ref(0);
 const averageRatings = ref({});
