@@ -2,7 +2,6 @@
 import { ref, onMounted, computed } from "vue";
 import Schedules from "@/components/Schedules.vue";
 import RatingCircle from "@/components/RatingCircle.vue";
-import ToTopButton from "@/components/ToTopButton.vue";
 
 const props = defineProps({
   id: {

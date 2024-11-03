@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-700 bg-opacity-50 rounded-3xl py-10 px-20 my-10" v-if="bookings.length">
+  <div class="bg-gray-700 bg-opacity-50 rounded-3xl py-10 px-20 md:my-10" v-if="bookings.length">
     <h2 class="text-center mb-10">Bookings</h2>
     <div
         class="md:grid md:grid-cols-2 md:gap-4"
@@ -23,7 +23,7 @@
       </div>
 
       <!-- Divider Line After Each Booking Entry on Mobile -->
-      <div v-if="isNotLastBooking(booking)" class="col-span-1 border-t border-gray-500 my-6"></div>
+      <hr v-if="isNotLastBooking(booking)" class="col-span-1 border-t border-gray-500 my-6">
     </div>
   </div>
 
@@ -34,7 +34,7 @@
 <script setup>
 import {onMounted, ref} from 'vue';
 import UserRating from "@/components/UserRating.vue";
-const isNotLastBooking = (booking) => bookings.value.indexOf(booking) !== bookings.value.length - 1;
+const isNotLastBooking = (index) => bookings.value.indexOf(index) !== bookings.value.length - 1;
 const bookings = ref([]);
 const newRating = ref(0);
 const averageRatings = ref({});
