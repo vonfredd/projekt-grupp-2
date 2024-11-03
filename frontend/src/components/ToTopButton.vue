@@ -25,7 +25,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-   <div class="fixed bottom-0 right-0 md:mr-10 mb-24">
+   <div class="fixed bottom-0 right-0 md:mr-5 mb-24">
       <button @click="scrollToTop"
               aria-label="scroll to top of the page"
               ref="scrollTopButton"
