@@ -15,6 +15,7 @@ const isLoggedIn = ref(false);
 const isAdmin = ref(false);
 
 onMounted(() => {
+  isLoggedIn.value = localStorage.getItem('userData') !== null;
   window.addEventListener('storage', () => {
     isLoggedIn.value = !isLoggedIn.value;
   });
@@ -26,11 +27,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <header class="bg-primary p-3">
+  <header class="bg-primary bg-gradient-to-r from-black px-10 py-4 md:px-3 md:py-0">
     <nav>
       <div class="flex items-center justify-between md:px-3 lg:px-5">
         <RouterLink to="/" class="block">
-          <h1 class="py-1 px-2 uppercase">Cinema</h1>
+          <img src="../assets/logga.png" class="w-1/5">
         </RouterLink>
           
         <!-- Hamburger Button -->
@@ -49,25 +50,25 @@ onMounted(() => {
 
         <!-- Desktop Menu -->
         <div class="hidden md:flex justify-center items-center">
-          <RouterLink class="mr-4 flex items-center " v-if="isAdmin" to="/admin"> <span class=" text-black text-6xl material-symbols-outlined">
+          <RouterLink class="mr-4 flex items-center " v-if="isAdmin" to="/admin"> <span class=" text-black hover:text-gray-300 text-5xl material-symbols-outlined">
               edit_calendar
             </span></RouterLink>
           <RouterLink v-if="isLoggedIn" to="/user">
           <div class="md:mx-4 lg:mx-6">
-            <i class="fa-solid fa-user text-black hover:text-gray-700 text-4xl mr-4 mt-1"></i>
+            <i class="fa-solid fa-user text-black hover:text-gray-300 text-4xl mr-4 mt-1"></i>
           </div>
           </RouterLink>
           <RouterLink v-if="isLoggedIn" to="/logout">
             <div class="flex items-center justify-center bg-secondary bg-opacity-70 px-4 rounded-full">
               <i class="fa-solid fa-right-to-bracket"></i>
-              <h5 class="block px-3 py-3 hover:text-gray-300 uppercase">Logout</h5>
+              <h5 class="block px-3 py-2 hover:text-gray-300 uppercase">Logout</h5>
             </div>
           </RouterLink>
 
           <RouterLink v-if="!isLoggedIn" to="/login">
             <div class="flex items-center justify-center bg-secondary bg-opacity-70 px-4 rounded-full mx-2">
               <i class="fa-solid fa-right-to-bracket"></i>
-              <h5 class="block px-4 py-3 hover:text-gray-300 uppercase">Login</h5>
+              <h5 class="block px-4 py-2 hover:text-gray-300 uppercase">Login</h5>
             </div>
           </RouterLink>
 

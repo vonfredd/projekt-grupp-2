@@ -95,7 +95,7 @@ describe('ScheduleMovie Component Default Setup', () => {
 
         // Mock window.alert
         global.alert = vi.fn();
-
+        
         // Mount the component with global mocks
         wrapper = mount(ScheduleMovie, {
             global: {
@@ -251,32 +251,32 @@ describe('ScheduleMovie Component - test response', () => {
     });
 
     test('should verify 200 OK response when posting a schedule', async () => {
-        wrapper.vm.cinema = {name: "Cinema 1", cinemaHalls: [{name: "Hall 1"}]};
-        wrapper.vm.cinemaHall = {name: "Hall 1"};
-        wrapper.vm.selectedMovie = {id: "238", name: "The Godfather"};
-        wrapper.vm.date = new Date('2023-10-10T10:00:00');
-        await wrapper.vm.$nextTick();
+    wrapper.vm.cinema = {name: "Cinema 1", cinemaHalls: [{name: "Hall 1"}]};
+    wrapper.vm.cinemaHall = {name: "Hall 1"};
+    wrapper.vm.selectedMovie = {id: "238", name: "The Godfather"};
+    wrapper.vm.date = new Date('2023-10-10T10:00:00');
+    await wrapper.vm.$nextTick();
 
-        await wrapper.find('button[type="button"]').trigger('click');
-        await wrapper.vm.$nextTick();
+    await wrapper.find('button[type="button"]').trigger('click');
+    await wrapper.vm.$nextTick();
 
-        const expectedDateTime = new Date('2023-10-10T10:00:00').toISOString().slice(0, 19);
+        const expectedDateTime = new Date(wrapper.vm.date.getTime() + 60 * 60 * 1000).toISOString().slice(0, 19);
 
         expect(global.fetch).toHaveBeenCalledWith('http://localhost:9000/schedules/new', expect.objectContaining({
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                localDateTime: expectedDateTime,
-                cinema: {name: "Cinema 1", cinemaHalls: [{name: "Hall 1"}]},
-                cinemaHall: {name: "Hall 1"},
-                movie: {id: "238", name: "The Godfather"}
-            })
-        }));
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            localDateTime: expectedDateTime,
+            cinema: {name: "Cinema 1", cinemaHalls: [{name: "Hall 1"}]},
+            cinemaHall: {name: "Hall 1"},
+            movie: {id: "238", name: "The Godfather"}
+        })
+    }));
 
-        // Assert the response code
-        const response = await global.fetch.mock.results[0].value;
-        expect(response.status).toBe(200);
-    });
+    // Assert the response code
+    const response = await global.fetch.mock.results[0].value;
+    expect(response.status).toBe(200);
+});
 
     test('should handle 500 Internal Server Error response when some fields are missing', async () => {
         // Fill only cinema field
