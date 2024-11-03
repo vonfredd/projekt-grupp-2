@@ -1,5 +1,6 @@
 <script setup>
 import UserBookings from "@/components/UserBookings.vue";
+import ToTopButton from "@/components/ToTopButton.vue";
 </script>
 
 <template>
@@ -9,7 +10,9 @@ import UserBookings from "@/components/UserBookings.vue";
     <div class="  w-full xl:w-2/3 mx-5 md:mx-10 lg:mx-20 py-10 my-20 relative z-10">
       <UserBookings/>
     </div>
+    <ToTopButton />
   </main>
+
 </template>
 
 
