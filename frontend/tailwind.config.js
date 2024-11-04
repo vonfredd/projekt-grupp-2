@@ -12,6 +12,9 @@ export default {
             greyish: '#D9D9D9',
             darkgrey: '#3D3C3C',
           },
+        fontSize: {
+            xxs: '0.625rem',
+        },
     },
   },
   plugins: [],

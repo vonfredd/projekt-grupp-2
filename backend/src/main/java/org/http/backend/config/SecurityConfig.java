@@ -1,10 +1,12 @@
 package org.http.backend.config;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.http.backend.component.CustomFormLoginSuccessHandler;
 import org.http.backend.component.CustomOAuth2SuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     private final CustomOAuth2SuccessHandler customOAuth2SuccessHandler;
@@ -31,14 +34,25 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.cors(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> {
-                    auth.requestMatchers(("/admin")).hasRole("ADMIN");
+                    auth.requestMatchers("/admin").hasRole("ADMIN");
                     auth.requestMatchers("/users/data").authenticated();
-                    auth.requestMatchers("/movies/**", "/movies","/users", "/bookings", "/schedules/**", "/schedules", "/cinemas","/cinemas/**").permitAll();
+                    auth.requestMatchers("/login","/movies/**", "/movies","/users", "/bookings", "/schedules/**", "/schedules", "/cinemas","/cinemas/**", "/bookings/**").permitAll();
                     auth.anyRequest().denyAll();
-                })
+                }) .exceptionHandling(exceptionHandling ->
+                exceptionHandling
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {if (request.getUserPrincipal() != null) {
+                            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied");
+                        } else {
+                            response.sendRedirect("/login");
+                        }
+                        }))
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("http://localhost:5174/")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID"))
                 .oauth2Login(oauth2 -> oauth2
-                        .successHandler(customOAuth2SuccessHandler)
-                        .defaultSuccessUrl("http://localhost:5174/", true))
+                        .successHandler(customOAuth2SuccessHandler))
                 .formLogin(form -> form
                         .successHandler(customFormLoginSuccessHandler));
         return http.build();

@@ -38,7 +38,6 @@ public class MovieController {
         return ResponseEntity.ok().body(movieService.findAllWithRatingsConverted());
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> one(@PathVariable String id) {
         return ResponseEntity.ok().body(movieService.findById(id));
@@ -56,6 +55,10 @@ public class MovieController {
         }catch (JsonMappingException | IllegalArgumentException e){
             return ResponseEntity.status(400).body(movieService.save(jsonString));
         }
+    }
+    @GetMapping("/{movieId}/ratings")
+    public ResponseEntity<List<Rating>> getRatings(@PathVariable String movieId) {
+        return ResponseEntity.ok().body(movieService.getRatings(movieId));
     }
 
     @PutMapping("{movieId}/rating")

@@ -1,5 +1,6 @@
 <script setup>
-import { ref, onMounted, defineEmits } from "vue";
+import { ref, onMounted } from "vue";
+import {useToast} from 'vue-toast-notification';
 
 
 const props = defineProps({
@@ -9,13 +10,10 @@ const props = defineProps({
   }
 });
 
+const toast = useToast();
 const emit = defineEmits(['update'])
 
-const user = {
-  googleId: "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOJ2ZXJzaW9uIjoxfQ.pOo7q5ZE-XrArgA-nTmbX2SqGLTWtP_qFJs6u8c7rgo",
-  name: "Emmelie",
-  email: "ej224sk@student.lnu.se"
-};
+const user = localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null;
 
 const seats = ref(Array.from({ length: props.schedule.cinemaHall.nrOfSeats }, (_, i) => ({
   seat: i + 1,
@@ -28,7 +26,6 @@ const isBooking = ref(false);
 const fetchBookedSeats = async () => {
   try {
     const response = await fetch(`http://localhost:9000/schedules/${props.schedule.id}/booked-seats`);
-    console.log('Schedule ID:', props.schedule.id);
     if (!response.ok) {
       throw new Error("Failed to fetch booked seats");
     }
@@ -53,15 +50,25 @@ const createBooking = async () => {
     .map(seat => seat.seat); 
 
   if (chosenSeats.length === 0) {
-    alert("No seats chosen!");
+    toast.info("No seats chosen!",{
+      position: 'top'
+    });
     return; 
   }
 
-  const booking = {
+  let booking;
+  try{
+  booking = {
     userId: user.googleId,
     schedule: props.schedule,
     bookedSeats: chosenSeats
   };
+}catch(e){
+  toast.warning('You need to sign in with google to book a seat!',{
+    position: 'top',
+  });
+  return;
+}
 
   isBooking.value = true; 
 
@@ -79,7 +86,9 @@ const createBooking = async () => {
       throw new Error(`Failed to create booking: ${errorResponse.message}`);
     }
 
-    alert("Booking successful!");
+    toast.success("Booking successful!", {
+      position: 'top'
+    });
     emit('update')
 
     seats.value.forEach(seat => {
@@ -88,7 +97,9 @@ const createBooking = async () => {
 
     await fetchBookedSeats();
   } catch (error) {
-    alert("Booking failed. Please try again.");
+    toast.error("Booking failed. Please try again.",{
+      position: 'top'
+    });
   } finally {
     isBooking.value = false; 
   }
@@ -99,13 +110,13 @@ onMounted(fetchBookedSeats);
 
 <template>
     <div>
-        <div class="flex justify-center items-center bg-darkgrey max-w-sm mx-auto rounded-3xl p-4 mt-3 mb-6">
+        <div class="flex justify-center items-center bg-darkgrey max-w-sm sm:max-w-lg mx-auto rounded-3xl p-4 mt-3 mb-6">
         <div class="seat-grid grid grid-cols-7 gap-3">
             <button
             v-for="(seat, index) in seats"
             :key="index"
             :class="[ 
-                'w-10 h-8 rounded-3xl transition-colors duration-300',
+                'w-10 h-8 sm:w-14 sm:h-10 rounded-3xl transition-colors duration-300',
                 seat.booked ? 'bg-secondary' : seat.chosen ? 'bg-third' : 'bg-white', 
                 'hover:bg-opacity-80 focus:outline-none' 
             ]"
@@ -130,5 +141,4 @@ onMounted(fetchBookedSeats);
 </template>
 
 <style scoped>
-
 </style>
