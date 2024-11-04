@@ -25,11 +25,11 @@ onUnmounted(() => {
 </script>
 
 <template>
-   <div class="fixed bottom-0 right-0 lg:pr-10 mb-4">
-      <button @click="scrollToTop" role="button"
+   <div class="fixed bottom-0 right-0 md:mr-5 mb-24">
+      <button @click="scrollToTop"
               aria-label="scroll to top of the page"
               ref="scrollTopButton"
-              class="invisible sticky bottom-0 lg:pr-10 hover:text-gray-400 transition bg-black px-6 py-4 rounded">
+              class="invisible sticky bottom-0 hover:text-gray-400 transition bg-black px-6 py-4 rounded">
         <i class="fa-solid fa-up-long"></i>
       </button>
     </div>
