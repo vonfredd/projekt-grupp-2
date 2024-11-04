@@ -46,7 +46,7 @@ onMounted(() => {
       class="bg-cover bg-center min-h-screen bg-fixed relative md:hidden"
   >
     <!-- Mobile content goes here -->
-    <div v-if="movie" class="absolute inset-0 bg-black opacity-70 z-1"></div>
+    <div v-if="movie" class="absolute inset-0 bg-black opacity-50 z-1"></div>
     <div v-if="movie" class="p-4 relative z-2">
       <div class="mx-6">
         <div class="flex justify-start max-w-[400px] mt-10">
